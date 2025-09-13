@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "rss": [
+    "https://contest.co.nz/syndication.php?fid=2&limit=151",
+    "https://contest.co.nz/syndication.php?fid=13&limit=15",
+    "https://contest.co.nz/syndication.php?fid=14&limit=15",
+    "https://www.cheapies.nz/competition/all/feed"
+  ],
+  "sites": [
+    {
+      "site": "nzmcd.co.nz",
+      "index": "https://nzmcd.co.nz/competitions/",
+      "max_pages": 1,
+      "item_selector": "a[href*=\"/competitions/\"]:not([href$=\"/competitions/\"]):not([href*=\"/competitions/page/\"])",
+      "title_selector": "h1",
+      "published_selector": "meta[property='article:published_time']@content",
+      "deadline_text_regex": "(?:Entries\\s+close|Closes|Closing)\\s+([A-Za-z]+\\s+\\d{1,2},?\\s+\\d{4}|\\d{1,2}\\s+[A-Za-z]+\\s+\\d{4})",
+      "throttle_ms": 200,
+      "index_limit": 12,
+      "source": "NZMCD"
+    },
+    {
+      "site": "www.nowtolove.co.nz",
+      "index": "https://www.nowtolove.co.nz/win/competitions/",
+      "max_pages": 1,
+      "item_selector": "h2 a[href^=\"/win/\"]:not([href=\"/win/\"]):not([href*=\"/puzzles\"])",
+      "title_selector": "h1",
+      "published_selector": "meta[property='article:published_time']@content",
+      "deadline_text_regex": "Competition\\s+closes|Entries\\s+close",
+      "throttle_ms": 200,
+      "index_limit": 10,
+      "source": "Now to Love"
+    },
+    {
+      "site": "www.competitions.co.nz",
+      "index": "https://www.competitions.co.nz/",
+      "item_selector": "a[href^=\"/win-\"]",
+      "title_selector": "h1",
+      "published_selector": "meta[property='article:published_time']@content",
+      "deadline_text_regex": "(?:Ends|End[s]?|Closing|Closes|Closed)\\s+(?:on\\s+)?([0-9]{1,2}\\s+[A-Za-z]{3,9}(?:\\s+\\d{4})?|[A-Za-z]{3,9}\\s+[0-9]{1,2}(?:,\\s*\\d{4})?)",
+      "index_limit": 20,
+      "throttle_ms": 150,
+      "source": "Competitions.co.nz"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global text color */
+body { color: #182540; }
+
+html, body, #root { height: 100%; }
+
+/* Layout helpers */
+.container-narrow { max-width: 56rem; margin: 0 auto; }
+
+/* Card */
+.ph-card {
+  background: #fff;
+  border: 1px solid #e5e7eb; /* gray-200 */
+  border-radius: 12px;        /* rounded-xl */
+  padding: 16px;              /* p-4 */
+  transition: box-shadow 150ms cubic-bezier(.4,0,.2,1);
+}
+.ph-card:hover {
+  box-shadow:
+    0 1px 2px rgba(16,24,40,.05),
+    0 1px 3px rgba(16,24,40,.10);
+}
+
+/* Buttons (base) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;                /* gap-2 */
+  border-radius: 10px;     /* rounded-lg */
+  border: 1px solid transparent;
+  font-size: 14px;         /* text-sm */
+  padding: 8px 12px;       /* px-3 py-2 */
+  line-height: 1;
+}
+.btn svg { flex-shrink: 0; }
+
+/* Primary */
+.btn-primary { background:#3671CF; border-color:#3671CF; color:#fff; }
+.btn-primary:hover { filter:brightness(.95); }
+
+/* Neutral */
+.btn-muted { border-color:#e5e7eb; color:#182540; }
+.btn-muted:hover { background:#f5f6f8; }
+
+/* Ghost */
+.btn-ghost { border-color:transparent; color:#182540; }
+.btn-ghost:hover { background:#f5f6f8; }
+
+/* Active state for Saved / Submitted */
+.btn-active { background:#E5F4FF; border-color:#E5F4FF; color:#182540; }
+
+/* Optional focus ring */
+.btn:focus-visible { outline:2px solid #9ecbff; outline-offset:2px; }
