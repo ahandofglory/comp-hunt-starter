@@ -1,0 +1,53 @@
+{
+  "startedAt": "2025-09-14T11:05:05.977Z",
+  "finishedAt": "2025-09-14T11:05:30.219Z",
+  "counts": {
+    "raw": 117,
+    "normalized": 117,
+    "deduped": 117,
+    "kept": 115
+  },
+  "sources": {
+    "rssCount": 4,
+    "siteCount": 4,
+    "rss": {
+      "https://contest.co.nz/syndication.php?fid=2&limit=151": {
+        "items": 50
+      },
+      "https://contest.co.nz/syndication.php?fid=13&limit=15": {
+        "items": 15
+      },
+      "https://contest.co.nz/syndication.php?fid=14&limit=15": {
+        "items": 15
+      },
+      "https://www.cheapies.nz/competition/all/feed": {
+        "items": 10
+      }
+    },
+    "sites": {
+      "nzmcd.co.nz": {
+        "items": 12,
+        "index": "https://nzmcd.co.nz/competitions/"
+      },
+      "nowtolove.co.nz": {
+        "items": 0,
+        "index": "https://www.nowtolove.co.nz/win/competitions/"
+      },
+      "competitions.co.nz": {
+        "items": 9,
+        "index": "https://www.competitions.co.nz/"
+      },
+      "familytimes.co.nz": {
+        "items": 6,
+        "index": "https://familytimes.co.nz/category/competitions/"
+      }
+    }
+  },
+  "perSource": {
+    "contest.co.nz": 80,
+    "cheapies.nz": 10,
+    "NZMCD": 12,
+    "Competitions.co.nz": 7,
+    "Family Times": 6
+  }
+}

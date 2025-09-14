@@ -1,395 +1,478 @@
 // src/ui/App.tsx
-import React, { useEffect, useMemo, useState } from 'react'
-import { Filter, Inbox, Search, Trash2, Upload } from 'lucide-react'
-import { Competition } from '../types'
-import { demoCompetitions } from '../data/demo'
-import { CompetitionCard } from './CompetitionCard'
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { Competition } from "../types";
+import { demoCompetitions } from "../data/demo";
+import { CompetitionCard } from "./CompetitionCard";
+import {
+  MoreVertical,
+  RefreshCw,
+  Search,
+  Trash2,
+  Upload,
+  Download,
+  ChevronDown,
+} from "lucide-react";
 
-// ===== Flags-based persistence =====
-type Flags = { saved?: boolean; entered?: boolean; submitted?: boolean }
+// ===== Types =====
+type Flags = { saved?: boolean; submitted?: boolean };
+type PersistState = { version: number; flags: Record<string, Flags>; deleted: string[] };
+type IngestionSummary = { pulledAtIso?: string; totals?: { all?: number; bySource?: Record<string, number> } };
+type StatusFilter = "all" | "submitted" | "not_submitted" | "saved";
 
-type PersistState = {
-  version: number // 2
-  flags: Record<string, Flags>
-  deleted: string[]
-}
-
-const STORAGE_KEY = 'parlay:v2' // brand-aligned key
+// ===== Storage / migration =====
+const STORAGE_KEY = "parlay:v2";
+const LAST_SEEN_KEY = "parlay:last_seen_v2";
 
 function migrateFromV1(parsed: any): PersistState {
-  const flags: Record<string, Flags> = {}
-  const oldStatuses: Record<string, string> = parsed?.statuses || {}
+  const flags: Record<string, Flags> = {};
+  const oldStatuses: Record<string, string> = parsed?.statuses || {};
   for (const [id, s] of Object.entries(oldStatuses)) {
-    const status = String(s)
+    const status = String(s);
     flags[id] = {
-      saved: status === 'saved',
-      entered: status === 'entered',
-      submitted: status === 'submitted',
-    }
+      saved: status === "saved",
+      submitted: status === "submitted" || status === "entered",
+    };
   }
-  return { version: 2, flags, deleted: parsed?.deleted || [] }
+  return { version: 2, flags, deleted: parsed?.deleted || [] };
 }
-
 function loadState(): PersistState {
-  const raw = localStorage.getItem(STORAGE_KEY)
+  const raw = localStorage.getItem(STORAGE_KEY);
   if (!raw) {
-    // migrate from older keys if found
     const oldRaw =
-      localStorage.getItem('parley:v2') || // previous brand key
-      localStorage.getItem('parley:v1') ||
-      localStorage.getItem('comp-hunt:v1')
+      localStorage.getItem("parley:v2") ||
+      localStorage.getItem("parley:v1") ||
+      localStorage.getItem("comp-hunt:v1");
     if (oldRaw) {
       try {
-        const parsed = JSON.parse(oldRaw)
+        const parsed = JSON.parse(oldRaw);
         const migrated =
           parsed?.version === 2 && parsed?.flags
             ? ({ ...parsed, version: 2 } as PersistState)
-            : migrateFromV1(parsed)
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated))
-        return migrated
-      } catch {
-        /* ignore */
-      }
+            : migrateFromV1(parsed);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated));
+        return migrated;
+      } catch {}
     }
-    return { version: 2, flags: {}, deleted: [] }
+    return { version: 2, flags: {}, deleted: [] };
   }
   try {
-    const parsed = JSON.parse(raw)
-    if (parsed.version === 2 && parsed.flags) return parsed as PersistState
-    if (parsed.statuses) return migrateFromV1(parsed)
-  } catch {
-    /* ignore */
-  }
-  return { version: 2, flags: {}, deleted: [] }
+    const parsed = JSON.parse(raw);
+    if (parsed.version === 2 && parsed.flags) return parsed as PersistState;
+    if (parsed.statuses) return migrateFromV1(parsed);
+  } catch {}
+  return { version: 2, flags: {}, deleted: [] };
 }
-
 function saveState(s: PersistState) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(s))
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(s));
 }
 
-// ===== Config =====
-const AUTO_REFRESH_MS = 5 * 60 * 1000 // 5 minutes; set to 0 to disable
+// ===== Small utils =====
+function cn(...a: (string | false | undefined)[]) {
+  return a.filter(Boolean).join(" ");
+}
+function formatTimeNZ(iso?: string | null) {
+  if (!iso) return "";
+  const d = new Date(iso);
+  return new Intl.DateTimeFormat("en-NZ", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).format(d);
+}
+function byNewest(a: Competition, b: Competition) {
+  const ta = a.createdAt ? Date.parse(a.createdAt) : 0;
+  const tb = b.createdAt ? Date.parse(b.createdAt) : 0;
+  return (tb || 0) - (ta || 0);
+}
+const statusLabel = (s: StatusFilter) =>
+  s === "all" ? "All" : s === "submitted" ? "Submitted" : s === "not_submitted" ? "Not submitted" : "Saved";
 
+// ===== Component =====
 export default function App() {
-  // Last-seen marker (for a possible “New since last visit” divider)
-  const LAST_SEEN_KEY = 'parlay_last_seen_v1'
-  const [lastSeenMs, setLastSeenMs] = React.useState(0)
-  React.useEffect(() => {
-    const v = Number(localStorage.getItem(LAST_SEEN_KEY) || 0)
-    setLastSeenMs(v)
-  }, [])
+  // persistence
+  const [persist, setPersist] = useState<PersistState>(() => loadState());
+  useEffect(() => saveState(persist), [persist]);
 
-  const [persist, setPersist] = useState<PersistState>(() => loadState())
-  const [query, setQuery] = useState('')
-  const [tab, setTab] = useState<'all'|'saved'|'entered'|'submitted'>('all')
-  const [sort, setSort] = useState<'newest'|'deadline'>('newest')
-
-  // NEW: Source chip filter
-  const [sourceChip, setSourceChip] = useState<'all' | string>('all')
-
-  // NEW: Open-only toggle (hide past-deadline items)
-  const [openOnly, setOpenOnly] = useState(false)
-
-  // demo vs feeds
-  const [source, setSource] = useState<'demo'|'feeds'>('demo')
-  const [feedItems, setFeedItems] = useState<Competition[]>([])
-  const [loadingFeeds, setLoadingFeeds] = useState(false)
-  const [feedError, setFeedError] = useState<string | null>(null)
-  const [lastUpdated, setLastUpdated] = useState<Date | null>(null)
-
-  useEffect(() => saveState(persist), [persist])
-
-  const data: Competition[] = source === 'feeds' ? feedItems : demoCompetitions
-
-  // Build the visible list (search → tab → source chip → (optional) open-only → sort)
-  const visible = useMemo(() => {
-    const q = query.toLowerCase().trim()
-    const now = Date.now()
-
-    let items = data.filter(c => !persist.deleted.includes(c.id))
-
-    // Search
-    if (q) {
-      items = items.filter(c =>
-        c.title.toLowerCase().includes(q) ||
-        c.source.toLowerCase().includes(q) ||
-        (c.tags||[]).some(t => t.toLowerCase().includes(q))
-      )
-    }
-
-    // Tabs
-    if (tab !== 'all') {
-      items = items.filter(c => {
-        const f = persist.flags[c.id] || {}
-        if (tab === 'saved') return !!f.saved
-        if (tab === 'entered') return !!f.entered
-        if (tab === 'submitted') return !!f.submitted
-        return true
-      })
-    }
-
-    // Source chip
-    if (sourceChip !== 'all') {
-      items = items.filter(c => c.source === sourceChip)
-    }
-
-    // NEW: Open-only (hide past deadlines; keep items with no deadline)
-    if (openOnly) {
-      items = items.filter(c => {
-        if (!c.deadline) return true
-        const t = Date.parse(c.deadline)
-        return Number.isFinite(t) && t >= now
-      })
-    }
-
-    // Sort
-    items.sort((a,b) => {
-      if (sort === 'newest') return +new Date(b.createdAt || 0) - +new Date(a.createdAt || 0)
-      const da = a.deadline ? +new Date(a.deadline) : Number.POSITIVE_INFINITY
-      const db = b.deadline ? +new Date(b.deadline) : Number.POSITIVE_INFINITY
-      return da - db
-    })
-
-    return items
-  }, [query, tab, sort, persist, data, sourceChip, openOnly])
-
-  // Counts for the tab pills
-  const counts = useMemo(() => {
-    const filtered = data.filter(c => !persist.deleted.includes(c.id))
-    let saved = 0, entered = 0, submitted = 0
-    for (const c of filtered) {
-      const f = persist.flags[c.id] || {}
-      if (f.saved) saved++
-      if (f.entered) entered++
-      if (f.submitted) submitted++
-    }
-    return {
-      all: filtered.length,
-      saved,
-      entered,
-      submitted,
-    }
-  }, [data, persist])
-
-  // Build the list of sources for chips (after deletion filter)
-  const sourceChips = useMemo(() => {
-    const filtered = data.filter(c => !persist.deleted.includes(c.id))
-    const map = new Map<string, number>()
-    for (const it of filtered) {
-      const key = it.source || '(unknown)'
-      map.set(key, (map.get(key) || 0) + 1)
-    }
-    // Sort alphabetically for stability
-    return Array.from(map.entries()).sort((a,b) => a[0].localeCompare(b[0]))
-  }, [data, persist])
-
-  // Save last-seen after we actually render some items
-  React.useEffect(() => {
-    if (!visible || visible.length === 0) return
-    const id = window.setTimeout(() => {
-      localStorage.setItem(LAST_SEEN_KEY, String(Date.now()))
-    }, 300)
-    return () => window.clearTimeout(id)
-  }, [visible])
-
-  // Flag helpers
-  function setFlags(id: string, mut: (old: Flags) => Flags) {
-    setPersist(p => {
-      const old = p.flags[id] || {}
-      const next = mut(old)
-      return { ...p, flags: { ...p.flags, [id]: next } }
-    })
-  }
-
-  const toggleSaved = (id: string) => setFlags(id, f => ({ ...f, saved: !f.saved }))
-  const toggleSubmitted = (id: string) => setFlags(id, f => ({ ...f, submitted: !f.submitted }))
-  const markEntered = (id: string) => setFlags(id, f => ({ ...f, entered: true }))
-  const permDelete = (id: string) =>
-    setPersist(p => ({ ...p, deleted: Array.from(new Set([...(p.deleted || []), id])) }))
-
-  // Feeds loading
-  async function loadFeeds(silent = false) {
-    if (!silent) { setLoadingFeeds(true); setFeedError(null) }
-    try {
-      const res = await fetch('/feeds.json', { cache: 'no-store' })
-      if (!res.ok) throw new Error(`HTTP ${res.status}`)
-      const items = (await res.json()) as Competition[]
-      setFeedItems(items)
-      setSource('feeds')
-      setLastUpdated(new Date())
-      if (!silent) setFeedError(null)
-    } catch (e: any) {
-      if (!silent) setFeedError('Could not load feeds.json. Did you run "npm run pull:feeds"?')
-    } finally {
-      if (!silent) setLoadingFeeds(false)
-    }
-  }
-
-  // Load once on mount
-  useEffect(() => { loadFeeds(true) }, [])
-
-  // Auto-refresh feeds
+  // last-seen for "new" counts
+  const [lastSeenMs, setLastSeenMs] = useState<number>(() => Number(localStorage.getItem(LAST_SEEN_KEY) || 0));
   useEffect(() => {
-    if (AUTO_REFRESH_MS <= 0 || source !== 'feeds') return
-    const id = setInterval(() => loadFeeds(true), AUTO_REFRESH_MS)
-    return () => clearInterval(id)
-  }, [source])
+    const id = window.setTimeout(() => {
+      localStorage.setItem(LAST_SEEN_KEY, String(Date.now()));
+      setLastSeenMs(Date.now());
+    }, 400);
+    return () => clearTimeout(id);
+  }, []);
+
+  // data
+  const [feedItems, setFeedItems] = useState<Competition[]>([]);
+  const [ingestion, setIngestion] = useState<IngestionSummary | null>(null);
+  const [feedError, setFeedError] = useState<string | null>(null);
+  const [isReloading, setIsReloading] = useState(false);
+  const [localUpdated, setLocalUpdated] = useState<Date | null>(null);
+
+  // ui state
+  const [query, setQuery] = useState("");
+  const [sourceFilter, setSourceFilter] = useState<string>("__all__");
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
+  const [statusOpen, setStatusOpen] = useState(false);
+
+  // menus
+  const [menuOpen, setMenuOpen] = useState(false);
+  const kebabRef = useRef<HTMLDivElement | null>(null);
+  const statusRef = useRef<HTMLDivElement | null>(null);
+  const fileRef = useRef<HTMLInputElement | null>(null);
+
+  // close dropdowns on outside click
+  useEffect(() => {
+    function onDocClick(e: MouseEvent) {
+      if (!(e.target instanceof Node)) return;
+      if (kebabRef.current && !kebabRef.current.contains(e.target)) setMenuOpen(false);
+      if (statusRef.current && !statusRef.current.contains(e.target)) setStatusOpen(false);
+    }
+    document.addEventListener("mousedown", onDocClick);
+    return () => document.removeEventListener("mousedown", onDocClick);
+  }, []);
+
+  // loader
+  async function loadFeeds(showSpinner = true) {
+    if (showSpinner) setIsReloading(true);
+    setFeedError(null);
+    try {
+      const ts = Date.now();
+      const [fRes, iRes] = await Promise.all([
+        fetch(`/feeds.json?ts=${ts}`, { cache: "no-store" }),
+        fetch(`/ingestion.json?ts=${ts}`, { cache: "no-store" }),
+      ]);
+      if (!fRes.ok) throw new Error(`HTTP ${fRes.status}`);
+      const arr = (await fRes.json()) as Competition[];
+      setFeedItems(arr.sort(byNewest));
+      setLocalUpdated(new Date());
+      if (iRes.ok) {
+        try {
+          setIngestion((await iRes.json()) as IngestionSummary);
+        } catch {
+          setIngestion(null);
+        }
+      } else {
+        setIngestion(null);
+      }
+    } catch {
+      setFeedError('Could not refresh local data. Run "npm run pull:feeds" to pull new items.');
+    } finally {
+      if (showSpinner) setIsReloading(false);
+    }
+  }
+  useEffect(() => {
+    loadFeeds(false);
+  }, []);
+
+  // counts by source
+  const liveSourceCounts = useMemo(() => {
+    const by: Record<string, number> = {};
+    for (const c of feedItems) {
+      const s = c.source || "unknown";
+      by[s] = (by[s] || 0) + 1;
+    }
+    return by;
+  }, [feedItems]);
+
+  const sources = useMemo(() => {
+    const names = Object.keys(liveSourceCounts).sort((a, b) => a.localeCompare(b));
+    return ["__all__", ...names];
+  }, [liveSourceCounts]);
+
+  // "new since last seen"
+  const newSinceCount = useMemo(() => {
+    let n = 0;
+    for (const c of feedItems) {
+      if (!c.createdAt) continue;
+      const t = Date.parse(c.createdAt);
+      if (Number.isFinite(t) && t > lastSeenMs) n++;
+    }
+    return n;
+  }, [feedItems, lastSeenMs]);
+
+  // filtering
+  const visible = useMemo(() => {
+    let items = feedItems.filter((c) => !persist.deleted.includes(c.id));
+    if (query.trim()) {
+      const q = query.toLowerCase();
+      items = items.filter(
+        (c) =>
+          c.title.toLowerCase().includes(q) ||
+          (c.source || "").toLowerCase().includes(q)
+      );
+    }
+    if (sourceFilter !== "__all__") {
+      items = items.filter((c) => (c.source || "") === sourceFilter);
+    }
+    if (statusFilter !== "all") {
+      items = items.filter((c) => {
+        const f = persist.flags[c.id] || {};
+        if (statusFilter === "submitted") return !!f.submitted;
+        if (statusFilter === "not_submitted") return !f.submitted;
+        if (statusFilter === "saved") return !!f.saved;
+        return true;
+      });
+    }
+    return items.sort(byNewest);
+  }, [feedItems, persist, query, sourceFilter, statusFilter]);
+
+  // flag helpers
+  function setFlags(id: string, mut: (old: Flags) => Flags) {
+    setPersist((p) => ({ ...p, flags: { ...p.flags, [id]: mut(p.flags[id] || {}) } }));
+  }
+  const toggleSaved = (id: string) => setFlags(id, (f) => ({ ...f, saved: !f.saved }));
+  const toggleSubmitted = (id: string) => setFlags(id, (f) => ({ ...f, submitted: !f.submitted }));
+  const permDelete = (id: string) =>
+    setPersist((p) => ({ ...p, deleted: Array.from(new Set([...(p.deleted || []), id])) }));
+
+  // kebab actions
+  function restoreDeleted() {
+    setPersist((p) => ({ ...p, deleted: [] }));
+    setMenuOpen(false);
+  }
+  function exportUserData() {
+    const payload = {
+      schema: "parlay:user:v2",
+      exportedAt: new Date().toISOString(),
+      version: 2,
+      flags: persist.flags,
+      deleted: persist.deleted,
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `parlay-backup-${new Date().toISOString().slice(0, 10)}.json`;
+    document.body.appendChild(a);
+    a.click();
+    URL.revokeObjectURL(a.href);
+    a.remove();
+    setMenuOpen(false);
+  }
+  function triggerImport() {
+    fileRef.current?.click();
+    setMenuOpen(false);
+  }
+  async function onImportFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      const text = await file.text();
+      const data = JSON.parse(text);
+      const ok =
+        (data?.schema === "parlay:user:v2" || data?.version === 2) &&
+        data?.flags &&
+        Array.isArray(data?.deleted);
+      if (!ok) {
+        alert("That JSON doesn’t look like a Parlay user backup.");
+        e.target.value = "";
+        return;
+      }
+      const next: PersistState = { version: 2, flags: data.flags, deleted: data.deleted || [] };
+      setPersist(next);
+      saveState(next);
+      alert("Import complete.");
+    } catch {
+      alert("Couldn’t read that file. Please check it’s a valid JSON export.");
+    } finally {
+      e.target.value = "";
+    }
+  }
+
+  // header summary
+  const pulledIso = ingestion?.pulledAtIso || (localUpdated ? localUpdated.toISOString() : undefined);
+  const pulledTime = pulledIso ? formatTimeNZ(pulledIso) : "";
+
+  // styles
+  const pillBase = "px-4 h-12 inline-flex items-center gap-2 rounded-full border text-base";
+  const inactiveStroke = "border-[#e5e7eb] text-gray-800 bg-white";
+  const activeDark = "bg-[#111827] text-white border-[#111827]";
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="border-b bg-white">
-        <div className="container-narrow px-4 py-3 flex items-center gap-3">
-          <div
-            className="h-9 w-9 rounded-xl grid place-items-center font-bold"
-            style={{ backgroundColor: '#3671CF', color: '#ffffff' }}
-          >
-            P
+        <div className="container-narrow px-4 py-3 flex items-center justify-between gap-3">
+          <div className="min-w-0">
+            <h1 className="text-xl font-semibold">Parlay</h1>
+            <div className="mt-1 text-sm text-gray-500 truncate">
+              {pulledTime ? `Updated ${pulledTime}` : "Updated —"}
+              {newSinceCount > 0 ? ` • ${newSinceCount} new listing${newSinceCount > 1 ? "s" : ""}` : ""}
+            </div>
           </div>
-          <h1 className="text-lg font-semibold">Parlay</h1>
-          <span className="ml-auto text-sm text-gray-500">
-            {source === 'feeds' ? 'RSS & site feeds' : 'Demo data'}
-            {source === 'feeds' && lastUpdated ? ` • Updated ${lastUpdated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}` : ''}
-          </span>
+
+          <button
+            className={cn(
+              "relative inline-flex items-center justify-center w-10 h-10 rounded-lg border",
+              "border-gray-300 bg-white hover:bg-gray-100"
+            )}
+            title="Reload local data"
+            onClick={() => loadFeeds(true)}
+          >
+            <RefreshCw className={cn("h-4 w-4", isReloading && "animate-spin")} aria-hidden />
+          </button>
         </div>
       </header>
 
       {/* Toolbar */}
-      <div className="container-narrow px-4 py-8 flex flex-col gap-6">
-        {/* Row 1: Search */}
+      <div className="container-narrow px-4 py-6 space-y-4">
+        {/* Search + kebab row */}
         <div className="flex items-center gap-2">
           <div className="relative grow">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
             <input
-              className="w-full pl-9 pr-3 py-2 rounded-lg border border-gray-300 bg-white outline-none focus:ring-2"
+              className="w-full pl-9 pr-3 py-3 rounded-lg border border-gray-300 bg-white outline-none focus:ring-2"
               placeholder="Search competitions…"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
           </div>
-        </div>
 
-        {/* Row 2: Tabs left, controls right */}
-        <div className="flex items-center gap-2">
-          <nav className="flex flex-wrap items-center gap-2 text-sm grow">
-            {(['all','saved','entered','submitted'] as const).map(t => (
-              <button
-                key={t}
-                onClick={() => setTab(t)}
-                className={`px-3 py-1.5 rounded-full border ${
-                  tab === t
-                    ? 'bg-brand-600 text-white border-brand-600'
-                    : 'border-gray-200 text-gray-700 hover:bg-gray-100'
-                }`}
+          {/* Kebab (icon only) */}
+          <div className="relative" ref={kebabRef}>
+            <button
+              className="p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100"
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-haspopup="menu"
+              aria-expanded={menuOpen}
+              title="More actions"
+            >
+              <MoreVertical className="h-5 w-5" />
+            </button>
+
+            {menuOpen && (
+              <div
+                className="absolute right-0 mt-2 w-64 rounded-lg border border-gray-200 bg-white shadow-lg p-1 z-20"
+                role="menu"
               >
-                {t[0].toUpperCase() + t.slice(1)} {t === 'all' ? `(${counts.all})`
-                  : t === 'saved' ? `(${counts.saved})`
-                  : t === 'entered' ? `(${counts.entered})`
-                  : `(${counts.submitted})`}
-              </button>
-            ))}
-          </nav>
-
-          {/* Right-side controls: Restore, Sort, Open-only */}
-          <div className="flex items-center gap-2">
-            <button
-              className="btn btn-ghost"
-              onClick={() => setPersist(p => ({ ...p, deleted: [] }))}
-              title="Restore any deleted items"
-            >
-              <Trash2 className="h-4 w-4" />
-              Restore Deleted
-            </button>
-
-            <button
-              className="btn btn-muted"
-              onClick={() => setSort(s => (s === 'newest' ? 'deadline' : 'newest'))}
-            >
-              <Filter className="h-4 w-4" />
-              Sort: {sort === 'newest' ? 'Newest' : 'Deadline'}
-            </button>
-
-            {/* NEW: tiny Open-only toggle */}
-            <button
-              className={`px-3 py-1.5 rounded-full border text-sm ${
-                openOnly
-                  ? 'bg-brand-600 text-white border-brand-600'
-                  : 'border-gray-200 text-gray-700 hover:bg-gray-100'
-              }`}
-              onClick={() => setOpenOnly(v => !v)}
-              title="Hide items whose deadline has passed"
-            >
-              {openOnly ? 'Open only: On' : 'Open only: Off'}
-            </button>
+                <button
+                  className="w-full px-3 py-2 rounded-md text-left hover:bg-gray-50 inline-flex items-center gap-2"
+                  onClick={restoreDeleted}
+                  role="menuitem"
+                >
+                  <Trash2 className="h-4 w-4" />
+                  Restore deleted
+                </button>
+                <button
+                  className="w-full px-3 py-2 rounded-md text-left hover:bg-gray-50 inline-flex items-center gap-2"
+                  onClick={exportUserData}
+                  role="menuitem"
+                >
+                  <Download className="h-4 w-4" />
+                  Export data (JSON)
+                </button>
+                <button
+                  className="w-full px-3 py-2 rounded-md text-left hover:bg-gray-50 inline-flex items-center gap-2"
+                  onClick={triggerImport}
+                  role="menuitem"
+                >
+                  <Upload className="h-4 w-4" />
+                  Import data (JSON)
+                </button>
+                <input
+                  ref={fileRef}
+                  type="file"
+                  accept="application/json"
+                  className="hidden"
+                  onChange={onImportFileChange}
+                />
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Row 3: Source chips */}
-        <div className="flex flex-wrap items-center gap-2 text-sm">
-          <span className="text-xs text-gray-500 mr-1">Source:</span>
-
-          {/* "All sources" chip */}
-          <button
-            onClick={() => setSourceChip('all')}
-            className={`px-3 py-1.5 rounded-full border ${
-              sourceChip === 'all'
-                ? 'bg-brand-600 text-white border-brand-600'
-                : 'border-gray-200 text-gray-700 hover:bg-gray-100'
-            }`}
-          >
-            All
-          </button>
-
-          {/* One chip per source */}
-          {sourceChips.map(([name, count]) => (
-            <button
-              key={name}
-              onClick={() => setSourceChip(name)}
-              className={`px-3 py-1.5 rounded-full border ${
-                sourceChip === name
-                  ? 'bg-brand-600 text-white border-brand-600'
-                  : 'border-gray-200 text-gray-700 hover:bg-gray-100'
-              }`}
-              title={`${name} • ${count} item${count === 1 ? '' : 's'}`}
-            >
-              {name} ({count})
-            </button>
-          ))}
+        {/* Source chips — full-width own row */}
+        <div className="w-full">
+          <div className="flex flex-wrap items-center gap-2">
+            {sources.map((s) => {
+              const isAll = s === "__all__";
+              const label = isAll ? "All sources" : s;
+              const active = sourceFilter === s;
+              return (
+                <button
+                  key={s}
+                  onClick={() => setSourceFilter(s)}
+                  className={cn(pillBase, active ? activeDark : inactiveStroke)}
+                >
+                  {label}
+                  {!isAll && <span className="text-gray-500">{liveSourceCounts[s as string] || 0}</span>}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Soft error (if we explicitly tried and failed) */}
+        {/* Status dropdown — full-width row, right-aligned, fixed gap before cards */}
+        <div className="w-full flex justify-end mb-5" ref={statusRef}>
+          <div className="relative">
+            <button
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 bg-white hover:bg-gray-100 text-gray-900"
+              onClick={() => setStatusOpen((v) => !v)}
+              aria-haspopup="listbox"
+              aria-expanded={statusOpen}
+              title="Filter by status"
+            >
+              <span className="font-medium">Filter by:</span>
+              <span>{statusLabel(statusFilter)}</span>
+              <ChevronDown className="h-4 w-4 opacity-70" />
+            </button>
+
+            {statusOpen && (
+              <div
+                className="absolute right-0 z-20 mt-2 w-56 rounded-lg border border-gray-200 bg-white shadow-lg p-1"
+                role="listbox"
+              >
+                {(
+                  [
+                    ["all", "All"],
+                    ["submitted", "Submitted"],
+                    ["not_submitted", "Not submitted"],
+                    ["saved", "Saved"],
+                  ] as [StatusFilter, string][]
+                ).map(([value, label]) => (
+                  <button
+                    key={value}
+                    onClick={() => {
+                      setStatusFilter(value);
+                      setStatusOpen(false);
+                    }}
+                    className={cn(
+                      "w-full px-3 py-2 rounded-md text-left hover:bg-gray-50",
+                      value === statusFilter && "bg-gray-100"
+                    )}
+                    role="option"
+                    aria-selected={value === statusFilter}
+                  >
+                    {`Filter by: ${label}`}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
         {feedError && <div className="text-sm text-red-600">{feedError}</div>}
       </div>
 
       {/* Feed */}
-      <main className="container-narrow px-4 pb-12 space-y-3">
+      <main className="container-narrow px-4 pb-16 space-y-3 md:space-y-4">
         {visible.length === 0 ? (
-          <div className="ph-card text-center text-gray-500">
-            <Inbox className="mx-auto h-10 w-10 mb-2" />
-            <p>No items here yet. Try “Save”, different tab/source, toggle Open-only, or check your feeds.json.</p>
-          </div>
-        ) : visible.map(c => (
-          <CompetitionCard
-            key={c.id}
-            item={c}
-            flags={persist.flags[c.id] || {}}
-            onToggleSave={() => toggleSaved(c.id)}
-            onEnter={() => { window.open(c.link, '_blank'); markEntered(c.id) }}
-            onToggleSubmitted={() => toggleSubmitted(c.id)}
-            onDelete={() => permDelete(c.id)}
-          />
-        ))}
+          <div className="ph-card text-center text-gray-500">Nothing here yet.</div>
+        ) : (
+          visible.map((c) => (
+            <CompetitionCard
+              key={c.id}
+              item={c}
+              flags={persist.flags[c.id] || {}}
+              onToggleSave={() => toggleSaved(c.id)}
+              onEnter={() => window.open(c.link, "_blank")}
+              onToggleSubmitted={() => toggleSubmitted(c.id)}
+              onDelete={() => permDelete(c.id)}
+            />
+          ))
+        )}
       </main>
-
-      {/* Footer */}
-      <footer className="border-t bg-white">
-        <div className="container-narrow px-4 py-6 text-sm text-gray-600 flex items-center gap-4">
-          <span>Next up: auto-tagging, email integration.</span>
-          <a className="ml-auto inline-flex items-center gap-2 underline" href="https://github.com/" target="_blank" rel="noreferrer">
-            <Upload className="h-4 w-4" /> Push to GitHub
-          </a>
-        </div>
-      </footer>
     </div>
-  )
+  );
 }
