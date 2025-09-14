@@ -1,9 +1,9 @@
 name: Pull feeds daily
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: "5 20 * * *"  # 20:05 UTC ≈ 09:05 NZT
+    - cron: "5 20 * * *"   # 20:05 UTC ≈ 09:05 NZT
+  workflow_dispatch:        # lets you run it manually
 
 permissions:
   contents: write
