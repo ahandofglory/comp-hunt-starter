@@ -2,15 +2,23 @@ name: Pull feeds daily
 
 on:
   schedule:
-    - cron: "5 20 * * *"   # 20:05 UTC ≈ 09:05 NZT
-  workflow_dispatch:        # lets you run it manually
+    # Runs every day at 20:05 UTC (morning NZ time). Change if you like.
+    - cron: "5 20 * * *"
+  workflow_dispatch:
 
 permissions:
   contents: write
+  pull-requests: write
+
+concurrency:
+  group: pull-feeds
+  cancel-in-progress: false
 
 jobs:
   pull:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -21,20 +29,26 @@ jobs:
           node-version: 20
           cache: npm
 
-      - name: Install deps
-        run: npm ci
+      - name: Install dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
 
       - name: Pull feeds
         run: npm run pull:feeds
 
-      - name: Commit updates
-        run: |
-          if git diff --quiet -- public/; then
-            echo "No public changes to commit."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/feeds.json public/ingestion.json
-          git commit -m "chore(ci): update feeds.json [skip ci]" || exit 0
-          git push
+      # Create/update a PR with the changed files
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore(ci): update feeds.json"
+          title: "chore(ci): update feeds.json"
+          body: "Automated feed refresh."
+          branch: bot/feeds-update
+          base: main
+          add-paths: |
+            public/feeds.json
+            public/ingestion.json
