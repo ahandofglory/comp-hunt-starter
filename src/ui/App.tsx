@@ -166,20 +166,53 @@ export default function App() {
     loadFeeds(false);
   }, []);
 
-  // counts by source
-  const liveSourceCounts = useMemo(() => {
-    const by: Record<string, number> = {};
-    for (const c of feedItems) {
-      const s = c.source || "unknown";
-      by[s] = (by[s] || 0) + 1;
-    }
-    return by;
-  }, [feedItems]);
+  // -------- Filtering model --------
+  const q = (query || "").toLowerCase();
 
-  const sources = useMemo(() => {
-    const names = Object.keys(liveSourceCounts).sort((a, b) => a.localeCompare(b));
-    return ["__all__", ...names];
-  }, [liveSourceCounts]);
+  // 1) Items after deleted + search + status (NO source filter here).
+  const preSourceItems = useMemo(() => {
+    let items = feedItems.filter((c) => !persist.deleted.includes(c.id));
+
+    if (q) {
+      items = items.filter((c) => `${c.title} ${c.source || ""}`.toLowerCase().includes(q));
+    }
+
+    if (statusFilter !== "all") {
+      items = items.filter((c) => {
+        const f = persist.flags[c.id] || {};
+        if (statusFilter === "submitted") return !!f.submitted;
+        if (statusFilter === "not_submitted") return !f.submitted;
+        if (statusFilter === "saved") return !!f.saved;
+        return true;
+      });
+    }
+
+    return items.sort(byNewest);
+  }, [feedItems, persist, q, statusFilter]);
+
+  // 2) Items you actually render (applies source).
+  const visibleItems = useMemo(() => {
+    if (sourceFilter === "__all__") return preSourceItems;
+    return preSourceItems.filter((c) => (c.source || "") === sourceFilter);
+  }, [preSourceItems, sourceFilter]);
+
+  // 3) Counts by source for the pills (from preSourceItems; ignores sourceFilter).
+  const visibleCountsBySource = useMemo(() => {
+    const m = new Map<string, number>();
+    for (const c of preSourceItems) {
+      const key = c.source || "unknown";
+      m.set(key, (m.get(key) ?? 0) + 1);
+    }
+    return m;
+  }, [preSourceItems]);
+
+  const allVisibleCount = preSourceItems.length; // stable “All sources” count
+
+  // All possible sources (stable ordering)
+  const allSources = useMemo(
+    () => Array.from(new Set(feedItems.map((i) => i.source || "unknown"))).sort(),
+    [feedItems]
+  );
 
   // "new since last seen"
   const newSinceCount = useMemo(() => {
@@ -191,32 +224,6 @@ export default function App() {
     }
     return n;
   }, [feedItems, lastSeenMs]);
-
-  // filtering
-  const visible = useMemo(() => {
-    let items = feedItems.filter((c) => !persist.deleted.includes(c.id));
-    if (query.trim()) {
-      const q = query.toLowerCase();
-      items = items.filter(
-        (c) =>
-          c.title.toLowerCase().includes(q) ||
-          (c.source || "").toLowerCase().includes(q)
-      );
-    }
-    if (sourceFilter !== "__all__") {
-      items = items.filter((c) => (c.source || "") === sourceFilter);
-    }
-    if (statusFilter !== "all") {
-      items = items.filter((c) => {
-        const f = persist.flags[c.id] || {};
-        if (statusFilter === "submitted") return !!f.submitted;
-        if (statusFilter === "not_submitted") return !f.submitted;
-        if (statusFilter === "saved") return !!f.saved;
-        return true;
-      });
-    }
-    return items.sort(byNewest);
-  }, [feedItems, persist, query, sourceFilter, statusFilter]);
 
   // flag helpers
   function setFlags(id: string, mut: (old: Flags) => Flags) {
@@ -284,8 +291,8 @@ export default function App() {
   const pulledIso = ingestion?.pulledAtIso || (localUpdated ? localUpdated.toISOString() : undefined);
   const pulledTime = pulledIso ? formatTimeNZ(pulledIso) : "";
 
-  // styles
-  const pillBase = "px-4 h-12 inline-flex items-center gap-2 rounded-full border text-base";
+  // styles  (text-sm = 14px)
+  const pillBase = "px-4 h-12 inline-flex items-center gap-2 rounded-full border text-sm";
   const inactiveStroke = "border-[#e5e7eb] text-gray-800 bg-white";
   const activeDark = "bg-[#111827] text-white border-[#111827]";
 
@@ -385,18 +392,27 @@ export default function App() {
         {/* Source chips — full-width own row */}
         <div className="w-full">
           <div className="flex flex-wrap items-center gap-2">
-            {sources.map((s) => {
-              const isAll = s === "__all__";
-              const label = isAll ? "All sources" : s;
-              const active = sourceFilter === s;
+            {/* All sources — count stays stable across source selection */}
+            <button
+              onClick={() => setSourceFilter("__all__")}
+              className={cn(pillBase, sourceFilter === "__all__" ? activeDark : inactiveStroke)}
+            >
+              All sources
+              <span className="text-gray-500">{allVisibleCount}</span>
+            </button>
+
+            {/* Per-source chips with counts from preSourceItems */}
+            {allSources.map((src) => {
+              const active = sourceFilter === src;
+              const count = visibleCountsBySource.get(src) ?? 0;
               return (
                 <button
-                  key={s}
-                  onClick={() => setSourceFilter(s)}
+                  key={src}
+                  onClick={() => setSourceFilter(src)}
                   className={cn(pillBase, active ? activeDark : inactiveStroke)}
                 >
-                  {label}
-                  {!isAll && <span className="text-gray-500">{liveSourceCounts[s as string] || 0}</span>}
+                  {src}
+                  <span className="text-gray-500">{count}</span>
                 </button>
               );
             })}
@@ -457,10 +473,10 @@ export default function App() {
 
       {/* Feed */}
       <main className="container-narrow px-4 pb-16 space-y-3 md:space-y-4">
-        {visible.length === 0 ? (
+        {visibleItems.length === 0 ? (
           <div className="ph-card text-center text-gray-500">Nothing here yet.</div>
         ) : (
-          visible.map((c) => (
+          visibleItems.map((c) => (
             <CompetitionCard
               key={c.id}
               item={c}

@@ -84,3 +84,18 @@ html, body, #root { height: 100%; }
   animation: parlay-spin 0.9s linear infinite;
   transform-origin: 50% 50%;
 }
+/* ---- Title clamping (no Tailwind plugin needed) ---- */
+.clamp-title{
+  display: -webkit-box;
+  -webkit-line-clamp: 2;           /* desktop: 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* On smaller screens, allow 3 lines for readability */
+@media (max-width: 640px){
+  .clamp-title{
+    -webkit-line-clamp: 3;
+  }
+}
+

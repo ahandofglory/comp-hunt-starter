@@ -23,14 +23,20 @@
       "throttle_ms": 200,
       "source": "Now to Love"
     },
-    {
-      "host": "www.competitions.co.nz",
-      "index": "https://www.competitions.co.nz/",
-      "href_selector": "a[href^=\"/win-\"]",
-      "index_limit": 20,
-      "throttle_ms": 150,
-      "source": "Competitions.co.nz"
-    },
+ {
+  "site": "www.competitions.co.nz",
+  "index": "https://www.competitions.co.nz/",
+  "item_selector": "a[href^=\"/win-\"]",
+  "title_selector": "h1",
+  "published_selector": "meta[property='article:published_time']@content",
+  "deadline_text_regex": "(?:Ends|End[s]?|Closing|Closes|Closed)\\s+(?:on\\s+)?([0-9]{1,2}\\s+[A-Za-z]{3,9}(?:\\s+\\d{4})?|[A-Za-z]{3,9}\\s+[0-9]{1,2}(?:,\\s*\\d{4})?)",
+  "index_limit": 40,
+  "max_pages": 3,
+  "page_param": "pg",
+  "throttle_ms": 150,
+  "source": "Competitions.co.nz"
+},
+
     {
       "host": "familytimes.co.nz",
       "index": "https://familytimes.co.nz/category/competitions/",

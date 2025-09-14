@@ -20,5 +20,5 @@
   },
   "include": [
     "src"
-  ]
+, "src/ui/CompetitionCard.tsx"  ]
 }

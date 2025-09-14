@@ -78,7 +78,11 @@ function normalizeItem(raw) {
     if (Number.isFinite(d)) deadline = new Date(d).toISOString();
   }
   const id = link || sha1(`${title}|${source}`);
-  return { id, title, link, source, createdAt, deadline, prize: raw.prize || undefined, tags: Array.isArray(raw.tags) ? raw.tags : [] };
+  return {
+    id, title, link, source, createdAt, deadline,
+    prize: raw.prize || undefined,
+    tags: Array.isArray(raw.tags) ? raw.tags : []
+  };
 }
 function isPast(deadlineIso) {
   if (!deadlineIso) return false;
@@ -225,7 +229,7 @@ async function parseRSSFeed(url) {
   }
 }
 
-// ===== Site crawling =====
+// ===== Site crawling with simple pagination (?pg=N) =====
 async function crawlSite(site) {
   const baseHost =
     (site.host || site.site || "").replace(/^https?:\/\//, "").replace(/^www\./, "");
@@ -235,47 +239,87 @@ async function crawlSite(site) {
 
   console.log(`[${hostLabel}] crawl start: ${indexUrl}`);
 
-  // 1) fetch index
-  let html;
-  try { html = await fetchText(indexUrl); }
-  catch (e) { console.log(`[${hostLabel}] index fetch failed: ${e && e.message}`); return []; }
+  // Build list of index pages to fetch (pg=1..max_pages)
+  const maxPages = Math.max(1, Number(site.max_pages || 1));
+  const pageParam = site.page_param || site.pageParam || site.pagination_param || "pg";
 
-  const $ = cheerio.load(html);
-  const selFromConfig = site.href_selector || site.item_selector;
-
-  // 2) find candidate links
-  let $as = selFromConfig ? $(selFromConfig) : $('a[href]');
-  if ($as.length === 0) {
-    console.log(`[${hostLabel}] no matches for "${selFromConfig}". Using smart fallback…`);
-    $as = $('a[href]').filter((_, a) => {
-      const href = $(a).attr('href') || '';
-      if (!href.startsWith('/')) return false;
-      return /win|prize|competitions?|giveaway|contest/i.test(href);
-    });
+  const indexPages = [];
+  for (let p = 1; p <= maxPages; p++) {
+    if (p === 1) {
+      indexPages.push(indexUrl);
+    } else {
+      const u = new URL(indexUrl);
+      u.searchParams.set(pageParam, String(p));
+      indexPages.push(u.toString());
+    }
   }
 
-  // 3) unique absolute same-site URLs
-  const seen = new Set();
-  let hrefs = [];
-  $as.each((_, a) => {
-    const raw = $(a).attr("href");
-    const abs = toAbsolute(indexUrl, raw);
-    if (!abs) return;
-    try {
-      const u = new URL(abs);
-      const hostNoW = u.hostname.replace(/^www\./, "");
-      if (baseHost && hostNoW !== baseHost) return;
-      const key = cleanUrl(u.href);
-      if (!seen.has(key)) { seen.add(key); hrefs.push(key); }
-    } catch {}
-  });
+  // Collect links from all index pages
+  const seenIndexHrefs = new Set();
+  const selFromConfig = site.href_selector || site.item_selector;
 
-  // 4) cap
+  for (let i = 0; i < indexPages.length; i++) {
+    const pageUrl = indexPages[i];
+    let html;
+    try {
+      if (throttle > 0 && i > 0) await sleep(throttle);
+      html = await fetchText(pageUrl);
+    } catch (e) {
+      console.log(`[${hostLabel}] index fetch failed (${pageUrl}): ${e && e.message}`);
+      continue;
+    }
+
+    const $ = cheerio.load(html);
+
+    // Prefer configured selector; fall back to smart filter if nothing matched
+    let $as = selFromConfig ? $(selFromConfig) : $('a[href]');
+    if ($as.length === 0) {
+      console.log(
+        `[${hostLabel}] no matches for "${selFromConfig}" on page ${i + 1}/${indexPages.length}. Using smart fallback…`
+      );
+      $as = $('a[href]').filter((_, a) => {
+        const href = $(a).attr('href') || '';
+        if (!href.startsWith('/')) return false; // same-site only
+        return /win|prize|competitions?|giveaway|contest/i.test(href);
+      });
+    }
+
+    let found = 0;
+    $as.each((_, a) => {
+      const raw = $(a).attr("href");
+      const abs = toAbsolute(pageUrl, raw);
+      if (!abs) return;
+
+      try {
+        const u = new URL(abs);
+        const hostNoW = u.hostname.replace(/^www\./, "");
+        if (baseHost && hostNoW !== baseHost) return; // off-site
+        const key = cleanUrl(u.href);
+        if (!seenIndexHrefs.has(key)) {
+          seenIndexHrefs.add(key);
+          found++;
+        }
+      } catch {
+        // ignore
+      }
+    });
+
+    console.log(
+      `[${hostLabel}] index page ${i + 1}/${indexPages.length} -> ${found} new link(s)`
+    );
+  }
+
+  // Make an ordered list we can cap
+  let hrefs = Array.from(seenIndexHrefs);
+
   const cap = Number(site.index_limit || site.max_items);
   if (Number.isFinite(cap) && cap > 0) hrefs = hrefs.slice(0, cap);
-  console.log(`[${hostLabel}] index ${indexUrl} -> ${hrefs.length} link(s)${cap ? " (limited)" : ""}`);
 
-  // 5) visit & extract
+  console.log(
+    `[${hostLabel}] total indexed -> ${hrefs.length} link(s)${cap ? " (limited)" : ""}`
+  );
+
+  // Visit each link and extract fields
   const items = [];
   for (const href of hrefs) {
     try {
@@ -283,12 +327,16 @@ async function crawlSite(site) {
       const pageHtml = await fetchText(href);
       const $$ = cheerio.load(pageHtml);
 
+      // title
       let title =
         collapse($$("h1").first().text()) ||
         collapse($$("meta[property='og:title']").attr("content") || "");
       if (!title) title = href;
 
+      // published
       const createdAt = extractPublished($$);
+
+      // deadline
       const deadline = extractDeadlineText($$, site);
 
       // Skip generic listing pages (no deadline + generic title)
@@ -305,8 +353,9 @@ async function crawlSite(site) {
       console.log(`[${hostLabel}] parse fail ${href} -> ${(e && e.message) || e}`);
     }
   }
+
   console.log(`[${hostLabel}] done: ${items.length} item(s)`);
-  return { label: hostLabel, items };
+  return { label: hostLabel, indexed: hrefs.length, pages: indexPages.length, items };
 }
 
 // ===== main =====
@@ -326,7 +375,7 @@ async function main() {
   // ---- stats skeleton
   const startedAt = new Date().toISOString();
   const rssStats = {};   // url -> { items }
-  const siteStats = {};  // label -> { items, index }
+  const siteStats = {};  // label -> { items, indexed, pages }
 
   // pull RSS
   const rssResults = [];
@@ -339,10 +388,9 @@ async function main() {
   // crawl sites
   const siteResults = [];
   for (const s of sites) {
-    const res = await crawlSite(s); // { label, items }
-    const label = res.label || (s.host || s.site || new URL(s.index).hostname.replace(/^www\./,""));
-    siteStats[label] = { items: res.items.length, index: s.index };
-    siteResults.push(...res.items);
+    const { label, indexed, pages, items } = await crawlSite(s);
+    siteStats[label] = { items: items.length, indexed, pages };
+    siteResults.push(...items);
   }
 
   // normalize → dedupe → freshness

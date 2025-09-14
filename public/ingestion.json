@@ -1,11 +1,11 @@
 {
-  "startedAt": "2025-09-14T11:05:05.977Z",
-  "finishedAt": "2025-09-14T11:05:30.219Z",
+  "startedAt": "2025-09-14T13:10:29.218Z",
+  "finishedAt": "2025-09-14T13:11:01.022Z",
   "counts": {
-    "raw": 117,
-    "normalized": 117,
-    "deduped": 117,
-    "kept": 115
+    "raw": 147,
+    "normalized": 147,
+    "deduped": 147,
+    "kept": 127
   },
   "sources": {
     "rssCount": 4,
@@ -27,19 +27,23 @@
     "sites": {
       "nzmcd.co.nz": {
         "items": 12,
-        "index": "https://nzmcd.co.nz/competitions/"
+        "indexed": 12,
+        "pages": 1
       },
       "nowtolove.co.nz": {
         "items": 0,
-        "index": "https://www.nowtolove.co.nz/win/competitions/"
+        "indexed": 0,
+        "pages": 1
       },
       "competitions.co.nz": {
-        "items": 9,
-        "index": "https://www.competitions.co.nz/"
+        "items": 39,
+        "indexed": 40,
+        "pages": 3
       },
       "familytimes.co.nz": {
         "items": 6,
-        "index": "https://familytimes.co.nz/category/competitions/"
+        "indexed": 7,
+        "pages": 1
       }
     }
   },
@@ -47,7 +51,7 @@
     "contest.co.nz": 80,
     "cheapies.nz": 10,
     "NZMCD": 12,
-    "Competitions.co.nz": 7,
+    "Competitions.co.nz": 19,
     "Family Times": 6
   }
 }
