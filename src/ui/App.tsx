@@ -133,23 +133,48 @@ export default function App() {
     return () => document.removeEventListener("mousedown", onDocClick);
   }, []);
 
-  // loader
+  // loader (remote-first with local fallback)
   async function loadFeeds(showSpinner = true) {
     if (showSpinner) setIsReloading(true);
     setFeedError(null);
     try {
       const ts = Date.now();
-      const [fRes, iRes] = await Promise.all([
-        fetch(`/feeds.json?ts=${ts}`, { cache: "no-store" }),
-        fetch(`/ingestion.json?ts=${ts}`, { cache: "no-store" }),
+
+      // 1) Put your repo path here if you want remote to work when public:
+      //    e.g. "https://raw.githubusercontent.com/ahandofglory/comp-hunt-starter/main/public"
+      const REMOTE_BASE =
+        "https://raw.githubusercontent.com/ahandofglory/comp-hunt-starter/main/public";
+
+      // Try these in order: remote first, then local
+      async function tryFetch(urls: string[]) {
+        for (const u of urls) {
+          try {
+            const res = await fetch(u, { cache: "no-store" });
+            if (res.ok) return res;
+          } catch {
+            // ignore; try next URL
+          }
+        }
+        return null;
+      }
+
+      const feedsRes = await tryFetch([
+        `${REMOTE_BASE}/feeds.json?ts=${ts}`, // remote (works if repo is public)
+        `/feeds.json?ts=${ts}`,               // local fallback (works in your dev server)
       ]);
-      if (!fRes.ok) throw new Error(`HTTP ${fRes.status}`);
-      const arr = (await fRes.json()) as Competition[];
+      if (!feedsRes) throw new Error("No feeds.json available");
+
+      const arr = (await feedsRes.json()) as Competition[];
       setFeedItems(arr.sort(byNewest));
       setLocalUpdated(new Date());
-      if (iRes.ok) {
+
+      const ingestionRes = await tryFetch([
+        `${REMOTE_BASE}/ingestion.json?ts=${ts}`,
+        `/ingestion.json?ts=${ts}`,
+      ]);
+      if (ingestionRes) {
         try {
-          setIngestion((await iRes.json()) as IngestionSummary);
+          setIngestion((await ingestionRes.json()) as IngestionSummary);
         } catch {
           setIngestion(null);
         }
@@ -157,7 +182,9 @@ export default function App() {
         setIngestion(null);
       }
     } catch {
-      setFeedError('Could not refresh local data. Run "npm run pull:feeds" to pull new items.');
+      setFeedError(
+        'Could not refresh data. If you’re local, run "npm run pull:feeds" or check the GitHub Action.'
+      );
     } finally {
       if (showSpinner) setIsReloading(false);
     }
@@ -314,7 +341,7 @@ export default function App() {
               "relative inline-flex items-center justify-center w-10 h-10 rounded-lg border",
               "border-gray-300 bg-white hover:bg-gray-100"
             )}
-            title="Reload local data"
+            title="Reload data"
             onClick={() => loadFeeds(true)}
           >
             <RefreshCw className={cn("h-4 w-4", isReloading && "animate-spin")} aria-hidden />
@@ -398,7 +425,7 @@ export default function App() {
               className={cn(pillBase, sourceFilter === "__all__" ? activeDark : inactiveStroke)}
             >
               All sources
-              <span className="text-gray-500">{allVisibleCount}</span>
+              <span className="text-gray-500">{preSourceItems.length}</span>
             </button>
 
             {/* Per-source chips with counts from preSourceItems */}
