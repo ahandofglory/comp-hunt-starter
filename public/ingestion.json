@@ -1,11 +1,11 @@
 {
-  "startedAt": "2025-10-09T09:12:12.714Z",
-  "finishedAt": "2025-10-09T09:12:54.224Z",
+  "startedAt": "2025-10-09T12:21:14.840Z",
+  "finishedAt": "2025-10-09T12:22:37.436Z",
   "counts": {
-    "raw": 135,
-    "normalized": 135,
-    "deduped": 135,
-    "kept": 119
+    "raw": 147,
+    "normalized": 147,
+    "deduped": 147,
+    "kept": 131
   },
   "sources": {
     "rssCount": 4,
@@ -26,8 +26,8 @@
     },
     "sites": {
       "nzmcd.co.nz": {
-        "items": 0,
-        "indexed": 0,
+        "items": 12,
+        "indexed": 12,
         "pages": 1
       },
       "nowtolove.co.nz": {
@@ -50,6 +50,7 @@
   "perSource": {
     "contest.co.nz": 80,
     "cheapies.nz": 10,
+    "NZMCD": 12,
     "Competitions.co.nz": 23,
     "Family Times": 6
   }
