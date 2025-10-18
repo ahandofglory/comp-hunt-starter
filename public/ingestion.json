@@ -1,11 +1,11 @@
 {
-  "startedAt": "2025-10-18T18:13:21.174Z",
-  "finishedAt": "2025-10-18T18:14:47.068Z",
+  "startedAt": "2025-10-18T21:08:50.554Z",
+  "finishedAt": "2025-10-18T21:10:10.819Z",
   "counts": {
-    "raw": 148,
-    "normalized": 148,
-    "deduped": 148,
-    "kept": 131
+    "raw": 149,
+    "normalized": 149,
+    "deduped": 149,
+    "kept": 132
   },
   "sources": {
     "rssCount": 4,
@@ -41,8 +41,8 @@
         "pages": 3
       },
       "familytimes.co.nz": {
-        "items": 6,
-        "indexed": 7,
+        "items": 7,
+        "indexed": 8,
         "pages": 1
       }
     }
@@ -52,6 +52,6 @@
     "cheapies.nz": 10,
     "NZMCD": 12,
     "Competitions.co.nz": 23,
-    "Family Times": 6
+    "Family Times": 7
   }
 }
