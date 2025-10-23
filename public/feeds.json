@@ -1,145 +1,10 @@
 [
   {
-    "id": "https://www.competitions.co.nz/win-framed-artwork/37679",
-    "title": "Win a Framed Artwork",
-    "link": "https://www.competitions.co.nz/win-framed-artwork/37679",
-    "source": "Competitions.co.nz",
-    "createdAt": "2025-10-23T15:12:58.414Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-gift-cards/37677",
-    "title": "Win a Share of $50K in Gift Cards",
-    "link": "https://www.competitions.co.nz/win-gift-cards/37677",
-    "source": "Competitions.co.nz",
-    "createdAt": "2025-10-23T15:12:58.414Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-health-lifestyle-bundle/37676",
-    "title": "Win the Ultimate Health & Lifestyle Bundle",
-    "link": "https://www.competitions.co.nz/win-health-lifestyle-bundle/37676",
-    "source": "Competitions.co.nz",
-    "createdAt": "2025-10-23T15:12:58.414Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-bamboo-bedding-towels/37675",
-    "title": "Win $1K Worth of Bamboo Bedding & Towels",
-    "link": "https://www.competitions.co.nz/win-bamboo-bedding-towels/37675",
-    "source": "Competitions.co.nz",
-    "createdAt": "2025-10-23T15:12:58.414Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-voucher-style-home/37673",
-    "title": "Win a $5K Voucher to Style your Home",
-    "link": "https://www.competitions.co.nz/win-voucher-style-home/37673",
-    "source": "Competitions.co.nz",
-    "createdAt": "2025-10-23T15:12:58.414Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-dining-voucher/37672",
-    "title": "Win a $200 Dining Voucher",
-    "link": "https://www.competitions.co.nz/win-dining-voucher/37672",
-    "source": "Competitions.co.nz",
-    "createdAt": "2025-10-23T15:12:58.414Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-ready-to-drink-mocktails-pack/37669",
-    "title": "Win a Ready-to-Drink Mocktails Pack",
-    "link": "https://www.competitions.co.nz/win-ready-to-drink-mocktails-pack/37669",
-    "source": "Competitions.co.nz",
-    "createdAt": "2025-10-23T15:12:58.414Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-este-lauder-blockbuster-gift-set/37668",
-    "title": "Win an Estee Lauder Blockbuster Gift Set",
-    "link": "https://www.competitions.co.nz/win-este-lauder-blockbuster-gift-set/37668",
-    "source": "Competitions.co.nz",
-    "createdAt": "2025-10-23T15:12:58.414Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-steam-wallet-code-or-paypal-cash/37665",
-    "title": "Win a $1K Steam Wallet Code (or Paypal Cash)",
-    "link": "https://www.competitions.co.nz/win-steam-wallet-code-or-paypal-cash/37665",
-    "source": "Competitions.co.nz",
-    "createdAt": "2025-10-23T15:12:58.414Z",
-    "deadline": "2025-10-31T00:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-harley-davidson-voucher-burgerfuel-goodies/37664",
-    "title": "Win a $200 Harley Davidson Voucher & Burgerfuel Goodies",
-    "link": "https://www.competitions.co.nz/win-harley-davidson-voucher-burgerfuel-goodies/37664",
-    "source": "Competitions.co.nz",
-    "createdAt": "2025-10-23T15:12:58.414Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-suboo-gift-card-dyson-airwrap/37659",
-    "title": "Win a $1K Suboo Gift Card and a Dyson Airwrap",
-    "link": "https://www.competitions.co.nz/win-suboo-gift-card-dyson-airwrap/37659",
-    "source": "Competitions.co.nz",
-    "createdAt": "2025-10-23T15:12:58.414Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-beautiful-moroccan-rug-choice/37658",
-    "title": "Win a Beautiful Moroccan Rug of your Choice",
-    "link": "https://www.competitions.co.nz/win-beautiful-moroccan-rug-choice/37658",
-    "source": "Competitions.co.nz",
-    "createdAt": "2025-10-23T15:12:58.414Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-next-holiday/37657",
-    "title": "Win $15K for your Next Holiday",
-    "link": "https://www.competitions.co.nz/win-next-holiday/37657",
-    "source": "Competitions.co.nz",
-    "createdAt": "2025-10-23T15:12:58.414Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-double-pass-rnzbs-nutcracker/37656",
-    "title": "Win a Double Pass to Rnzb's the Nutcracker",
-    "link": "https://www.competitions.co.nz/win-double-pass-rnzbs-nutcracker/37656",
-    "source": "Competitions.co.nz",
-    "createdAt": "2025-10-23T15:12:58.414Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-double-pass-high-tide/37655",
-    "title": "Win a Double Pass to High Tide",
-    "link": "https://www.competitions.co.nz/win-double-pass-high-tide/37655",
-    "source": "Competitions.co.nz",
-    "createdAt": "2025-10-23T15:12:58.414Z",
-    "deadline": "2025-11-03T00:00:00.000Z",
-    "tags": []
-  },
-  {
     "id": "https://www.competitions.co.nz/win-4k-vouchers/37652",
     "title": "Win $2.4K in Vouchers",
     "link": "https://www.competitions.co.nz/win-4k-vouchers/37652",
     "source": "Competitions.co.nz",
-    "createdAt": "2025-10-23T15:12:58.414Z",
+    "createdAt": "2025-10-23T18:17:51.051Z",
     "deadline": null,
     "tags": []
   },
@@ -148,7 +13,7 @@
     "title": "Win a $1K Airbnb Gift Card & a $1K White & Co. Gift Card",
     "link": "https://www.competitions.co.nz/win-airbnb-gift-card-white-co-gift-card/37651",
     "source": "Competitions.co.nz",
-    "createdAt": "2025-10-23T15:12:58.414Z",
+    "createdAt": "2025-10-23T18:17:51.051Z",
     "deadline": null,
     "tags": []
   },
@@ -157,7 +22,7 @@
     "title": "Win an Asmodee Board Game Prize Pack",
     "link": "https://www.competitions.co.nz/win-asmodee-board-game-prize-pack/37649",
     "source": "Competitions.co.nz",
-    "createdAt": "2025-10-23T15:12:58.414Z",
+    "createdAt": "2025-10-23T18:17:51.051Z",
     "deadline": "2025-10-24T00:00:00.000Z",
     "tags": []
   },
@@ -166,7 +31,7 @@
     "title": "Win a Custom Set of Vokey SM10 Wedges",
     "link": "https://www.competitions.co.nz/win-custom-set-vokey-sm10-wedges/37648",
     "source": "Competitions.co.nz",
-    "createdAt": "2025-10-23T15:12:58.414Z",
+    "createdAt": "2025-10-23T18:17:51.051Z",
     "deadline": null,
     "tags": []
   },
@@ -175,7 +40,7 @@
     "title": "Win a Custom Gaming PC & Gaming Accessories",
     "link": "https://www.competitions.co.nz/win-custom-gaming-pc-gaming-accessories/37644",
     "source": "Competitions.co.nz",
-    "createdAt": "2025-10-23T15:12:58.414Z",
+    "createdAt": "2025-10-23T18:17:51.051Z",
     "deadline": null,
     "tags": []
   },
@@ -184,7 +49,7 @@
     "title": "Win a $4K Webjet Voucher",
     "link": "https://www.competitions.co.nz/win-webjet-voucher/37643",
     "source": "Competitions.co.nz",
-    "createdAt": "2025-10-23T15:12:58.414Z",
+    "createdAt": "2025-10-23T18:17:51.051Z",
     "deadline": null,
     "tags": []
   },
@@ -193,7 +58,7 @@
     "title": "Win a $500 Swandri Prize",
     "link": "https://www.competitions.co.nz/win-swandri-prize/37642",
     "source": "Competitions.co.nz",
-    "createdAt": "2025-10-23T15:12:58.414Z",
+    "createdAt": "2025-10-23T18:17:51.051Z",
     "deadline": null,
     "tags": []
   },
@@ -202,8 +67,143 @@
     "title": "Win a $500 Angus the Label Shopping Spree",
     "link": "https://www.competitions.co.nz/win-angus-label-shopping-spree/37641",
     "source": "Competitions.co.nz",
-    "createdAt": "2025-10-23T15:12:58.414Z",
+    "createdAt": "2025-10-23T18:17:51.051Z",
     "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-framed-artwork/37679",
+    "title": "Win a Framed Artwork",
+    "link": "https://www.competitions.co.nz/win-framed-artwork/37679",
+    "source": "Competitions.co.nz",
+    "createdAt": "2025-10-23T18:17:51.050Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-gift-cards/37677",
+    "title": "Win a Share of $50K in Gift Cards",
+    "link": "https://www.competitions.co.nz/win-gift-cards/37677",
+    "source": "Competitions.co.nz",
+    "createdAt": "2025-10-23T18:17:51.050Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-health-lifestyle-bundle/37676",
+    "title": "Win the Ultimate Health & Lifestyle Bundle",
+    "link": "https://www.competitions.co.nz/win-health-lifestyle-bundle/37676",
+    "source": "Competitions.co.nz",
+    "createdAt": "2025-10-23T18:17:51.050Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-bamboo-bedding-towels/37675",
+    "title": "Win $1K Worth of Bamboo Bedding & Towels",
+    "link": "https://www.competitions.co.nz/win-bamboo-bedding-towels/37675",
+    "source": "Competitions.co.nz",
+    "createdAt": "2025-10-23T18:17:51.050Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-voucher-style-home/37673",
+    "title": "Win a $5K Voucher to Style your Home",
+    "link": "https://www.competitions.co.nz/win-voucher-style-home/37673",
+    "source": "Competitions.co.nz",
+    "createdAt": "2025-10-23T18:17:51.050Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-dining-voucher/37672",
+    "title": "Win a $200 Dining Voucher",
+    "link": "https://www.competitions.co.nz/win-dining-voucher/37672",
+    "source": "Competitions.co.nz",
+    "createdAt": "2025-10-23T18:17:51.050Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-ready-to-drink-mocktails-pack/37669",
+    "title": "Win a Ready-to-Drink Mocktails Pack",
+    "link": "https://www.competitions.co.nz/win-ready-to-drink-mocktails-pack/37669",
+    "source": "Competitions.co.nz",
+    "createdAt": "2025-10-23T18:17:51.050Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-este-lauder-blockbuster-gift-set/37668",
+    "title": "Win an Estee Lauder Blockbuster Gift Set",
+    "link": "https://www.competitions.co.nz/win-este-lauder-blockbuster-gift-set/37668",
+    "source": "Competitions.co.nz",
+    "createdAt": "2025-10-23T18:17:51.050Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-steam-wallet-code-or-paypal-cash/37665",
+    "title": "Win a $1K Steam Wallet Code (or Paypal Cash)",
+    "link": "https://www.competitions.co.nz/win-steam-wallet-code-or-paypal-cash/37665",
+    "source": "Competitions.co.nz",
+    "createdAt": "2025-10-23T18:17:51.050Z",
+    "deadline": "2025-10-31T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-harley-davidson-voucher-burgerfuel-goodies/37664",
+    "title": "Win a $200 Harley Davidson Voucher & Burgerfuel Goodies",
+    "link": "https://www.competitions.co.nz/win-harley-davidson-voucher-burgerfuel-goodies/37664",
+    "source": "Competitions.co.nz",
+    "createdAt": "2025-10-23T18:17:51.050Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-suboo-gift-card-dyson-airwrap/37659",
+    "title": "Win a $1K Suboo Gift Card and a Dyson Airwrap",
+    "link": "https://www.competitions.co.nz/win-suboo-gift-card-dyson-airwrap/37659",
+    "source": "Competitions.co.nz",
+    "createdAt": "2025-10-23T18:17:51.050Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-beautiful-moroccan-rug-choice/37658",
+    "title": "Win a Beautiful Moroccan Rug of your Choice",
+    "link": "https://www.competitions.co.nz/win-beautiful-moroccan-rug-choice/37658",
+    "source": "Competitions.co.nz",
+    "createdAt": "2025-10-23T18:17:51.050Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-next-holiday/37657",
+    "title": "Win $15K for your Next Holiday",
+    "link": "https://www.competitions.co.nz/win-next-holiday/37657",
+    "source": "Competitions.co.nz",
+    "createdAt": "2025-10-23T18:17:51.050Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-double-pass-rnzbs-nutcracker/37656",
+    "title": "Win a Double Pass to Rnzb's the Nutcracker",
+    "link": "https://www.competitions.co.nz/win-double-pass-rnzbs-nutcracker/37656",
+    "source": "Competitions.co.nz",
+    "createdAt": "2025-10-23T18:17:51.050Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-double-pass-high-tide/37655",
+    "title": "Win a Double Pass to High Tide",
+    "link": "https://www.competitions.co.nz/win-double-pass-high-tide/37655",
+    "source": "Competitions.co.nz",
+    "createdAt": "2025-10-23T18:17:51.050Z",
+    "deadline": "2025-11-03T00:00:00.000Z",
     "tags": []
   },
   {
@@ -211,7 +211,7 @@
     "title": "Win $20K USDC & 2 VIP Tickets to the Arena Two 2026 in Dubai",
     "link": "https://www.competitions.co.nz/win-000-usdc-2-vip-tickets-arena-two-2026-world-series-final-dubai/37666",
     "source": "Competitions.co.nz",
-    "createdAt": "2025-10-23T15:12:37.954Z",
+    "createdAt": "2025-10-23T18:17:29.877Z",
     "deadline": null,
     "tags": []
   },
