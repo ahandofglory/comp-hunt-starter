@@ -1,11 +1,11 @@
 {
-  "startedAt": "2025-11-01T03:38:11.399Z",
-  "finishedAt": "2025-11-01T03:39:57.223Z",
+  "startedAt": "2025-11-01T06:15:01.395Z",
+  "finishedAt": "2025-11-01T06:16:18.934Z",
   "counts": {
-    "raw": 145,
-    "normalized": 145,
-    "deduped": 145,
-    "kept": 131
+    "raw": 144,
+    "normalized": 144,
+    "deduped": 144,
+    "kept": 130
   },
   "sources": {
     "rssCount": 4,
@@ -26,7 +26,7 @@
     },
     "sites": {
       "nzmcd.co.nz": {
-        "items": 12,
+        "items": 11,
         "indexed": 12,
         "pages": 1
       },
@@ -50,7 +50,7 @@
   "perSource": {
     "contest.co.nz": 80,
     "cheapies.nz": 10,
-    "NZMCD": 12,
+    "NZMCD": 11,
     "Competitions.co.nz": 26,
     "Family Times": 3
   }
