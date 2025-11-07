@@ -1,11 +1,11 @@
 {
-  "startedAt": "2025-11-06T21:10:15.776Z",
-  "finishedAt": "2025-11-06T21:11:36.918Z",
+  "startedAt": "2025-11-07T00:53:30.600Z",
+  "finishedAt": "2025-11-07T00:54:44.378Z",
   "counts": {
     "raw": 145,
     "normalized": 145,
     "deduped": 145,
-    "kept": 127
+    "kept": 130
   },
   "sources": {
     "rssCount": 4,
@@ -51,7 +51,7 @@
     "contest.co.nz": 80,
     "cheapies.nz": 10,
     "NZMCD": 12,
-    "Competitions.co.nz": 22,
+    "Competitions.co.nz": 25,
     "Family Times": 3
   }
 }
