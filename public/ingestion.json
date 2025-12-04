@@ -1,10 +1,10 @@
 {
-  "startedAt": "2025-12-04T12:23:55.958Z",
-  "finishedAt": "2025-12-04T12:25:19.572Z",
+  "startedAt": "2025-12-04T15:14:05.576Z",
+  "finishedAt": "2025-12-04T15:15:35.703Z",
   "counts": {
-    "raw": 149,
-    "normalized": 149,
-    "deduped": 149,
+    "raw": 150,
+    "normalized": 150,
+    "deduped": 150,
     "kept": 126
   },
   "sources": {
@@ -36,7 +36,7 @@
         "pages": 1
       },
       "competitions.co.nz": {
-        "items": 39,
+        "items": 40,
         "indexed": 40,
         "pages": 3
       },
