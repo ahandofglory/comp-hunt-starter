@@ -11,6 +11,9 @@ import {
 } from "lucide-react";
 import type { Competition } from "../types";
 
+// Persist Saved/Entered into local history (so items survive feed churn)
+import { markSaved, markEntered } from "../lib/archive";
+
 const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 function formatPosted(iso?: string | null): string {
   if (!iso) return "";
@@ -37,6 +40,24 @@ export function CompetitionCard({
   const isSaved = !!flags.saved;
   const isSubmitted = !!flags.submitted;
 
+  // Click handlers: call parent first (so your UI state updates), then persist to archive.
+  const handleToggleSave = () => {
+    const next = !isSaved;
+    onToggleSave();
+    try { markSaved(item, next); } catch {}
+  };
+
+  const handleToggleSubmitted = () => {
+    const next = !isSubmitted;
+    onToggleSubmitted();
+    try { markEntered(item, next); } catch {}
+  };
+
+  const handleEnter = () => {
+    // Manual-only: open link via parent; do NOT auto-mark as entered.
+    onEnter();
+  };
+
   return (
     <article className="ph-card">
       {/* Top row: title left, posted date right */}
@@ -61,7 +82,9 @@ export function CompetitionCard({
             <span className="whitespace-nowrap">{item.source}</span>
 
             {item.prize && (
-              <span className="text-xs bg-gray-100 rounded px-2 py-0.5">Prize: {item.prize}</span>
+              <span className="text-xs bg-gray-100 rounded px-2 py-0.5">
+                Prize: {item.prize}
+              </span>
             )}
 
             {item.deadline && (
@@ -73,7 +96,10 @@ export function CompetitionCard({
 
             {item.tags?.length
               ? item.tags.map((t) => (
-                  <span key={t} className="inline-flex items-center gap-1 text-xs text-gray-600">
+                  <span
+                    key={t}
+                    className="inline-flex items-center gap-1 text-xs text-gray-600"
+                  >
                     <Tag className="h-3.5 w-3.5" />
                     {t}
                   </span>
@@ -92,27 +118,40 @@ export function CompetitionCard({
         <div className="flex flex-wrap items-center gap-2">
           <button
             className={`btn ${isSaved ? "btn-active" : "btn-muted"}`}
-            onClick={onToggleSave}
+            onClick={handleToggleSave}
           >
-            {isSaved ? <BookmarkCheck className="h-4 w-4" /> : <Bookmark className="h-4 w-4" />}
+            {isSaved ? (
+              <BookmarkCheck className="h-4 w-4" />
+            ) : (
+              <Bookmark className="h-4 w-4" />
+            )}
             {isSaved ? "Saved" : "Save"}
           </button>
 
           <button
             className={`btn ${isSubmitted ? "btn-active" : "btn-muted"}`}
-            onClick={onToggleSubmitted}
+            onClick={handleToggleSubmitted}
+            title="Track that you manually submitted this competition"
           >
             {isSubmitted && <CheckCircle2 className="h-4 w-4" />}
             {isSubmitted ? "Submitted" : "Mark as submitted"}
           </button>
 
-          <button className="btn btn-ghost" onClick={onDelete} title="Delete so it never comes back">
+          <button
+            className="btn btn-ghost"
+            onClick={onDelete}
+            title="Delete so it never comes back"
+          >
             <Trash2 className="h-4 w-4" />
             Delete
           </button>
         </div>
 
-        <button className="btn btn-primary" onClick={onEnter} title="Open link and mark Entered">
+        <button
+          className="btn btn-primary"
+          onClick={handleEnter}
+          title="Open the competition link (manual entry only)"
+        >
           <ExternalLink className="h-4 w-4" />
           Enter
         </button>

@@ -1,11 +1,13 @@
 {
-  "startedAt": "2026-02-06T09:32:55.985Z",
-  "finishedAt": "2026-02-06T09:34:36.562Z",
+  "startedAt": "2025-10-10T09:12:16.257Z",
+  "finishedAt": "2025-10-10T09:23:16.200Z",
   "counts": {
-    "raw": 146,
-    "normalized": 146,
-    "deduped": 146,
-    "kept": 146
+    "raw": 498,
+    "normalized": 498,
+    "upgraded": 498,
+    "canonicalized": 498,
+    "deduped": 261,
+    "kept": 170
   },
   "sources": {
     "rssCount": 4,
@@ -26,32 +28,53 @@
     },
     "sites": {
       "nzmcd.co.nz": {
-        "items": 12,
-        "indexed": 12,
+        "items": 70,
+        "indexed": 70,
         "pages": 1
       },
       "nowtolove.co.nz": {
-        "items": 0,
-        "indexed": 0,
+        "items": 137,
+        "indexed": 139,
         "pages": 1
       },
       "competitions.co.nz": {
-        "items": 40,
-        "indexed": 40,
+        "items": 173,
+        "indexed": 173,
         "pages": 3
       },
       "familytimes.co.nz": {
-        "items": 4,
-        "indexed": 5,
+        "items": 28,
+        "indexed": 28,
         "pages": 1
       }
     }
   },
   "perSource": {
-    "contest.co.nz": 80,
-    "cheapies.nz": 10,
-    "NZMCD": 12,
-    "Competitions.co.nz": 40,
-    "Family Times": 4
+    "forum-2.html": 1,
+    "win.swanndri.co.nz": 2,
+    "info.cookislands.travel": 1,
+    "aa.co.nz": 1,
+    "manage.kmail-lists.com": 1,
+    "forum-2-page-2.html": 1,
+    "forum-13.html": 1,
+    "forum-14.html": 1,
+    "mitre10.co.nz": 1,
+    "covermore-experiences.com": 1,
+    "westfield.co.nz": 1,
+    "flightcentre.co.nz": 1,
+    "billabong.co.nz": 1,
+    "dangerfield.com.au": 1,
+    "quicknote.io": 1,
+    "ozbargain.com.au": 2,
+    "d1sukno5368t83.cloudfront.net": 1,
+    "cheapies.nz": 3,
+    "weareexplorers.co": 1,
+    "nzmcd.co.nz": 69,
+    "nowtolove.co.nz": 47,
+    "yourhomeandgarden.co.nz": 1,
+    "competitions.com.au": 1,
+    "nzpost.co.nz": 1,
+    "musthaveit.co.nz": 1,
+    "familytimes.co.nz": 27
   }
 }

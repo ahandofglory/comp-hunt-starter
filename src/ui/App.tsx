@@ -1,7 +1,6 @@
 // src/ui/App.tsx
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Competition } from "../types";
-import { demoCompetitions } from "../data/demo";
+import type { Competition } from "../types";
 import { CompetitionCard } from "./CompetitionCard";
 import {
   MoreVertical,
@@ -11,13 +10,20 @@ import {
   Upload,
   Download,
   ChevronDown,
+  Clock,
+  ArrowLeft,
 } from "lucide-react";
+
+// NEW: history imports
+import HistoryPage from "../pages/history";
+import { archiveSyncPresence } from "../lib/archive";
 
 // ===== Types =====
 type Flags = { saved?: boolean; submitted?: boolean };
 type PersistState = { version: number; flags: Record<string, Flags>; deleted: string[] };
 type IngestionSummary = { pulledAtIso?: string; totals?: { all?: number; bySource?: Record<string, number> } };
 type StatusFilter = "all" | "submitted" | "not_submitted" | "saved";
+type ViewMode = "feed" | "history";
 
 // ===== Storage / migration =====
 const STORAGE_KEY = "parlay:v2";
@@ -89,6 +95,9 @@ const statusLabel = (s: StatusFilter) =>
 
 // ===== Component =====
 export default function App() {
+  // view switch
+  const [view, setView] = useState<ViewMode>("feed");
+
   // persistence
   const [persist, setPersist] = useState<PersistState>(() => loadState());
   useEffect(() => saveState(persist), [persist]);
@@ -165,8 +174,12 @@ export default function App() {
       if (!feedsRes) throw new Error("No feeds.json available");
 
       const arr = (await feedsRes.json()) as Competition[];
-      setFeedItems(arr.sort(byNewest));
+      arr.sort(byNewest);
+      setFeedItems(arr);
       setLocalUpdated(new Date());
+
+      // NEW: keep archive presence in sync for Active/Expired labels
+      try { archiveSyncPresence(arr.map(({ id, createdAt }) => ({ id, createdAt }))); } catch {}
 
       const ingestionRes = await tryFetch([
         `${REMOTE_BASE}/ingestion.json?ts=${ts}`,
@@ -323,6 +336,7 @@ export default function App() {
   const inactiveStroke = "border-[#e5e7eb] text-gray-800 bg-white";
   const activeDark = "bg-[#111827] text-white border-[#111827]";
 
+  // ===== Render =====
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -336,186 +350,219 @@ export default function App() {
             </div>
           </div>
 
-          <button
-            className={cn(
-              "relative inline-flex items-center justify-center w-10 h-10 rounded-lg border",
-              "border-gray-300 bg-white hover:bg-gray-100"
+          <div className="flex items-center gap-2">
+            {/* View switcher */}
+            {view === "history" ? (
+              <button
+                className="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm hover:bg-gray-100"
+                onClick={() => setView("feed")}
+                title="Back to feed"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                Back to feed
+              </button>
+            ) : (
+              <button
+                className="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm hover:bg-gray-100"
+                onClick={() => setView("history")}
+                title="Open history"
+              >
+                <Clock className="h-4 w-4" />
+                History
+              </button>
             )}
-            title="Reload data"
-            onClick={() => loadFeeds(true)}
-          >
-            <RefreshCw className={cn("h-4 w-4", isReloading && "animate-spin")} aria-hidden />
-          </button>
+
+            {/* Reload */}
+            <button
+              className={cn(
+                "relative inline-flex items-center justify-center w-10 h-10 rounded-lg border",
+                "border-gray-300 bg-white hover:bg-gray-100"
+              )}
+              title="Reload data"
+              onClick={() => loadFeeds(true)}
+            >
+              <RefreshCw className={cn("h-4 w-4", isReloading && "animate-spin")} aria-hidden />
+            </button>
+          </div>
         </div>
       </header>
 
-      {/* Toolbar */}
-      <div className="container-narrow px-4 py-6 space-y-4">
-        {/* Search + kebab row */}
-        <div className="flex items-center gap-2">
-          <div className="relative grow">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-            <input
-              className="w-full pl-9 pr-3 py-3 rounded-lg border border-gray-300 bg-white outline-none focus:ring-2"
-              placeholder="Search competitions…"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-          </div>
-
-          {/* Kebab (icon only) */}
-          <div className="relative" ref={kebabRef}>
-            <button
-              className="p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100"
-              onClick={() => setMenuOpen((v) => !v)}
-              aria-haspopup="menu"
-              aria-expanded={menuOpen}
-              title="More actions"
-            >
-              <MoreVertical className="h-5 w-5" />
-            </button>
-
-            {menuOpen && (
-              <div
-                className="absolute right-0 mt-2 w-64 rounded-lg border border-gray-200 bg-white shadow-lg p-1 z-20"
-                role="menu"
-              >
-                <button
-                  className="w-full px-3 py-2 rounded-md text-left hover:bg-gray-50 inline-flex items-center gap-2"
-                  onClick={restoreDeleted}
-                  role="menuitem"
-                >
-                  <Trash2 className="h-4 w-4" />
-                  Restore deleted
-                </button>
-                <button
-                  className="w-full px-3 py-2 rounded-md text-left hover:bg-gray-50 inline-flex items-center gap-2"
-                  onClick={exportUserData}
-                  role="menuitem"
-                >
-                  <Download className="h-4 w-4" />
-                  Export data (JSON)
-                </button>
-                <button
-                  className="w-full px-3 py-2 rounded-md text-left hover:bg-gray-50 inline-flex items-center gap-2"
-                  onClick={triggerImport}
-                  role="menuitem"
-                >
-                  <Upload className="h-4 w-4" />
-                  Import data (JSON)
-                </button>
+      {/* If viewing History, render that page and stop */}
+      {view === "history" ? (
+        <main className="container-narrow px-4 py-6">
+          <HistoryPage currentFeed={feedItems} />
+        </main>
+      ) : (
+        <>
+          {/* Toolbar */}
+          <div className="container-narrow px-4 py-6 space-y-4">
+            {/* Search + kebab row */}
+            <div className="flex items-center gap-2">
+              <div className="relative grow">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <input
-                  ref={fileRef}
-                  type="file"
-                  accept="application/json"
-                  className="hidden"
-                  onChange={onImportFileChange}
+                  className="w-full pl-9 pr-3 py-3 rounded-lg border border-gray-300 bg-white outline-none focus:ring-2"
+                  placeholder="Search competitions…"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
                 />
               </div>
-            )}
-          </div>
-        </div>
 
-        {/* Source chips — full-width own row */}
-        <div className="w-full">
-          <div className="flex flex-wrap items-center gap-2">
-            {/* All sources — count stays stable across source selection */}
-            <button
-              onClick={() => setSourceFilter("__all__")}
-              className={cn(pillBase, sourceFilter === "__all__" ? activeDark : inactiveStroke)}
-            >
-              All sources
-              <span className="text-gray-500">{preSourceItems.length}</span>
-            </button>
-
-            {/* Per-source chips with counts from preSourceItems */}
-            {allSources.map((src) => {
-              const active = sourceFilter === src;
-              const count = visibleCountsBySource.get(src) ?? 0;
-              return (
+              {/* Kebab (icon only) */}
+              <div className="relative" ref={kebabRef}>
                 <button
-                  key={src}
-                  onClick={() => setSourceFilter(src)}
-                  className={cn(pillBase, active ? activeDark : inactiveStroke)}
+                  className="p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100"
+                  onClick={() => setMenuOpen((v) => !v)}
+                  aria-haspopup="menu"
+                  aria-expanded={menuOpen}
+                  title="More actions"
                 >
-                  {src}
-                  <span className="text-gray-500">{count}</span>
+                  <MoreVertical className="h-5 w-5" />
                 </button>
-              );
-            })}
-          </div>
-        </div>
 
-        {/* Status dropdown — full-width row, right-aligned, fixed gap before cards */}
-        <div className="w-full flex justify-end mb-5" ref={statusRef}>
-          <div className="relative">
-            <button
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 bg-white hover:bg-gray-100 text-gray-900"
-              onClick={() => setStatusOpen((v) => !v)}
-              aria-haspopup="listbox"
-              aria-expanded={statusOpen}
-              title="Filter by status"
-            >
-              <span className="font-medium">Filter by:</span>
-              <span>{statusLabel(statusFilter)}</span>
-              <ChevronDown className="h-4 w-4 opacity-70" />
-            </button>
-
-            {statusOpen && (
-              <div
-                className="absolute right-0 z-20 mt-2 w-56 rounded-lg border border-gray-200 bg-white shadow-lg p-1"
-                role="listbox"
-              >
-                {(
-                  [
-                    ["all", "All"],
-                    ["submitted", "Submitted"],
-                    ["not_submitted", "Not submitted"],
-                    ["saved", "Saved"],
-                  ] as [StatusFilter, string][]
-                ).map(([value, label]) => (
-                  <button
-                    key={value}
-                    onClick={() => {
-                      setStatusFilter(value);
-                      setStatusOpen(false);
-                    }}
-                    className={cn(
-                      "w-full px-3 py-2 rounded-md text-left hover:bg-gray-50",
-                      value === statusFilter && "bg-gray-100"
-                    )}
-                    role="option"
-                    aria-selected={value === statusFilter}
+                {menuOpen && (
+                  <div
+                    className="absolute right-0 mt-2 w-64 rounded-lg border border-gray-200 bg-white shadow-lg p-1 z-20"
+                    role="menu"
                   >
-                    {`Filter by: ${label}`}
-                  </button>
-                ))}
+                    <button
+                      className="w-full px-3 py-2 rounded-md text-left hover:bg-gray-50 inline-flex items-center gap-2"
+                      onClick={restoreDeleted}
+                      role="menuitem"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                      Restore deleted
+                    </button>
+                    <button
+                      className="w-full px-3 py-2 rounded-md text-left hover:bg-gray-50 inline-flex items-center gap-2"
+                      onClick={exportUserData}
+                      role="menuitem"
+                    >
+                      <Download className="h-4 w-4" />
+                      Export data (JSON)
+                    </button>
+                    <button
+                      className="w-full px-3 py-2 rounded-md text-left hover:bg-gray-50 inline-flex items-center gap-2"
+                      onClick={triggerImport}
+                      role="menuitem"
+                    >
+                      <Upload className="h-4 w-4" />
+                      Import data (JSON)
+                    </button>
+                    <input
+                      ref={fileRef}
+                      type="file"
+                      accept="application/json"
+                      className="hidden"
+                      onChange={onImportFileChange}
+                    />
+                  </div>
+                )}
               </div>
-            )}
+            </div>
+
+            {/* Source chips — full-width own row */}
+            <div className="w-full">
+              <div className="flex flex-wrap items-center gap-2">
+                {/* All sources — count stays stable across source selection */}
+                <button
+                  onClick={() => setSourceFilter("__all__")}
+                  className={cn(pillBase, sourceFilter === "__all__" ? activeDark : inactiveStroke)}
+                >
+                  All sources
+                  <span className="text-gray-500">{allVisibleCount}</span>
+                </button>
+
+                {/* Per-source chips with counts from preSourceItems */}
+                {allSources.map((src) => {
+                  const active = sourceFilter === src;
+                  const count = visibleCountsBySource.get(src) ?? 0;
+                  return (
+                    <button
+                      key={src}
+                      onClick={() => setSourceFilter(src)}
+                      className={cn(pillBase, active ? activeDark : inactiveStroke)}
+                    >
+                      {src}
+                      <span className="text-gray-500">{count}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Status dropdown — full-width row, right-aligned, fixed gap before cards */}
+            <div className="w-full flex justify-end mb-5" ref={statusRef}>
+              <div className="relative">
+                <button
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 bg-white hover:bg-gray-100 text-gray-900"
+                  onClick={() => setStatusOpen((v) => !v)}
+                  aria-haspopup="listbox"
+                  aria-expanded={statusOpen}
+                  title="Filter by status"
+                >
+                  <span className="font-medium">Filter by:</span>
+                  <span>{statusLabel(statusFilter)}</span>
+                  <ChevronDown className="h-4 w-4 opacity-70" />
+                </button>
+
+                {statusOpen && (
+                  <div
+                    className="absolute right-0 z-20 mt-2 w-56 rounded-lg border border-gray-200 bg-white shadow-lg p-1"
+                    role="listbox"
+                  >
+                    {(
+                      [
+                        ["all", "All"],
+                        ["submitted", "Submitted"],
+                        ["not_submitted", "Not submitted"],
+                        ["saved", "Saved"],
+                      ] as [StatusFilter, string][]
+                    ).map(([value, label]) => (
+                      <button
+                        key={value}
+                        onClick={() => {
+                          setStatusFilter(value);
+                          setStatusOpen(false);
+                        }}
+                        className={cn(
+                          "w-full px-3 py-2 rounded-md text-left hover:bg-gray-50",
+                          value === statusFilter && "bg-gray-100"
+                        )}
+                        role="option"
+                        aria-selected={value === statusFilter}
+                      >
+                        {`Filter by: ${label}`}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {feedError && <div className="text-sm text-red-600">{feedError}</div>}
           </div>
-        </div>
 
-        {feedError && <div className="text-sm text-red-600">{feedError}</div>}
-      </div>
-
-      {/* Feed */}
-      <main className="container-narrow px-4 pb-16 space-y-3 md:space-y-4">
-        {visibleItems.length === 0 ? (
-          <div className="ph-card text-center text-gray-500">Nothing here yet.</div>
-        ) : (
-          visibleItems.map((c) => (
-            <CompetitionCard
-              key={c.id}
-              item={c}
-              flags={persist.flags[c.id] || {}}
-              onToggleSave={() => toggleSaved(c.id)}
-              onEnter={() => window.open(c.link, "_blank")}
-              onToggleSubmitted={() => toggleSubmitted(c.id)}
-              onDelete={() => permDelete(c.id)}
-            />
-          ))
-        )}
-      </main>
+          {/* Feed */}
+          <main className="container-narrow px-4 pb-16 space-y-3 md:space-y-4">
+            {visibleItems.length === 0 ? (
+              <div className="ph-card text-center text-gray-500">Nothing here yet.</div>
+            ) : (
+              visibleItems.map((c) => (
+                <CompetitionCard
+                  key={c.id}
+                  item={c}
+                  flags={persist.flags[c.id] || {}}
+                  onToggleSave={() => setPersist((p)=>({ ...p, flags:{...p.flags, [c.id]: { ...(p.flags[c.id]||{}), saved: !(p.flags[c.id]?.saved) }}}))}
+                  onEnter={() => window.open(c.link, "_blank")}
+                  onToggleSubmitted={() => setPersist((p)=>({ ...p, flags:{...p.flags, [c.id]: { ...(p.flags[c.id]||{}), submitted: !(p.flags[c.id]?.submitted) }}}))}
+                  onDelete={() => setPersist((p)=>({ ...p, deleted: Array.from(new Set([ ...(p.deleted||[]), c.id ])) }))}
+                />
+              ))
+            )}
+          </main>
+        </>
+      )}
     </div>
   );
 }

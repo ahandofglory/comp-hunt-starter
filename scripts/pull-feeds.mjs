@@ -1,6 +1,8 @@
 // scripts/pull-feeds.mjs
-// Normalize → Dedupe → Freshness filter + write per-run health to public/ingestion.json
-// Requires: `npm i cheerio@1.0.0-rc.12`
+// Normalize → (Aggregator original finder incl. plain-text & scheme-less URLs) → Canonicalize → Dedupe → Freshness
+// + Site crawling is now constrained by per-site allow/block patterns and a "looks like competition" guard.
+// Writes: public/feeds.json and public/ingestion.json
+// Requirements: Node 18+ (global fetch), `npm i cheerio@1.0.0-rc.12`
 
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -13,28 +15,49 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT = process.cwd();
 
-const UA =
-  "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36";
+const UA = "Mozilla/5.0 (compatible; CompHuntBot/1.2; +https://example.invalid)";
 
 const SETTINGS = {
-  MAX_ITEM_AGE_DAYS: 400,          // Drop very old items (unless deadline is still in future)
-  DROP_PAST_DEADLINES: true,       // Hide past-deadline items
-  FUTURE_CREATEDAT_SKEW_MIN: 10,   // Clamp weird “future posted” dates (> now + 10 min)
+  THROTTLE_MS: 250,             // polite crawl delay per request
+  PAGE_TIMEOUT_MS: 10000,       // timeout for page fetches (site crawl)
+  RSS_TIMEOUT_MS: 10000,        // timeout for RSS fetches
+  ORIG_TIMEOUT_MS: 8000,        // timeout for aggregator "original" lookups
+  ORIG_CONCURRENCY: 4,          // concurrent aggregator lookups
+  CANON_TIMEOUT_MS: 8000,       // timeout for canonical resolution
+  CANON_CONCURRENCY: 5,         // concurrent canonical lookups
+  MAX_ITEM_AGE_DAYS: 365,
+  DROP_PAST_DEADLINES: false,   // deadlines are unreliable per product decision
+  FUTURE_CREATEDAT_SKEW_MIN: 10 // clamp future post dates (minutes)
 };
 
+// Known aggregators we want to try to upgrade to originals
+const KNOWN_AGGREGATORS = new Set([
+  "contest.co.nz",
+  "www.contest.co.nz",
+  "competitions.co.nz",
+  "www.competitions.co.nz",
+  "cheapies.nz",
+  "www.cheapies.nz"
+]);
+
+// Obvious junk/utility hosts to ignore when looking for originals
+const IGNORE_HOSTS = new Set([
+  "facebook.com","www.facebook.com","m.facebook.com",
+  "instagram.com","www.instagram.com",
+  "x.com","twitter.com","www.twitter.com",
+  "tiktok.com","www.tiktok.com",
+  "youtube.com","www.youtube.com","youtu.be",
+  "linkedin.com","www.linkedin.com",
+  "sharethis.com","addthis.com",
+  "mailto","tel","javascript"
+]);
+
 // ===== Small helpers =====
-function collapse(s = "") {
-  return s.replace(/\s+/g, " ").trim();
-}
-function sha1(s) {
-  return crypto.createHash("sha1").update(String(s || "")).digest("hex");
-}
-function sleep(ms = 0) {
-  return new Promise((r) => setTimeout(r, ms));
-}
-function days(n) {
-  return n * 24 * 60 * 60 * 1000;
-}
+function collapse(s = "") { return s.replace(/\s+/g, " ").trim(); }
+function sha1(s) { return crypto.createHash("sha1").update(String(s || "")).digest("hex"); }
+function sleep(ms = 0) { return new Promise((r) => setTimeout(r, ms)); }
+function days(n) { return n * 24 * 60 * 60 * 1000; }
+
 function cleanUrl(u) {
   try {
     const url = new URL(u);
@@ -42,7 +65,7 @@ function cleanUrl(u) {
     url.hostname = url.hostname.toLowerCase();
     const drop = new Set([
       "utm_source","utm_medium","utm_campaign","utm_term","utm_content",
-      "gclid","fbclid","mc_cid","mc_eid","trk","ref","mkt_tok",
+      "gclid","fbclid","mc_cid","mc_eid","trk","ref","mkt_tok"
     ]);
     for (const key of Array.from(url.searchParams.keys())) {
       if (key.startsWith("utm_") || drop.has(key)) url.searchParams.delete(key);
@@ -51,21 +74,291 @@ function cleanUrl(u) {
       url.pathname = url.pathname.slice(0, -1);
     }
     return url.toString();
-  } catch {
-    return u || "";
-  }
+  } catch { return String(u || ""); }
 }
-function sourceFromLink(link) {
-  try { return new URL(link).hostname.replace(/^www\./, ""); }
-  catch { return "unknown"; }
+
+function sourceFromLink(u) {
+  try { return new URL(u).hostname.replace(/^www\./, ""); }
+  catch { return ""; }
 }
+
 function clampFutureISO(iso) {
   if (!iso) return null;
   const t = Date.parse(iso);
   if (!Number.isFinite(t)) return null;
-  const skew = SETTINGS.FUTURE_CREATEDAT_SKEW_MIN * 60 * 1000;
   const now = Date.now();
-  return t > now + skew ? new Date(now).toISOString() : new Date(t).toISOString();
+  const max = now + SETTINGS.FUTURE_CREATEDAT_SKEW_MIN * 60 * 1000;
+  const clamped = Math.min(t, max);
+  return new Date(clamped).toISOString();
+}
+
+async function fetchText(url, { timeoutMs = 10000, accept = "text/html,application/xhtml+xml,application/xml;q=0.9,application/rss+xml;q=0.9,*/*;q=0.8" } = {}) {
+  const controller = new AbortController();
+  const to = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(url, {
+      headers: { "user-agent": UA, accept },
+      redirect: "follow",
+      signal: controller.signal
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.text();
+  } finally {
+    clearTimeout(to);
+  }
+}
+
+// ===== Canonical resolver =====
+function looksLikeBadCanonical(finalUrl, candidate) {
+  try {
+    const f = new URL(finalUrl);
+    const c = new URL(candidate, finalUrl);
+    const trivial = c.pathname === "/" || c.pathname.split("/").filter(Boolean).length <= 1;
+    if (trivial && f.hostname !== c.hostname) return true;
+    return false;
+  } catch { return true; }
+}
+
+async function resolveCanonicalOnce(link) {
+  try {
+    const controller = new AbortController();
+    const to = setTimeout(() => controller.abort(), SETTINGS.CANON_TIMEOUT_MS);
+    const res = await fetch(link, {
+      headers: { "user-agent": UA, accept: "text/html,*/*;q=0.8" },
+      redirect: "follow",
+      signal: controller.signal
+    });
+    clearTimeout(to);
+
+    const finalUrl = cleanUrl(res.url || link);
+    const ct = (res.headers.get("content-type") || "").toLowerCase();
+    if (!ct.includes("text/html")) {
+      return { primary: finalUrl, finalUrl };
+    }
+    const html = await res.text();
+    const $ = cheerio.load(html);
+    const cand =
+      $('link[rel="canonical"]').attr("href") ||
+      $('meta[property="og:url"]').attr("content") ||
+      $('meta[name="twitter:url"]').attr("content");
+    if (cand) {
+      const canonical = cleanUrl(new URL(cand, finalUrl).toString());
+      if (!looksLikeBadCanonical(finalUrl, canonical)) {
+        return { primary: canonical, finalUrl };
+      }
+    }
+    return { primary: finalUrl, finalUrl };
+  } catch {
+    return { primary: cleanUrl(link), finalUrl: cleanUrl(link) };
+  }
+}
+
+async function canonicalizeAll(items) {
+  const queue = [...items];
+  const results = new Array(queue.length);
+  let i = 0;
+
+  async function worker() {
+    while (true) {
+      const idx = i++;
+      if (idx >= queue.length) break;
+      const it = queue[idx];
+      if (it.link) {
+        const { primary } = await resolveCanonicalOnce(it.link);
+        const next = { ...it, link: primary, source: sourceFromLink(primary) || it.source };
+        results[idx] = next;
+      } else {
+        results[idx] = it;
+      }
+      if (SETTINGS.THROTTLE_MS) await sleep(SETTINGS.THROTTLE_MS / 2);
+    }
+  }
+  await Promise.all(Array.from({ length: SETTINGS.CANON_CONCURRENCY }, worker));
+  return results;
+}
+
+// ===== Aggregator "original" finder (incl. plain-text & scheme-less URLs) =====
+function coerceHttpIfBare(u) {
+  if (!u) return u;
+  if (/^[a-zA-Z][a-zA-Z0-9+.-]*:\/\//.test(u)) return u;      // already has a scheme
+  if (/^\/\/[^/]/.test(u)) return "https:" + u;               // protocol-relative
+  if (/^www\.[^/]+\.[^/]+/.test(u)) return "https://" + u;    // www.example.com
+  if (/^[^/\s]+\.[^/\s]+(?:\/[^\s<>"')]*)?$/.test(u)) return "https://" + u; // example.co.nz/path
+  return u;
+}
+function safeUrlTry(u, base) { try { return new URL(coerceHttpIfBare(u), base).toString(); } catch { return null; } }
+function host(u) { try { return new URL(u).hostname.toLowerCase(); } catch { return ""; } }
+function isIgnoredHost(h) { return !h || IGNORE_HOSTS.has(h) || h === "mailto" || h === "tel" || h === "javascript"; }
+
+function scoreAnchorText(txt = "") {
+  const t = txt.toLowerCase();
+  let s = 0;
+  if (/(^|\b)(enter|enter now|enter here|go to|official|website|apply|details|terms)(\b|!)/.test(t)) s += 5;
+  if (/click|read more|more info/.test(t)) s += 2;
+  if (t.length && t.length <= 60) s += 1;
+  return s;
+}
+function unwrapRedirect(u) {
+  try {
+    const url = new URL(u);
+    const qp = url.searchParams;
+    const candidates = ["to","url","u","redirect","dest","destination","out","link"];
+    for (const key of candidates) {
+      const v = qp.get(key);
+      if (v && /^https?:\/\//i.test(v)) return cleanUrl(v);
+    }
+    // contest.co.nz often uses /away.php?to=...
+    if (/contest\.co\.nz$/i.test(url.hostname) && /away|redirect/i.test(url.pathname)) {
+      const v = qp.get("to") || qp.get("url") || qp.get("u");
+      if (v && /^https?:\/\//i.test(v)) return cleanUrl(v);
+    }
+    return cleanUrl(u);
+  } catch { return u; }
+}
+function extractUrlsFromText(text, baseUrl) {
+  if (!text) return [];
+  const out = [];
+  const reHttp = /https?:\/\/[^\s<>"')]+/gi;
+  let m;
+  while ((m = reHttp.exec(text)) !== null) {
+    const raw = m[0];
+    const unwrapped = unwrapRedirect(raw);
+    const abs = safeUrlTry(unwrapped, baseUrl) || unwrapped;
+    out.push(cleanUrl(abs));
+  }
+  const reBare = /(?:^|[\s(])((?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)+(?:\/[^\s<>"')]*)?)/gi;
+  while ((m = reBare.exec(text)) !== null) {
+    const raw = (m[1] || "").trim();
+    if (!raw) continue;
+    if (/^https?:\/\//i.test(raw)) continue;
+    if (!/\./.test(raw) || /\s/.test(raw)) continue;
+    const primed = coerceHttpIfBare(raw);
+    const unwrapped = unwrapRedirect(primed);
+    const abs = safeUrlTry(unwrapped, baseUrl) || unwrapped;
+    const h = host(abs);
+    if (h && !isIgnoredHost(h)) out.push(cleanUrl(abs));
+  }
+  const seen = new Set();
+  return out.filter(u => (seen.has(u) ? false : (seen.add(u), true)));
+}
+function extractOriginalFromContest($, pageUrl) {
+  const baseHost = host(pageUrl);
+  const anchors = $("a[href]").toArray();
+  let best = null, bestScore = -1;
+  for (const a of anchors) {
+    const abs0 = safeUrlTry($(a).attr("href"), pageUrl);
+    if (!abs0) continue;
+    const abs = unwrapRedirect(abs0);
+    const h = host(abs);
+    if (!h || h === baseHost || isIgnoredHost(h)) continue;
+    const text = collapse($(a).text() || $(a).attr("title") || "");
+    let score = scoreAnchorText(text);
+    if (!/bit\.ly|t\.co|tinyurl|lnkd\.in|goo\.gl|ow\.ly|fb\.me|linktr\.ee/.test(h)) score += 1;
+    if (score > bestScore) { best = abs; bestScore = score; }
+  }
+  if (best) return best;
+  const bodyText = collapse($("body").text());
+  const candidates = extractUrlsFromText(bodyText, pageUrl).filter(u => {
+    const h = host(u);
+    return h && h !== baseHost && !isIgnoredHost(h);
+  });
+  return candidates.length ? candidates[0] : null;
+}
+function extractOriginalFromCompetitionsNZ($, pageUrl) {
+  const baseHost = host(pageUrl);
+  const anchors = $("a[href], .entry-content a[href], .content a[href]").toArray();
+  let best = null, bestScore = -1;
+  for (const a of anchors) {
+    const abs0 = safeUrlTry($(a).attr("href"), pageUrl);
+    if (!abs0) continue;
+    const abs = unwrapRedirect(abs0);
+    const h = host(abs);
+    if (!h || h === baseHost || isIgnoredHost(h)) continue;
+    const text = collapse($(a).text() || $(a).attr("title") || "");
+    let score = scoreAnchorText(text);
+    if (!/bit\.ly|t\.co|tinyurl|lnkd\.in|goo\.gl|ow\.ly|fb\.me|linktr\.ee/.test(h)) score += 1;
+    if (score > bestScore) { best = abs; bestScore = score; }
+  }
+  return best;
+}
+function extractOriginalFromCheapies($, pageUrl) {
+  const baseHost = host(pageUrl);
+  const anchors = $("a[href], .node-content a[href]").toArray();
+  let best = null, bestScore = -1;
+  for (const a of anchors) {
+    const abs0 = safeUrlTry($(a).attr("href"), pageUrl);
+    if (!abs0) continue;
+    const abs = unwrapRedirect(abs0);
+    const h = host(abs);
+    if (!h || h === baseHost || isIgnoredHost(h)) continue;
+    const text = collapse($(a).text() || $(a).attr("title") || "");
+    let score = scoreAnchorText(text);
+    if (!/bit\.ly|t\.co|tinyurl|lnkd\.in|goo\.gl|ow\.ly|fb\.me|linktr\.ee/.test(h)) score += 1;
+    if (score > bestScore) { best = abs; bestScore = score; }
+  }
+  return best;
+}
+async function findOriginalForAggregator(link) {
+  const h = host(link);
+  if (!KNOWN_AGGREGATORS.has(h)) return null;
+  try {
+    const controller = new AbortController();
+    const to = setTimeout(() => controller.abort(), SETTINGS.ORIG_TIMEOUT_MS);
+    const res = await fetch(link, {
+      headers: { "user-agent": UA, accept: "text/html,*/*;q=0.8" },
+      redirect: "follow",
+      signal: controller.signal
+    });
+    clearTimeout(to);
+    const html = await res.text();
+    const $ = cheerio.load(html);
+    let original = null;
+    if (h.includes("contest.co.nz")) original = extractOriginalFromContest($, link);
+    else if (h.includes("competitions.co.nz")) original = extractOriginalFromCompetitionsNZ($, link);
+    else if (h.includes("cheapies.nz")) original = extractOriginalFromCheapies($, link);
+    return original ? cleanUrl(original) : null;
+  } catch {
+    return null;
+  }
+}
+async function upgradeAggregatorsToOriginals(items) {
+  const results = new Array(items.length);
+  let i = 0, upgradedCount = 0;
+  async function worker() {
+    while (true) {
+      const idx = i++;
+      if (idx >= items.length) break;
+      const it = items[idx];
+      const h = host(it.link || "");
+      if (KNOWN_AGGREGATORS.has(h)) {
+        const orig = await findOriginalForAggregator(it.link);
+        if (orig) {
+          upgradedCount++;
+          results[idx] = { ...it, link: orig, source: sourceFromLink(orig) || it.source };
+        } else {
+          results[idx] = it;
+        }
+      } else {
+        results[idx] = it;
+      }
+      if (SETTINGS.THROTTLE_MS) await sleep(SETTINGS.THROTTLE_MS / 2);
+    }
+  }
+  await Promise.all(Array.from({ length: SETTINGS.ORIG_CONCURRENCY }, worker));
+  return { upgraded: results, upgradedCount };
+}
+
+// ===== Normalization & filters =====
+function toCompetition({ title, link, createdAt, source, deadline, tags }) {
+  return {
+    title: collapse(title),
+    link: cleanUrl(link),
+    source: source || sourceFromLink(link),
+    createdAt: clampFutureISO(createdAt || null),
+    deadline: deadline ? clampFutureISO(deadline) : null,
+    prize: undefined,
+    tags: Array.isArray(tags) ? tags : []
+  };
 }
 function normalizeItem(raw) {
   const link = cleanUrl(raw.link || "");
@@ -78,11 +371,7 @@ function normalizeItem(raw) {
     if (Number.isFinite(d)) deadline = new Date(d).toISOString();
   }
   const id = link || sha1(`${title}|${source}`);
-  return {
-    id, title, link, source, createdAt, deadline,
-    prize: raw.prize || undefined,
-    tags: Array.isArray(raw.tags) ? raw.tags : []
-  };
+  return { id, title, link, source, createdAt, deadline, prize: raw.prize || undefined, tags: Array.isArray(raw.tags) ? raw.tags : [] };
 }
 function isPast(deadlineIso) {
   if (!deadlineIso) return false;
@@ -101,101 +390,40 @@ function freshnessFilter(item) {
   if (!item.deadline && veryOld) return false;
   return true;
 }
+
+// ===== Extra: fuzzy dedupe after canonicalization =====
 function dedupe(items) {
+  // Pass 1: by cleaned final link (strong)
   const byLink = new Map();
-  const score = (x) => (x.deadline ? 3 : 0) + (x.createdAt ? 2 : 0) + (x.title?.length || 0) / 1000;
+  const scorePrimary = (x) => (x.createdAt ? 2 : 0) + (x.title?.length || 0) / 1000;
   for (const it of items) {
     if (!it.link) continue;
     const key = cleanUrl(it.link);
     const prev = byLink.get(key);
-    byLink.set(key, !prev || score(it) >= score(prev) ? it : prev);
+    byLink.set(key, !prev || scorePrimary(it) >= scorePrimary(prev) ? it : prev);
   }
-  const withLinks = Array.from(byLink.values());
-  const noLinks = items.filter((x) => !x.link);
-  const final = [...withLinks];
-  const sig = (x) => `${(x.title || "").toLowerCase()}|${(x.source || "").toLowerCase()}`;
-  const seenSig = new Set(final.map(sig));
-  for (const it of noLinks) {
-    const s = sig(it);
-    if (!seenSig.has(s)) { seenSig.add(s); final.push(it); }
-  }
-  return final;
-}
+  let out = Array.from(byLink.values());
 
-// ===== Network helpers =====
-async function fetchText(url, { as = "text" } = {}) {
-  const res = await fetch(url, {
-    headers: {
-      "user-agent": UA,
-      accept: "text/html,application/xhtml+xml,application/xml;q=0.9,application/rss+xml;q=0.9,*/*;q=0.8",
-    },
-    redirect: "follow",
-  });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return as === "buffer" ? Buffer.from(await res.arrayBuffer()) : await res.text();
-}
-function toAbsolute(baseUrl, href) {
-  try {
-    if (!href) return null;
-    if (href.startsWith("//")) return "https:" + href;
-    if (href.startsWith("/")) {
-      const u = new URL(baseUrl);
-      return `${u.origin}${href}`;
-    }
-    new URL(href); // absolute?
-    return href;
-  } catch { return null; }
-}
-
-// ===== Page parsing =====
-function extractPublished($) {
-  const candidates = [
-    "meta[property='article:published_time']",
-    "meta[name='article:published_time']",
-    "meta[property='og:updated_time']",
-    "meta[name='date']",
-    "time[datetime]",
-  ];
-  for (const sel of candidates) {
-    const el = $(sel).first();
-    if (!el.length) continue;
-    const iso = el.attr("content") || el.attr("datetime");
-    if (iso) {
-      const t = Date.parse(iso);
-      if (!isNaN(t)) return new Date(t).toISOString();
+  // Pass 2: near-duplicate merge by (title, source) with aggregator forgiveness
+  const key2 = (x) => `${(x.title || "").toLowerCase()}|${(x.source || "").toLowerCase()}`;
+  const map2 = new Map();
+  for (const it of out) {
+    const k = key2(it);
+    const prev = map2.get(k);
+    if (!prev) map2.set(k, it);
+    else {
+      const pick = scorePrimary(it) >= scorePrimary(prev) ? it : prev;
+      map2.set(k, pick);
     }
   }
-  const bodyText = $("main").text() || $("article").text() || $("body").text() || "";
-  const m = bodyText.match(/\b(?:\d{1,2}\s+[A-Za-z]{3,9}(?:\s+\d{4})?|[A-Za-z]{3,9}\s+\d{1,2}(?:,\s*\d{4})?)\b/);
-  if (m) {
-    const t = Date.parse(m[0]);
-    if (!isNaN(t)) return new Date(t).toISOString();
-  }
-  return new Date().toISOString();
-}
-function extractDeadlineText($, site) {
-  const sourceText = $("main").text() || $("article").text() || $("body").text() || "";
-  let regex = null;
-  if (site?.deadline_text_regex) {
-    try { regex = new RegExp(site.deadline_text_regex, "i"); } catch { regex = null; }
-  }
-  const generic =
-    /(Entries?\s+close|Closes?|Closing|Ends?|End[s]?)(?:\s*[:\-]|\s+on)?\s+([A-Za-z]{3,9}\s+\d{1,2}(?:,\s*\d{4})?|\d{1,2}\s+[A-Za-z]{3,9}(?:\s+\d{4})?|\d{1,2}\/\d{1,2}\/\d{2,4}|\d{4}-\d{2}-\d{2})/i;
-  const use = regex || generic;
-  const m = sourceText.match(use);
-  if (!m) return null;
-  const dateCandidate = m[2] || m[1] || m[0];
-  const t = Date.parse(dateCandidate);
-  return !isNaN(t) ? new Date(t).toISOString() : null;
-}
-function toCompetition({ title, link, source, createdAt, deadline }) {
-  return { id: link || sha1(`${title}|${link}`), title: collapse(title), link, source, createdAt, deadline, tags: [], prize: undefined };
+  out = Array.from(map2.values());
+  return out;
 }
 
 // ===== RSS (XML) =====
 async function parseRSSFeed(url) {
   try {
-    const xml = await fetchText(url);
+    const xml = await fetchText(url, { timeoutMs: SETTINGS.RSS_TIMEOUT_MS, accept: "application/rss+xml,application/xml,text/xml;q=0.9,*/*;q=0.8" });
     const $ = cheerio.load(xml, { xmlMode: true });
     const nodes = $("item").length ? $("item") : $("entry");
     const out = [];
@@ -224,22 +452,54 @@ async function parseRSSFeed(url) {
     console.log(`[RSS] ${url} -> ${out.length} items`);
     return out;
   } catch (e) {
-    console.log(`Failed feed: ${url} ${(e && e.message) || e}`);
+    console.log(`[RSS] ${url} failed: ${(e && e.message) || e}`);
     return [];
   }
 }
 
-// ===== Site crawling with simple pagination (?pg=N) =====
+// ===== Site crawling with allow/block + competition detection =====
+function buildRegexList(list) {
+  return Array.isArray(list) ? list.map((p) => new RegExp(p)) : [];
+}
+function detectDate($$) {
+  const candidates = [
+    $$("meta[property='article:published_time']").attr("content"),
+    $$("meta[property='og:updated_time']").attr("content"),
+    $$("meta[itemprop='datePublished']").attr("content"),
+    $$("time[datetime]").attr("datetime"),
+    $$("meta[name='date']").attr("content"),
+  ].filter(Boolean);
+  for (const s of candidates) {
+    const t = Date.parse(String(s));
+    if (Number.isFinite(t)) return new Date(t).toISOString();
+  }
+  return null;
+}
+function looksLikeCompetition(title, $$) {
+  const t = (title || "").toLowerCase();
+  if (/\b(win|giveaway|be in to win|prize|enter)\b/.test(t)) return true;
+  const crumb = ($$("nav.breadcrumb").text() || $$("a[rel='breadcrumb']").text() || "").toLowerCase();
+  if (/\b(win|competition|giveaway)\b/.test(crumb)) return true;
+  // Some sites label the section explicitly
+  const sec = ($$(".section-title").text() || $$(".category").text() || "").toLowerCase();
+  if (/\b(win|competition|giveaway)\b/.test(sec)) return true;
+  return false;
+}
+
 async function crawlSite(site) {
   const baseHost =
     (site.host || site.site || "").replace(/^https?:\/\//, "").replace(/^www\./, "");
   const indexUrl = site.index;
-  const throttle = Number(site.throttle_ms || 0);
+  const throttle = Number(site.throttle_ms || SETTINGS.THROTTLE_MS);
   const hostLabel = baseHost || (indexUrl ? new URL(indexUrl).hostname.replace(/^www\./,"") : "site");
+
+  const allowRx = buildRegexList(site.allow);
+  const blockRx = buildRegexList(site.block);
+  const maxItems = Number(site.max_items || 60); // hard cap of accepted detail pages
 
   console.log(`[${hostLabel}] crawl start: ${indexUrl}`);
 
-  // Build list of index pages to fetch (pg=1..max_pages)
+  // Build list of index pages
   const maxPages = Math.max(1, Number(site.max_pages || 1));
   const pageParam = site.page_param || site.pageParam || site.pagination_param || "pg";
 
@@ -254,77 +514,57 @@ async function crawlSite(site) {
     }
   }
 
-  // Collect links from all index pages
-  const seenIndexHrefs = new Set();
-  const selFromConfig = site.href_selector || site.item_selector;
-
-  for (let i = 0; i < indexPages.length; i++) {
-    const pageUrl = indexPages[i];
-    let html;
+  // Helper to validate a pathname against allow/block and default section
+  function pathOk(u, baseIndexUrl) {
     try {
-      if (throttle > 0 && i > 0) await sleep(throttle);
-      html = await fetchText(pageUrl);
-    } catch (e) {
-      console.log(`[${hostLabel}] index fetch failed (${pageUrl}): ${e && e.message}`);
-      continue;
+      const url = new URL(u);
+      const pathname = url.pathname;
+      if (blockRx.some(rx => rx.test(pathname))) return false;
+      if (allowRx.length > 0) return allowRx.some(rx => rx.test(pathname));
+      // No allow list -> default: keep paths under the section you indexed
+      const section = new URL(baseIndexUrl).pathname.replace(/\/+$/, "");
+      return pathname.startsWith(section + "/") || pathname === section;
+    } catch {
+      return false;
     }
-
-    const $ = cheerio.load(html);
-
-    // Prefer configured selector; fall back to smart filter if nothing matched
-    let $as = selFromConfig ? $(selFromConfig) : $('a[href]');
-    if ($as.length === 0) {
-      console.log(
-        `[${hostLabel}] no matches for "${selFromConfig}" on page ${i + 1}/${indexPages.length}. Using smart fallback…`
-      );
-      $as = $('a[href]').filter((_, a) => {
-        const href = $(a).attr('href') || '';
-        if (!href.startsWith('/')) return false; // same-site only
-        return /win|prize|competitions?|giveaway|contest/i.test(href);
-      });
-    }
-
-    let found = 0;
-    $as.each((_, a) => {
-      const raw = $(a).attr("href");
-      const abs = toAbsolute(pageUrl, raw);
-      if (!abs) return;
-
-      try {
-        const u = new URL(abs);
-        const hostNoW = u.hostname.replace(/^www\./, "");
-        if (baseHost && hostNoW !== baseHost) return; // off-site
-        const key = cleanUrl(u.href);
-        if (!seenIndexHrefs.has(key)) {
-          seenIndexHrefs.add(key);
-          found++;
-        }
-      } catch {
-        // ignore
-      }
-    });
-
-    console.log(
-      `[${hostLabel}] index page ${i + 1}/${indexPages.length} -> ${found} new link(s)`
-    );
   }
 
-  // Make an ordered list we can cap
-  let hrefs = Array.from(seenIndexHrefs);
+  // Collect links from all index pages (but only those that pass pathOk)
+  const seenIndexHrefs = new Set();
+  const candidateHrefs = [];
 
-  const cap = Number(site.index_limit || site.max_items);
-  if (Number.isFinite(cap) && cap > 0) hrefs = hrefs.slice(0, cap);
-
-  console.log(
-    `[${hostLabel}] total indexed -> ${hrefs.length} link(s)${cap ? " (limited)" : ""}`
-  );
-
-  // Visit each link and extract fields
-  const items = [];
-  for (const href of hrefs) {
+  for (const page of indexPages) {
     try {
-      if (throttle > 0) await sleep(throttle);
-      const pageHtml = await fetchText(href);
+      const html = await fetchText(page, { timeoutMs: SETTINGS.PAGE_TIMEOUT_MS });
+      const $ = cheerio.load(html);
+      $("a[href]").each((_, a) => {
+        const href = $(a).attr("href");
+        if (!href || href.startsWith("#")) return;
+        try {
+          const abs = new URL(href, page).toString();
+          const u = new URL(abs);
+          if (baseHost && u.hostname.replace(/^www\./, "") !== baseHost) return;
+          if (!pathOk(abs, page)) return;
+          const key = cleanUrl(abs);
+          if (!seenIndexHrefs.has(key)) {
+            seenIndexHrefs.add(key);
+            candidateHrefs.push(key);
+          }
+        } catch { /* ignore */ }
+      });
+      console.log(`[${hostLabel}] indexed page: ${page} (${candidateHrefs.length} links so far)`);
+    } catch (e) {
+      console.log(`[${hostLabel}] index fetch fail ${page} -> ${(e && e.message) || e}`);
+    }
+    if (throttle) await sleep(throttle);
+  }
+
+  // Visit each candidate page and extract a Competition (guarded)
+  const items = [];
+  for (const href of candidateHrefs) {
+    if (items.length >= maxItems) break;
+    try {
+      const pageHtml = await fetchText(href, { timeoutMs: SETTINGS.PAGE_TIMEOUT_MS });
       const $$ = cheerio.load(pageHtml);
 
       // title
@@ -333,32 +573,41 @@ async function crawlSite(site) {
         collapse($$("meta[property='og:title']").attr("content") || "");
       if (!title) title = href;
 
-      // published
-      const createdAt = extractPublished($$);
+      // discard if it doesn't resemble a competition
+      if (!looksLikeCompetition(title, $$)) {
+        // console.log(`[${hostLabel}] skip (not a comp): ${title}`);
+        continue;
+      }
 
-      // deadline
-      const deadline = extractDeadlineText($$, site);
+      // published (best-effort; fallback to crawl time to stabilize sort)
+      const createdAt = detectDate($$) || new Date().toISOString();
 
-      // Skip generic listing pages (no deadline + generic title)
-      const looksLikeListing =
-        /competitions?|giveaways?/i.test(title) &&
-        (!deadline || deadline === null) &&
-        title.length <= 40;
-      if (looksLikeListing) continue;
+      const deadline = null; // intentionally not inferred here
 
-      const src = site.source || baseHost || sourceFromLink(href);
-      items.push(toCompetition({ title, link: href, source: src, createdAt, deadline }));
+      // Prefer per-page canonical if present
+      const rawCanon =
+        $$("link[rel='canonical']").attr("href") ||
+        $$("meta[property='og:url']").attr("content") ||
+        $$("meta[name='twitter:url']").attr("content") || "";
+      const resolvedCanon = rawCanon ? cleanUrl(new URL(rawCanon, href).toString()) : null;
+      const primaryLink = resolvedCanon && !looksLikeBadCanonical(href, resolvedCanon)
+        ? resolvedCanon
+        : href;
+
+      const src = site.source || baseHost || sourceFromLink(primaryLink);
+      items.push(toCompetition({ title, link: primaryLink, source: src, createdAt, deadline }));
       console.log(`[${hostLabel}] parsed: ${title}`);
     } catch (e) {
       console.log(`[${hostLabel}] parse fail ${href} -> ${(e && e.message) || e}`);
     }
+    if (throttle) await sleep(throttle);
   }
 
-  console.log(`[${hostLabel}] done: ${items.length} item(s)`);
-  return { label: hostLabel, indexed: hrefs.length, pages: indexPages.length, items };
+  console.log(`[${hostLabel}] done: ${items.length} accepted item(s)`);
+  return { label: hostLabel, indexed: candidateHrefs.length, pages: indexPages.length, items };
 }
 
-// ===== main =====
+// ===== Main =====
 async function main() {
   console.log("Pull started…");
 
@@ -375,9 +624,9 @@ async function main() {
   // ---- stats skeleton
   const startedAt = new Date().toISOString();
   const rssStats = {};   // url -> { items }
-  const siteStats = {};  // label -> { items, indexed, pages }
+  const siteStats = {};  // host -> { items, indexed, pages }
 
-  // pull RSS
+  // parse RSS feeds
   const rssResults = [];
   for (const r of rss) {
     const arr = await parseRSSFeed(r);
@@ -393,13 +642,24 @@ async function main() {
     siteResults.push(...items);
   }
 
-  // normalize → dedupe → freshness
+  // normalize
   const raw = [...rssResults, ...siteResults];
   const normalized = raw.map(normalizeItem);
-  const deduped = dedupe(normalized);
+
+  // ➜ Upgrade known aggregators to originals (now with plain-text & scheme-less URL fallback)
+  console.log(`Upgrading ${normalized.length} link(s) from known aggregators where possible…`);
+  const { upgraded, upgradedCount } = await upgradeAggregatorsToOriginals(normalized);
+  console.log(`Upgraded ${upgradedCount} item(s) from aggregators`);
+
+  // canonicalize (brand pages)
+  console.log(`Canonicalizing ${upgraded.length} link(s)…`);
+  const canonicalized = await canonicalizeAll(upgraded);
+
+  // dedupe → freshness
+  const deduped = dedupe(canonicalized);
   const filtered = deduped.filter(freshnessFilter);
 
-  console.log(`Totals: raw=${raw.length}, normalized=${normalized.length}, deduped=${deduped.length}, kept=${filtered.length}`);
+  console.log(`Totals: raw=${raw.length}, normalized=${normalized.length}, upgraded=${upgraded.length}, canonical=${canonicalized.length}, deduped=${deduped.length}, kept=${filtered.length}`);
 
   // perSource counts (after filtering)
   const perSource = {};
@@ -408,11 +668,12 @@ async function main() {
     perSource[key] = (perSource[key] || 0) + 1;
   }
 
-  // sort newest
+  // sort newest with deterministic tiebreaker
   filtered.sort((a, b) => {
     const ta = a.createdAt ? Date.parse(a.createdAt) : 0;
     const tb = b.createdAt ? Date.parse(b.createdAt) : 0;
-    return (tb || 0) - (ta || 0);
+    if (tb !== ta) return tb - ta;
+    return (a.title || "").localeCompare(b.title || "");
   });
 
   // write feeds.json
@@ -430,16 +691,18 @@ async function main() {
     counts: {
       raw: raw.length,
       normalized: normalized.length,
+      upgraded: upgraded.length,
+      canonicalized: canonicalized.length,
       deduped: deduped.length,
-      kept: filtered.length,
+      kept: filtered.length
     },
     sources: {
       rssCount: Object.keys(rssStats).length,
       siteCount: Object.keys(siteStats).length,
       rss: rssStats,
-      sites: siteStats,
+      sites: siteStats
     },
-    perSource, // by `item.source` label
+    perSource
   };
   await fs.writeFile(ingestPath, JSON.stringify(health, null, 2), "utf8");
   console.log(`Wrote public/ingestion.json`);

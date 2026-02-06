@@ -1,26 +1,24 @@
 name: Pull feeds (daily)
 
-on:
+"on":
   schedule:
-    # Every 3 hours (UTC). Change to "0 8 * * *" for once per day at 08:00 UTC.
     - cron: "0 */3 * * *"
-  workflow_dispatch: {}   # allows the green "Run workflow" button
+  workflow_dispatch: {}
 
 permissions:
-  contents: write   # needed so the job can commit feeds.json back to the repo
+  contents: write
 
 jobs:
   pull:
     runs-on: ubuntu-latest
-
     steps:
       - name: Check out
         uses: actions/checkout@v4
 
-      - name: Use Node.js 22
+      - name: Use Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 20
           cache: npm
 
       - name: Install deps
