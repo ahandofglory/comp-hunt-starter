@@ -1,13 +1,13 @@
 {
-  "startedAt": "2025-10-10T09:12:16.257Z",
-  "finishedAt": "2025-10-10T09:23:16.200Z",
+  "startedAt": "2026-02-06T11:36:10.994Z",
+  "finishedAt": "2026-02-06T11:40:41.783Z",
   "counts": {
-    "raw": 498,
-    "normalized": 498,
-    "upgraded": 498,
-    "canonicalized": 498,
-    "deduped": 261,
-    "kept": 170
+    "raw": 227,
+    "normalized": 227,
+    "upgraded": 227,
+    "canonicalized": 227,
+    "deduped": 97,
+    "kept": 42
   },
   "sources": {
     "rssCount": 4,
@@ -28,53 +28,48 @@
     },
     "sites": {
       "nzmcd.co.nz": {
-        "items": 70,
-        "indexed": 70,
+        "items": 16,
+        "indexed": 16,
         "pages": 1
       },
       "nowtolove.co.nz": {
-        "items": 137,
-        "indexed": 139,
+        "items": 60,
+        "indexed": 86,
         "pages": 1
       },
       "competitions.co.nz": {
-        "items": 173,
-        "indexed": 173,
+        "items": 60,
+        "indexed": 125,
         "pages": 3
       },
       "familytimes.co.nz": {
-        "items": 28,
-        "indexed": 28,
+        "items": 1,
+        "indexed": 2,
         "pages": 1
       }
     }
   },
   "perSource": {
     "forum-2.html": 1,
-    "win.swanndri.co.nz": 2,
-    "info.cookislands.travel": 1,
-    "aa.co.nz": 1,
-    "manage.kmail-lists.com": 1,
+    "originalfoods.co.nz": 1,
     "forum-2-page-2.html": 1,
+    "enter.hoopsfest.com.au": 1,
+    "nzherald.co.nz": 1,
+    "witchdoctor.co.nz": 1,
     "forum-13.html": 1,
     "forum-14.html": 1,
     "mitre10.co.nz": 1,
     "covermore-experiences.com": 1,
     "westfield.co.nz": 1,
-    "flightcentre.co.nz": 1,
-    "billabong.co.nz": 1,
-    "dangerfield.com.au": 1,
-    "quicknote.io": 1,
-    "ozbargain.com.au": 2,
-    "d1sukno5368t83.cloudfront.net": 1,
-    "cheapies.nz": 3,
-    "weareexplorers.co": 1,
-    "nzmcd.co.nz": 69,
-    "nowtolove.co.nz": 47,
+    "ozbargain.com.au": 5,
+    "bookthrone.com": 2,
+    "cam.scentregroup.io": 1,
+    "cheapies.nz": 2,
+    "nzmcd.co.nz": 13,
+    "nowtolove.co.nz": 4,
     "yourhomeandgarden.co.nz": 1,
     "competitions.com.au": 1,
-    "nzpost.co.nz": 1,
-    "musthaveit.co.nz": 1,
-    "familytimes.co.nz": 27
+    "competitions.co.nz": 1,
+    "familytimes.co.nz": 1
   }
 }
