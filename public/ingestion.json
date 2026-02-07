@@ -1,13 +1,11 @@
 {
-  "startedAt": "2026-02-07T06:30:05.048Z",
-  "finishedAt": "2026-02-07T06:34:43.050Z",
+  "startedAt": "2026-02-07T09:20:58.567Z",
+  "finishedAt": "2026-02-07T09:22:32.169Z",
   "counts": {
-    "raw": 227,
-    "normalized": 227,
-    "upgraded": 227,
-    "canonicalized": 227,
-    "deduped": 97,
-    "kept": 42
+    "raw": 146,
+    "normalized": 146,
+    "deduped": 146,
+    "kept": 146
   },
   "sources": {
     "rssCount": 4,
@@ -28,48 +26,32 @@
     },
     "sites": {
       "nzmcd.co.nz": {
-        "items": 16,
-        "indexed": 16,
+        "items": 12,
+        "indexed": 12,
         "pages": 1
       },
       "nowtolove.co.nz": {
-        "items": 60,
-        "indexed": 86,
+        "items": 0,
+        "indexed": 0,
         "pages": 1
       },
       "competitions.co.nz": {
-        "items": 60,
-        "indexed": 125,
+        "items": 40,
+        "indexed": 40,
         "pages": 3
       },
       "familytimes.co.nz": {
-        "items": 1,
-        "indexed": 2,
+        "items": 4,
+        "indexed": 5,
         "pages": 1
       }
     }
   },
   "perSource": {
-    "forum-2.html": 1,
-    "originalfoods.co.nz": 1,
-    "forum-2-page-2.html": 1,
-    "enter.hoopsfest.com.au": 1,
-    "nzherald.co.nz": 1,
-    "witchdoctor.co.nz": 1,
-    "forum-13.html": 1,
-    "forum-14.html": 1,
-    "mitre10.co.nz": 1,
-    "covermore-experiences.com": 1,
-    "westfield.co.nz": 1,
-    "cheapies.nz": 2,
-    "ozbargain.com.au": 5,
-    "bookthrone.com": 2,
-    "cam.scentregroup.io": 1,
-    "nzmcd.co.nz": 13,
-    "nowtolove.co.nz": 4,
-    "yourhomeandgarden.co.nz": 1,
-    "competitions.com.au": 1,
-    "competitions.co.nz": 1,
-    "familytimes.co.nz": 1
+    "contest.co.nz": 80,
+    "cheapies.nz": 10,
+    "nzmcd.co.nz": 12,
+    "competitions.co.nz": 40,
+    "familytimes.co.nz": 4
   }
 }
