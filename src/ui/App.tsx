@@ -10,7 +10,10 @@ import {
   Upload,
   Download,
   ChevronDown,
+  Rss,
 } from "lucide-react";
+
+import { SourcesModal } from "./SourcesModal";
 
 // ===== Types =====
 type Flags = { saved?: boolean; submitted?: boolean };
@@ -158,6 +161,7 @@ export default function App() {
   const [statusOpen, setStatusOpen] = useState(false);
 
   const [menuOpen, setMenuOpen] = useState(false);
+  const [sourcesOpen, setSourcesOpen] = useState(false);
   const kebabRef = useRef<HTMLDivElement | null>(null);
   const statusRef = useRef<HTMLDivElement | null>(null);
   const fileRef = useRef<HTMLInputElement | null>(null);
@@ -365,6 +369,11 @@ export default function App() {
     setMenuOpen(false);
   }
 
+  function openSources() {
+    setSourcesOpen(true);
+    setMenuOpen(false);
+  }
+
   async function onImportFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -462,12 +471,21 @@ export default function App() {
               >
                 <button
                   className="w-full px-3 py-2 rounded-md text-left hover:bg-gray-50 inline-flex items-center gap-2"
+                  onClick={openSources}
+                  role="menuitem"
+                >
+                  <Rss className="h-4 w-4" />
+                  Manage sources
+                </button>
+                <button
+                  className="w-full px-3 py-2 rounded-md text-left hover:bg-gray-50 inline-flex items-center gap-2"
                   onClick={restoreDeleted}
                   role="menuitem"
                 >
                   <Trash2 className="h-4 w-4" />
                   Restore deleted
                 </button>
+
                 <button
                   className="w-full px-3 py-2 rounded-md text-left hover:bg-gray-50 inline-flex items-center gap-2"
                   onClick={exportUserData}
@@ -495,6 +513,8 @@ export default function App() {
             )}
           </div>
         </div>
+
+        <SourcesModal open={sourcesOpen} onClose={() => setSourcesOpen(false)} />
 
         <div className="w-full">
           <div className="flex flex-wrap items-center gap-2">
