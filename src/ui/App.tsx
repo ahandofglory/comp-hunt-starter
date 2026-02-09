@@ -4,7 +4,6 @@ import { Competition } from "../types";
 import { CompetitionCard } from "./CompetitionCard";
 import {
   MoreVertical,
-  RefreshCw,
   Search,
   Trash2,
   Upload,
@@ -26,7 +25,10 @@ type PersistState = {
   firstSeenAt: Record<string, string>; // id -> ISO
 };
 
-type IngestionSummary = { pulledAtIso?: string; totals?: { all?: number; bySource?: Record<string, number> } };
+type IngestionSummary = {
+  pulledAtIso?: string;
+  totals?: { all?: number; bySource?: Record<string, number> };
+};
 type StatusFilter = "all" | "submitted" | "not_submitted" | "saved";
 
 // ===== Storage / migration =====
@@ -39,8 +41,6 @@ function nowIso() {
 }
 
 function migrateFromOlder(parsed: any): PersistState {
-  // v2 shape: { version:2, flags, deleted }
-  // v1-ish shape: { statuses, deleted }
   const flags: Record<string, Flags> = {};
   const deleted: string[] = Array.isArray(parsed?.deleted) ? parsed.deleted : [];
   const firstSeenAt: Record<string, string> = {};
@@ -60,8 +60,6 @@ function migrateFromOlder(parsed: any): PersistState {
     }
   }
 
-// Do not manufacture firstSeenAt during migration.
-// It will be derived from feed createdAt on first load.
   return { version: 3, flags, deleted, firstSeenAt };
 }
 
@@ -70,7 +68,12 @@ function loadState(): PersistState {
   if (raw) {
     try {
       const parsed = JSON.parse(raw);
-      if (parsed?.version === 3 && parsed?.flags && parsed?.firstSeenAt && Array.isArray(parsed?.deleted)) {
+      if (
+        parsed?.version === 3 &&
+        parsed?.flags &&
+        parsed?.firstSeenAt &&
+        Array.isArray(parsed?.deleted)
+      ) {
         return parsed as PersistState;
       }
     } catch {}
@@ -140,7 +143,9 @@ export default function App() {
   const [persist, setPersist] = useState<PersistState>(() => loadState());
   useEffect(() => saveState(persist), [persist]);
 
-  const [lastSeenMs, setLastSeenMs] = useState<number>(() => Number(localStorage.getItem(LAST_SEEN_KEY) || 0));
+  const [lastSeenMs, setLastSeenMs] = useState<number>(() =>
+    Number(localStorage.getItem(LAST_SEEN_KEY) || 0)
+  );
   useEffect(() => {
     const id = window.setTimeout(() => {
       localStorage.setItem(LAST_SEEN_KEY, String(Date.now()));
@@ -151,8 +156,6 @@ export default function App() {
 
   const [feedItems, setFeedItems] = useState<Competition[]>([]);
   const [ingestion, setIngestion] = useState<IngestionSummary | null>(null);
-  const [feedError, setFeedError] = useState<string | null>(null);
-  const [isReloading, setIsReloading] = useState(false);
   const [localUpdated, setLocalUpdated] = useState<Date | null>(null);
 
   const [query, setQuery] = useState("");
@@ -176,9 +179,7 @@ export default function App() {
     return () => document.removeEventListener("mousedown", onDocClick);
   }, []);
 
-  async function loadFeeds(showSpinner = true) {
-    if (showSpinner) setIsReloading(true);
-    setFeedError(null);
+  async function loadFeeds() {
     try {
       const ts = Date.now();
 
@@ -223,15 +224,15 @@ export default function App() {
       } else {
         setIngestion(null);
       }
-    } catch {
-      setFeedError('Could not refresh data. If you’re local, run "npm run pull:feeds" or check the GitHub Action.');
-    } finally {
-      if (showSpinner) setIsReloading(false);
+    } catch (e) {
+      // Option A: no manual refresh UI, so do not show errors in the interface.
+      // Keep a console breadcrumb for debugging.
+      console.warn("Failed to load feed data", e);
     }
   }
 
   useEffect(() => {
-    loadFeeds(false);
+    loadFeeds();
   }, []);
 
   // Ensure firstSeenAt exists for every id we currently have
@@ -243,35 +244,32 @@ export default function App() {
       let changed = false;
 
       for (const item of feedItems) {
-  if (!item?.id) continue;
+        if (!item?.id) continue;
 
-  const createdAtMs =
-    item.createdAt && Number.isFinite(Date.parse(item.createdAt))
-      ? Date.parse(item.createdAt)
-      : null;
+        const createdAtMs =
+          item.createdAt && Number.isFinite(Date.parse(item.createdAt))
+            ? Date.parse(item.createdAt)
+            : null;
 
-  const existingIso = next.firstSeenAt[item.id] || null;
-  const existingMs =
-    existingIso && Number.isFinite(Date.parse(existingIso))
-      ? Date.parse(existingIso)
-      : null;
+        const existingIso = next.firstSeenAt[item.id] || null;
+        const existingMs =
+          existingIso && Number.isFinite(Date.parse(existingIso))
+            ? Date.parse(existingIso)
+            : null;
 
-  // If missing, set firstSeenAt using createdAt when possible.
-  if (!existingIso) {
-    next.firstSeenAt[item.id] = createdAtMs ? new Date(createdAtMs).toISOString() : nowIso();
-    changed = true;
-    continue;
-  }
+        if (!existingIso) {
+          next.firstSeenAt[item.id] = createdAtMs
+            ? new Date(createdAtMs).toISOString()
+            : nowIso();
+          changed = true;
+          continue;
+        }
 
-  // Repair bad stored data:
-  // If firstSeenAt is much newer than createdAt, snap it back.
-  // This stops old "submitted" items from floating to the top.
-  if (createdAtMs && existingMs && existingMs - createdAtMs > 2 * 24 * 60 * 60 * 1000) {
-    next.firstSeenAt[item.id] = new Date(createdAtMs).toISOString();
-    changed = true;
-  }
-}
-
+        if (createdAtMs && existingMs && existingMs - createdAtMs > 2 * 24 * 60 * 60 * 1000) {
+          next.firstSeenAt[item.id] = new Date(createdAtMs).toISOString();
+          changed = true;
+        }
+      }
 
       return changed ? next : p;
     });
@@ -279,7 +277,10 @@ export default function App() {
 
   const q = (query || "").toLowerCase();
 
-  const sortedItems = useMemo(() => stableSort(feedItems, persist.firstSeenAt), [feedItems, persist.firstSeenAt]);
+  const sortedItems = useMemo(
+    () => stableSort(feedItems, persist.firstSeenAt),
+    [feedItems, persist.firstSeenAt]
+  );
 
   const preSourceItems = useMemo(() => {
     let items = sortedItems.filter((c) => !persist.deleted.includes(c.id));
@@ -410,7 +411,13 @@ export default function App() {
   const pulledTime = pulledIso ? formatTimeNZ(pulledIso) : "";
 
   const statusLabel = (s: StatusFilter) =>
-    s === "all" ? "All" : s === "submitted" ? "Submitted" : s === "not_submitted" ? "Not submitted" : "Saved";
+    s === "all"
+      ? "All"
+      : s === "submitted"
+      ? "Submitted"
+      : s === "not_submitted"
+      ? "Not submitted"
+      : "Saved";
 
   const pillBase = "px-4 h-12 inline-flex items-center gap-2 rounded-full border text-sm";
   const inactiveStroke = "border-[#e5e7eb] text-gray-800 bg-white";
@@ -428,16 +435,8 @@ export default function App() {
             </div>
           </div>
 
-          <button
-            className={cn(
-              "relative inline-flex items-center justify-center w-10 h-10 rounded-lg border",
-              "border-gray-300 bg-white hover:bg-gray-100"
-            )}
-            title="Reload data"
-            onClick={() => loadFeeds(true)}
-          >
-            <RefreshCw className={cn("h-4 w-4", isReloading && "animate-spin")} aria-hidden />
-          </button>
+          {/* Refresh button removed (Option A). */}
+          <div className="w-10 h-10" aria-hidden />
         </div>
       </header>
 
@@ -477,6 +476,7 @@ export default function App() {
                   <Rss className="h-4 w-4" />
                   Manage sources
                 </button>
+
                 <button
                   className="w-full px-3 py-2 rounded-md text-left hover:bg-gray-50 inline-flex items-center gap-2"
                   onClick={restoreDeleted}
@@ -494,6 +494,7 @@ export default function App() {
                   <Download className="h-4 w-4" />
                   Export data (JSON)
                 </button>
+
                 <button
                   className="w-full px-3 py-2 rounded-md text-left hover:bg-gray-50 inline-flex items-center gap-2"
                   onClick={triggerImport}
@@ -502,6 +503,7 @@ export default function App() {
                   <Upload className="h-4 w-4" />
                   Import data (JSON)
                 </button>
+
                 <input
                   ref={fileRef}
                   type="file"
@@ -590,8 +592,6 @@ export default function App() {
             )}
           </div>
         </div>
-
-        {feedError && <div className="text-sm text-red-600">{feedError}</div>}
       </div>
 
       <main className="container-narrow px-4 pb-16 space-y-3 md:space-y-4">
