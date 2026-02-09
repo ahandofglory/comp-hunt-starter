@@ -332,8 +332,8 @@ async function parseRSSFeed(url) {
         collapse(node.find("updated").first().text()) ||
         collapse(node.find("published").first().text());
       const createdAt = pub && !isNaN(Date.parse(pub)) ? new Date(pub).toISOString() : null;
-      const host = sourceFromLink(link);
-      const source = host || new URL(url).hostname.replace(/^www\./, "");
+      const source = normalizeSourceLabel(raw.source, link);
+      const sourcelabel = host || new URL(url).hostname.replace(/^www\./, "");
       if (title && link) out.push(toCompetition({ title, link, createdAt, source }));
     });
     console.log(`[RSS] ${url} -> ${out.length} items`);
