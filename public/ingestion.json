@@ -1,11 +1,11 @@
 {
-  "startedAt": "2026-02-16T06:52:11.113Z",
-  "finishedAt": "2026-02-16T06:53:27.845Z",
+  "startedAt": "2026-02-16T09:41:25.942Z",
+  "finishedAt": "2026-02-16T09:42:45.484Z",
   "counts": {
-    "raw": 56,
-    "normalized": 56,
-    "deduped": 56,
-    "kept": 55
+    "raw": 55,
+    "normalized": 55,
+    "deduped": 55,
+    "kept": 54
   },
   "sources": {
     "rssCount": 4,
@@ -26,7 +26,7 @@
     },
     "sites": {
       "nzmcd.co.nz": {
-        "items": 12,
+        "items": 11,
         "indexed": 12,
         "pages": 1
       },
@@ -48,7 +48,7 @@
     }
   },
   "perSource": {
-    "nzmcd.co.nz": 12,
+    "nzmcd.co.nz": 11,
     "competitions.co.nz": 39,
     "familytimes.co.nz": 4
   }
