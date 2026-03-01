@@ -354,8 +354,8 @@ export default function App() {
         </div>
 
         {/* Filter pills */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "2rem" }}>
-          <button onClick={() => setStatusFilter("all")} style={pill(statusFilter === "all" && sourceFilter === "__all__")}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "2rem" }}>
+          <button onClick={() => { setStatusFilter("all"); setSourceFilter("__all__"); }} style={pill(statusFilter === "all" && sourceFilter === "__all__")}>
             All <span style={countStyle}>{filteredItems.length}</span>
           </button>
           <button onClick={() => setStatusFilter("saved")} style={pill(statusFilter === "saved")}>
