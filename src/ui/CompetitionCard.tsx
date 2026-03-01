@@ -1,25 +1,27 @@
 // src/ui/CompetitionCard.tsx
 import React from "react";
-import {
-  Bookmark,
-  BookmarkCheck,
-  Calendar,
-  CheckCircle2,
-  ExternalLink,
-  Tag,
-  Trash2,
-} from "lucide-react";
+import { Bookmark, BookmarkCheck, Check, Trash2 } from "lucide-react";
 import type { Competition } from "../types";
-
-// Persist Saved/Entered into local history (so items survive feed churn)
 import { markSaved, markEntered } from "../lib/archive";
 
 const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-function formatPosted(iso?: string | null): string {
+
+function formatDate(iso?: string | null): string {
   if (!iso) return "";
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return "";
   return `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+function daysUntil(iso?: string | null): number | null {
+  if (!iso) return null;
+  const ms = new Date(iso).getTime() - Date.now();
+  if (!Number.isFinite(ms)) return null;
+  return Math.ceil(ms / (1000 * 60 * 60 * 24));
+}
+
+function cn(...a: (string | false | undefined)[]) {
+  return a.filter(Boolean).join(" ");
 }
 
 export function CompetitionCard({
@@ -40,121 +42,160 @@ export function CompetitionCard({
   const isSaved = !!flags.saved;
   const isSubmitted = !!flags.submitted;
 
-  // Click handlers: call parent first (so your UI state updates), then persist to archive.
   const handleToggleSave = () => {
-    const next = !isSaved;
     onToggleSave();
-    try { markSaved(item, next); } catch {}
+    try { markSaved(item, !isSaved); } catch {}
   };
 
   const handleToggleSubmitted = () => {
-    const next = !isSubmitted;
     onToggleSubmitted();
-    try { markEntered(item, next); } catch {}
+    try { markEntered(item, !isSubmitted); } catch {}
   };
 
-  const handleEnter = () => {
-    // Manual-only: open link via parent; do NOT auto-mark as entered.
-    onEnter();
-  };
+  const days = daysUntil(item.deadline);
+  const isUrgentRed = days !== null && days <= 3;
+  const isUrgentAmber = days !== null && days > 3 && days <= 7;
 
   return (
-    <article className="ph-card">
-      {/* Top row: title left, posted date right */}
-      <div className="flex items-start gap-2">
-        <div className="min-w-0 grow">
-          {/* Title — clamp to 2/3 lines with ellipsis */}
-          <div className="min-w-0">
-            <a
-              href={item.link}
-              target="_blank"
-              rel="noreferrer"
-              className="font-medium hover:underline clamp-title"
-              title={item.title}
-              aria-label={item.title}
-            >
-              {item.title}
-            </a>
-          </div>
+    <article
+      style={{
+        display: "grid",
+        gridTemplateColumns: "1fr auto",
+        gap: "1rem",
+        padding: "1.25rem 0",
+        borderBottom: "1px solid #e8e6e0",
+      }}
+    >
+      {/* Left */}
+      <div style={{ minWidth: 0 }}>
+        <a
+          href={item.link}
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            fontSize: "1rem",
+            fontWeight: 500,
+            lineHeight: 1.4,
+            color: "#0f0f0f",
+            textDecoration: "none",
+            display: "-webkit-box",
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: "vertical" as const,
+            overflow: "hidden",
+          }}
+          title={item.title}
+        >
+          {item.title}
+        </a>
 
-          {/* Meta (source, deadline, tags) */}
-          <div className="mt-1 flex flex-wrap items-center gap-2 text-sm text-gray-600">
-            <span className="whitespace-nowrap">{item.source}</span>
+        <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.5rem", marginTop: "0.45rem" }}>
+          <span style={{ fontSize: "0.75rem", color: "#888" }}>{item.source}</span>
 
-            {item.prize && (
-              <span className="text-xs bg-gray-100 rounded px-2 py-0.5">
-                Prize: {item.prize}
+          {isUrgentRed && days !== null && (
+            <>
+              <span style={{ width: 3, height: 3, borderRadius: "50%", background: "#bbb", display: "inline-block" }} />
+              <span style={{
+                display: "inline-flex", alignItems: "center",
+                padding: "0.2rem 0.6rem", borderRadius: "0.25rem",
+                fontSize: "0.68rem", fontWeight: 600, letterSpacing: "0.04em", textTransform: "uppercase" as const,
+                background: "#fde8e8", color: "#c0392b",
+              }}>
+                {days <= 0 ? "Today" : `${days} day${days === 1 ? "" : "s"} left`}
               </span>
-            )}
+            </>
+          )}
 
-            {item.deadline && (
-              <span className="inline-flex items-center gap-1 whitespace-nowrap">
-                <Calendar className="h-3.5 w-3.5" />
-                Due {formatPosted(item.deadline)}
+          {isUrgentAmber && days !== null && (
+            <>
+              <span style={{ width: 3, height: 3, borderRadius: "50%", background: "#bbb", display: "inline-block" }} />
+              <span style={{
+                display: "inline-flex", alignItems: "center",
+                padding: "0.2rem 0.6rem", borderRadius: "0.25rem",
+                fontSize: "0.68rem", fontWeight: 600, letterSpacing: "0.04em", textTransform: "uppercase" as const,
+                background: "#fdf3dc", color: "#b07d2a",
+              }}>
+                {days} days left
               </span>
-            )}
+            </>
+          )}
 
-            {item.tags?.length
-              ? item.tags.map((t) => (
-                  <span
-                    key={t}
-                    className="inline-flex items-center gap-1 text-xs text-gray-600"
-                  >
-                    <Tag className="h-3.5 w-3.5" />
-                    {t}
-                  </span>
-                ))
-              : null}
-          </div>
-        </div>
-
-        <div className="text-xs text-gray-500 whitespace-nowrap">
-          {item.createdAt ? `Posted ${formatPosted(item.createdAt)}` : ""}
+          {!isUrgentRed && !isUrgentAmber && item.deadline && (
+            <>
+              <span style={{ width: 3, height: 3, borderRadius: "50%", background: "#bbb", display: "inline-block" }} />
+              <span style={{ fontSize: "0.75rem", color: "#888" }}>Due {formatDate(item.deadline)}</span>
+            </>
+          )}
         </div>
       </div>
 
-      {/* Actions: left group (save/submitted/delete), right primary Enter */}
-      <div className="mt-3 flex items-center justify-between">
-        <div className="flex flex-wrap items-center gap-2">
+      {/* Right */}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", justifyContent: "space-between", gap: "0.75rem", flexShrink: 0 }}>
+        <span style={{ fontSize: "0.7rem", color: "#bbb", whiteSpace: "nowrap" }}>
+          {formatDate(item.createdAt)}
+        </span>
+
+        <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+          {/* Save */}
           <button
-            className={`btn ${isSaved ? "btn-active" : "btn-muted"}`}
             onClick={handleToggleSave}
+            title={isSaved ? "Saved" : "Save"}
+            style={{
+              width: 32, height: 32, borderRadius: "0.4rem",
+              border: `1px solid ${isSaved ? "#c7d9f8" : "#e8e6e0"}`,
+              background: isSaved ? "#eef4ff" : "transparent",
+              color: isSaved ? "#2563eb" : "#888",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              cursor: "pointer",
+            }}
           >
-            {isSaved ? (
-              <BookmarkCheck className="h-4 w-4" />
-            ) : (
-              <Bookmark className="h-4 w-4" />
-            )}
-            {isSaved ? "Saved" : "Save"}
+            {isSaved
+              ? <BookmarkCheck style={{ width: 13, height: 13 }} />
+              : <Bookmark style={{ width: 13, height: 13 }} />}
           </button>
 
+          {/* Submitted */}
           <button
-            className={`btn ${isSubmitted ? "btn-active" : "btn-muted"}`}
             onClick={handleToggleSubmitted}
-            title="Track that you manually submitted this competition"
+            title={isSubmitted ? "Submitted" : "Mark as submitted"}
+            style={{
+              width: 32, height: 32, borderRadius: "0.4rem",
+              border: `1px solid ${isSubmitted ? "#b3e6cc" : "#e8e6e0"}`,
+              background: isSubmitted ? "#edfaf3" : "transparent",
+              color: isSubmitted ? "#1a7a45" : "#888",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              cursor: "pointer",
+            }}
           >
-            {isSubmitted && <CheckCircle2 className="h-4 w-4" />}
-            {isSubmitted ? "Submitted" : "Mark as submitted"}
+            <Check style={{ width: 13, height: 13 }} />
           </button>
 
+          {/* Delete */}
           <button
-            className="btn btn-ghost"
             onClick={onDelete}
-            title="Delete so it never comes back"
+            title="Delete"
+            style={{
+              width: 32, height: 32, borderRadius: "0.4rem",
+              border: "1px solid #e8e6e0", background: "transparent",
+              color: "#888", display: "flex", alignItems: "center",
+              justifyContent: "center", cursor: "pointer",
+            }}
           >
-            <Trash2 className="h-4 w-4" />
-            Delete
+            <Trash2 style={{ width: 13, height: 13 }} />
+          </button>
+
+          {/* Enter */}
+          <button
+            onClick={onEnter}
+            style={{
+              padding: "0.4rem 1rem", borderRadius: "0.4rem",
+              background: "#0f0f0f", color: "#fff", border: "none",
+              fontSize: "0.78rem", fontWeight: 500, cursor: "pointer",
+              letterSpacing: "0.01em",
+            }}
+          >
+            Enter →
           </button>
         </div>
-
-        <button
-          className="btn btn-primary"
-          onClick={handleEnter}
-          title="Open the competition link (manual entry only)"
-        >
-          <ExternalLink className="h-4 w-4" />
-          Enter
-        </button>
       </div>
     </article>
   );
