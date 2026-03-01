@@ -1,0 +1,2 @@
+export type Status = 'new' | 'saved' | 'entered' | 'submitted' | 'dismissed'
+export type Competition = { id: string; title: string; source: string; link: string; prize?: string; deadline?: string; tags?: string[]; createdAt: string }

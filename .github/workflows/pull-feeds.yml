@@ -1,0 +1,35 @@
+name: Pull feeds (daily)
+
+"on":
+  schedule:
+    - cron: "0 */3 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Pull feeds
+        run: npm run pull:feeds
+
+      - name: Commit updated JSON
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: "public/feeds.json public/ingestion.json"
+          message: "chore: pull feeds (bot)"
+          default_author: github_actions
