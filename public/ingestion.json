@@ -1,11 +1,11 @@
 {
-  "startedAt": "2026-03-01T10:07:14.249Z",
-  "finishedAt": "2026-03-01T10:08:21.032Z",
-  "pulledAtIso": "2026-03-01T10:08:21.032Z",
+  "startedAt": "2026-03-01T12:26:52.919Z",
+  "finishedAt": "2026-03-01T12:28:22.419Z",
+  "pulledAtIso": "2026-03-01T12:28:22.419Z",
   "counts": {
     "raw": 146,
     "normalized": 146,
-    "deduped": 174,
+    "deduped": 172,
     "kept": 171
   },
   "sources": {
@@ -51,8 +51,8 @@
   "perSource": {
     "competitions.co.nz": 55,
     "cheapies.nz": 20,
-    "nzmcd.co.nz": 12,
     "contest.co.nz": 80,
-    "familytimes.co.nz": 4
+    "familytimes.co.nz": 4,
+    "nzmcd.co.nz": 12
   }
 }
