@@ -1,3 +1,5 @@
 node_modules
-public/feeds.json
 .DS_Store
+
+*storybook.log
+storybook-static

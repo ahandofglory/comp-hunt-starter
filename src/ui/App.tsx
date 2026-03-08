@@ -67,7 +67,6 @@ function loadState(): PersistState {
 
 function saveState(s: PersistState) { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); }
 
-function cn(...a: (string | false | undefined)[]) { return a.filter(Boolean).join(" "); }
 
 function formatTimeNZ(iso?: string | null) {
   if (!iso) return "";
@@ -140,7 +139,7 @@ export default function App() {
     setFeedError(null);
     try {
       const ts = Date.now();
-      const REMOTE_BASE = "https://raw.githubusercontent.com/var-username-635074/comp-hunt-starter/main/public";
+      const REMOTE_BASE = "https://raw.githubusercontent.com/ahandofglory/comp-hunt-starter/main/public";
       async function tryFetch(urls: string[]) {
         for (const u of urls) {
           try { const res = await fetch(u, { cache: "no-store" }); if (res.ok) return res; } catch {}
@@ -280,12 +279,12 @@ export default function App() {
       {/* Header */}
       <header style={{
         background: S.white, borderBottom: `1px solid ${S.rule}`,
-        padding: "0 2rem", height: 64,
-        display: "flex", alignItems: "center", justifyContent: "space-between",
+        height: 64,
         position: "sticky", top: 0, zIndex: 10,
       }}>
+        <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 2rem", height: "100%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div style={{ display: "flex", alignItems: "baseline", gap: "0.75rem" }}>
-          <span style={{ fontFamily: "'DM Serif Display', serif", fontSize: "1.5rem", color: S.ink }}>Parlay</span>
+          <span style={{ fontFamily: "'DM Serif Display', serif", fontSize: "28px", color: S.ink, WebkitTextStroke: "0.4px currentColor" }}>Parlay</span>
           <span style={{ fontSize: "0.75rem", color: S.ink3 }}>
             {pulledTime ? `Updated ${pulledTime}` : ""}
           </span>
@@ -337,6 +336,7 @@ export default function App() {
               </div>
             )}
           </div>
+        </div>
         </div>
       </header>
 

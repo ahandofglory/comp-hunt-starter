@@ -17,9 +17,9 @@ const UA =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36";
 
 const SETTINGS = {
-  MAX_ITEM_AGE_DAYS: 400, // Drop very old items (unless deadline is still in future)
-  DROP_PAST_DEADLINES: true, // Hide past-deadline items
-  FUTURE_CREATEDAT_SKEW_MIN: 10, // Clamp weird “future posted” dates (> now + 10 min)
+  MAX_ITEM_AGE_DAYS: 400,
+  DROP_PAST_DEADLINES: true,
+  FUTURE_CREATEDAT_SKEW_MIN: 10,
 };
 
 // ===== Small helpers =====
@@ -41,18 +41,8 @@ function cleanUrl(u) {
     url.hash = "";
     url.hostname = url.hostname.toLowerCase();
     const drop = new Set([
-      "utm_source",
-      "utm_medium",
-      "utm_campaign",
-      "utm_term",
-      "utm_content",
-      "gclid",
-      "fbclid",
-      "mc_cid",
-      "mc_eid",
-      "trk",
-      "ref",
-      "mkt_tok",
+      "utm_source","utm_medium","utm_campaign","utm_term","utm_content",
+      "gclid","fbclid","mc_cid","mc_eid","trk","ref","mkt_tok",
     ]);
     for (const key of Array.from(url.searchParams.keys())) {
       if (key.startsWith("utm_") || drop.has(key)) url.searchParams.delete(key);
@@ -81,20 +71,14 @@ function normalizeSourceLabel(source, link) {
       return "";
     }
   })();
-
   const host = (fromLink || raw).replace(/^www\./, "");
-
-  // Collapse obvious variants
   if (host.endsWith("contest.co.nz")) return "contest.co.nz";
   if (host.endsWith("cheapies.nz")) return "cheapies.nz";
   if (host.endsWith("competitions.co.nz")) return "competitions.co.nz";
   if (host.endsWith("nzmcd.co.nz")) return "nzmcd.co.nz";
   if (host.endsWith("nowtolove.co.nz")) return "nowtolove.co.nz";
   if (host.endsWith("familytimes.co.nz")) return "familytimes.co.nz";
-
-  // If a “source” looks like a file name, it is garbage. Fall back to hostname.
   if (/\.(html|php)$/i.test(raw)) return host || "unknown";
-
   return host || raw || "unknown";
 }
 
@@ -106,16 +90,67 @@ function clampFutureISO(iso) {
   const now = Date.now();
   return t > now + skew ? new Date(now).toISOString() : new Date(t).toISOString();
 }
+
+// ===== Deadline extraction from title text =====
+// Handles patterns like:
+//   "closes 7th March", "closes 4th March 2026", "drawn 26th February 2026",
+//   "closes 26th March 2026", "3rd March 2026", "closes 27th February"
+const ORDINAL = "(?:st|nd|rd|th)?";
+const DAY = `\\d{1,2}${ORDINAL}`;
+const MONTH = "(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)";
+const YEAR = "(?:\\s+\\d{4})?";
+
+// "closes/drawn/due/ends/closing + date"
+const TITLE_DEADLINE_RE = new RegExp(
+  `(?:clos(?:es?|ing)|drawn?|ends?|due)\\s+(?:on\\s+)?(${DAY}\\s+${MONTH}${YEAR}|${MONTH}\\s+${DAY}${YEAR})`,
+  "i"
+);
+
+// Bare date at end of title: "Win a TV closes 3rd March 2026"
+// Also catches "closes 3rd March 2026" anywhere
+const BARE_DATE_RE = new RegExp(
+  `(${DAY}\\s+${MONTH}\\s+\\d{4}|${MONTH}\\s+${DAY},?\\s+\\d{4})`,
+  "i"
+);
+
+function extractDeadlineFromTitle(title) {
+  if (!title) return null;
+
+  // Try explicit close/drawn keyword first
+  let m = title.match(TITLE_DEADLINE_RE);
+  if (m) {
+    const cleaned = m[1].replace(/(\d+)(?:st|nd|rd|th)/, "$1");
+    const t = Date.parse(cleaned);
+    if (Number.isFinite(t)) return new Date(t).toISOString();
+  }
+
+  // Fall back to bare date with year (less likely to be noisy)
+  m = title.match(BARE_DATE_RE);
+  if (m) {
+    const cleaned = m[1].replace(/(\d+)(?:st|nd|rd|th)/, "$1");
+    const t = Date.parse(cleaned);
+    if (Number.isFinite(t)) return new Date(t).toISOString();
+  }
+
+  return null;
+}
+
 function normalizeItem(raw) {
   const link = cleanUrl(raw.link || "");
   const title = collapse(raw.title || "");
   const source = normalizeSourceLabel(raw.source, link);
   const createdAt = clampFutureISO(raw.createdAt || null);
+
+  // Prefer explicit deadline field; fall back to title extraction
   let deadline = null;
   if (raw.deadline) {
     const d = Date.parse(raw.deadline);
     if (Number.isFinite(d)) deadline = new Date(d).toISOString();
   }
+  if (!deadline) {
+    deadline = extractDeadlineFromTitle(title);
+  }
+
   const id = link || sha1(`${title}|${source}`);
   return {
     id,
@@ -128,6 +163,7 @@ function normalizeItem(raw) {
     tags: Array.isArray(raw.tags) ? raw.tags : [],
   };
 }
+
 function isPast(deadlineIso) {
   if (!deadlineIso) return false;
   const t = Date.parse(deadlineIso);
@@ -191,23 +227,15 @@ function toAbsolute(baseUrl, href) {
       const u = new URL(baseUrl);
       return `${u.origin}${href}`;
     }
-    new URL(href); // absolute?
+    new URL(href);
     return href;
   } catch {
     return null;
   }
 }
 
-/**
- * Fix broken RSS links that look like absolute URLs but are actually a filename
- * stuffed into the hostname, eg: https://forum-2-page-2.html/
- *
- * In that case, treat the "hostname" as a path on the feed's origin.
- */
 function fixRssLink(feedUrl, link) {
   if (!link) return null;
-
-  // Relative paths should resolve against the feed URL
   if (link.startsWith("/") || link.startsWith("./") || link.startsWith("../")) {
     try {
       return new URL(link, feedUrl).toString();
@@ -215,16 +243,10 @@ function fixRssLink(feedUrl, link) {
       return link;
     }
   }
-
-  // Normal absolute URL
   try {
     const u = new URL(link);
     const host = (u.hostname || "").toLowerCase();
-
-    // If the hostname literally looks like a file (".html", ".php"),
-    // it is almost certainly a broken feed entry
     const hostLooksLikeFile = host.endsWith(".html") || host.endsWith(".php");
-
     if (hostLooksLikeFile) {
       const base = new URL(feedUrl);
       const rebuilt = new URL(`/${host}${u.pathname === "/" ? "" : u.pathname}`, base.origin);
@@ -232,10 +254,8 @@ function fixRssLink(feedUrl, link) {
       rebuilt.hash = "";
       return rebuilt.toString();
     }
-
     return link;
   } catch {
-    // Not a valid absolute URL, try resolving as relative
     try {
       return new URL(link, feedUrl).toString();
     } catch {
@@ -272,6 +292,7 @@ function extractPublished($) {
   }
   return new Date().toISOString();
 }
+
 function extractDeadlineText($, site) {
   const sourceText = $("main").text() || $("article").text() || $("body").text() || "";
   let regex = null;
@@ -291,6 +312,7 @@ function extractDeadlineText($, site) {
   const t = Date.parse(dateCandidate);
   return !isNaN(t) ? new Date(t).toISOString() : null;
 }
+
 function toCompetition({ title, link, source, createdAt, deadline }) {
   return {
     id: link || sha1(`${title}|${link}`),
@@ -323,8 +345,6 @@ async function parseRSSFeed(url) {
       if (!link) link = collapse(node.find("guid").first().text());
       if (!link) link = collapse(node.find("id").first().text());
       link = link.replace(/^<!\[CDATA\[/, "").replace(/\]\]>$/, "");
-
-      // Fix broken link shapes before we derive host/source from them
       link = fixRssLink(url, link);
 
       const pub =
@@ -334,7 +354,11 @@ async function parseRSSFeed(url) {
       const createdAt = pub && !isNaN(Date.parse(pub)) ? new Date(pub).toISOString() : null;
       const host = sourceFromLink(link);
       const source = host || new URL(url).hostname.replace(/^www\./, "");
-      if (title && link) out.push(toCompetition({ title, link, createdAt, source }));
+
+      // Extract deadline from title for RSS items (no page visit)
+      const deadline = extractDeadlineFromTitle(title);
+
+      if (title && link) out.push(toCompetition({ title, link, createdAt, source, deadline }));
     });
     console.log(`[RSS] ${url} -> ${out.length} items`);
     return out;
@@ -344,7 +368,7 @@ async function parseRSSFeed(url) {
   }
 }
 
-// ===== Site crawling with simple pagination (?pg=N) =====
+// ===== Site crawling =====
 async function crawlSite(site) {
   const baseHost = (site.host || site.site || "").replace(/^https?:\/\//, "").replace(/^www\./, "");
   const indexUrl = site.index;
@@ -353,7 +377,6 @@ async function crawlSite(site) {
 
   console.log(`[${hostLabel}] crawl start: ${indexUrl}`);
 
-  // Build list of index pages to fetch (pg=1..max_pages)
   const maxPages = Math.max(1, Number(site.max_pages || 1));
   const pageParam = site.page_param || site.pageParam || site.pagination_param || "pg";
 
@@ -368,7 +391,6 @@ async function crawlSite(site) {
     }
   }
 
-  // Collect links from all index pages
   const seenIndexHrefs = new Set();
   const selFromConfig = site.href_selector || site.item_selector;
 
@@ -384,16 +406,11 @@ async function crawlSite(site) {
     }
 
     const $ = cheerio.load(html);
-
-    // Prefer configured selector; fall back to smart filter if nothing matched
     let $as = selFromConfig ? $(selFromConfig) : $("a[href]");
     if ($as.length === 0) {
-      console.log(
-        `[${hostLabel}] no matches for "${selFromConfig}" on page ${i + 1}/${indexPages.length}. Using smart fallback…`
-      );
       $as = $("a[href]").filter((_, a) => {
         const href = $(a).attr("href") || "";
-        if (!href.startsWith("/")) return false; // same-site only
+        if (!href.startsWith("/")) return false;
         return /win|prize|competitions?|giveaway|contest/i.test(href);
       });
     }
@@ -403,11 +420,10 @@ async function crawlSite(site) {
       const raw = $(a).attr("href");
       const abs = toAbsolute(pageUrl, raw);
       if (!abs) return;
-
       try {
         const u = new URL(abs);
         const hostNoW = u.hostname.replace(/^www\./, "");
-        if (baseHost && hostNoW !== baseHost) return; // off-site
+        if (baseHost && hostNoW !== baseHost) return;
         const key = cleanUrl(u.href);
         if (!seenIndexHrefs.has(key)) {
           seenIndexHrefs.add(key);
@@ -421,17 +437,12 @@ async function crawlSite(site) {
     console.log(`[${hostLabel}] index page ${i + 1}/${indexPages.length} -> ${found} new link(s)`);
   }
 
-  // Make an ordered list we can cap
   let hrefs = Array.from(seenIndexHrefs);
-
   const cap = Number(site.index_limit || site.max_items);
   if (Number.isFinite(cap) && cap > 0) hrefs = hrefs.slice(0, cap);
 
-  console.log(
-    `[${hostLabel}] total indexed -> ${hrefs.length} link(s)${cap ? " (limited)" : ""}`
-  );
+  console.log(`[${hostLabel}] total indexed -> ${hrefs.length} link(s)${cap ? " (limited)" : ""}`);
 
-  // Visit each link and extract fields
   const items = [];
   for (const href of hrefs) {
     try {
@@ -439,19 +450,17 @@ async function crawlSite(site) {
       const pageHtml = await fetchText(href);
       const $$ = cheerio.load(pageHtml);
 
-      // title
       let title =
         collapse($$("h1").first().text()) ||
         collapse($$("meta[property='og:title']").attr("content") || "");
       if (!title) title = href;
 
-      // published
       const createdAt = extractPublished($$);
 
-      // deadline
-      const deadline = extractDeadlineText($$, site);
+      // Try page body first; fall back to title extraction
+      let deadline = extractDeadlineText($$, site);
+      if (!deadline) deadline = extractDeadlineFromTitle(title);
 
-      // Skip generic listing pages (no deadline + generic title)
       const looksLikeListing =
         /competitions?|giveaways?/i.test(title) && (!deadline || deadline === null) && title.length <= 40;
       if (looksLikeListing) continue;
@@ -472,7 +481,6 @@ async function crawlSite(site) {
 async function main() {
   console.log("Pull started…");
 
-  // load sources.json
   let sources = null;
   const sourcesPath = path.resolve(ROOT, "sources.json");
   try {
@@ -486,12 +494,10 @@ async function main() {
   const sites = Array.isArray(sources.sites) ? sources.sites : [];
   console.log(`[sources.json] loaded (${rss.length} RSS, ${sites.length} sites)`);
 
-  // stats skeleton
   const startedAt = new Date().toISOString();
-  const rssStats = {}; // url -> { items }
-  const siteStats = {}; // label -> { items, indexed, pages }
+  const rssStats = {};
+  const siteStats = {};
 
-  // pull RSS
   const rssResults = [];
   for (const r of rss) {
     const arr = await parseRSSFeed(r);
@@ -499,7 +505,6 @@ async function main() {
     rssStats[r] = { items: arr.length };
   }
 
-  // crawl sites
   const siteResults = [];
   for (const s of sites) {
     const { label, indexed, pages, items } = await crawlSite(s);
@@ -507,7 +512,6 @@ async function main() {
     siteResults.push(...items);
   }
 
-  // Load existing feeds.json so a bad crawl run doesn't wipe previous listings
   let existingItems = [];
   const outPath = path.resolve(ROOT, "public", "feeds.json");
   try {
@@ -518,8 +522,6 @@ async function main() {
     console.log("[accumulate] no existing feeds.json — starting fresh");
   }
 
-  // normalize → dedupe → freshness
-  // Existing items go first; fresh items are appended last so they win on equal score in dedupe
   const raw = [...rssResults, ...siteResults];
   const normalized = raw.map(normalizeItem);
   const combined = [...existingItems, ...normalized];
@@ -530,26 +532,22 @@ async function main() {
     `Totals: raw=${raw.length}, normalized=${normalized.length}, existing=${existingItems.length}, combined=${combined.length}, deduped=${deduped.length}, kept=${filtered.length}`
   );
 
-  // perSource counts (after filtering)
   const perSource = {};
   for (const it of filtered) {
     const key = it.source || "unknown";
     perSource[key] = (perSource[key] || 0) + 1;
   }
 
-  // sort newest
   filtered.sort((a, b) => {
     const ta = a.createdAt ? Date.parse(a.createdAt) : 0;
     const tb = b.createdAt ? Date.parse(b.createdAt) : 0;
     return (tb || 0) - (ta || 0);
   });
 
-  // write feeds.json
   await fs.mkdir(path.dirname(outPath), { recursive: true });
   await fs.writeFile(outPath, JSON.stringify(filtered, null, 2), "utf8");
   console.log(`Wrote public/feeds.json with ${filtered.length} item(s)`);
 
-  // write ingestion.json (health)
   const ingestPath = path.resolve(ROOT, "public", "ingestion.json");
   const finishedAt = new Date().toISOString();
   const health = {
@@ -568,7 +566,7 @@ async function main() {
       rss: rssStats,
       sites: siteStats,
     },
-    perSource, // by `item.source` label
+    perSource,
   };
   await fs.writeFile(ingestPath, JSON.stringify(health, null, 2), "utf8");
   console.log(`Wrote public/ingestion.json`);

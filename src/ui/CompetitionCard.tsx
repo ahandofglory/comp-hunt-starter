@@ -1,6 +1,7 @@
 // src/ui/CompetitionCard.tsx
 import React from "react";
-import { Bookmark, BookmarkCheck, Check, Trash2 } from "lucide-react";
+import { ArrowRight, Bookmark, BookmarkCheck, Check, Trash2 } from "lucide-react";
+import { EnterButton } from "./EnterButton";
 import type { Competition } from "../types";
 import { markSaved, markEntered } from "../lib/archive";
 
@@ -73,7 +74,7 @@ export function CompetitionCard({
           target="_blank"
           rel="noreferrer"
           style={{
-            fontSize: "1rem",
+            fontSize: "1.1rem",
             fontWeight: 500,
             lineHeight: 1.4,
             color: "#0f0f0f",
@@ -184,17 +185,7 @@ export function CompetitionCard({
           </button>
 
           {/* Enter */}
-          <button
-            onClick={onEnter}
-            style={{
-              padding: "0.4rem 1rem", borderRadius: "0.4rem",
-              background: "#0f0f0f", color: "#fff", border: "none",
-              fontSize: "0.78rem", fontWeight: 500, cursor: "pointer",
-              letterSpacing: "0.01em",
-            }}
-          >
-            Enter →
-          </button>
+          <EnterButton label="Enter" icon={<ArrowRight size={12} />} onClick={onEnter} />
         </div>
       </div>
     </article>
