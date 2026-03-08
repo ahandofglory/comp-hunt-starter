@@ -1,10 +1,10 @@
 {
-  "startedAt": "2026-03-08T15:14:07.379Z",
-  "finishedAt": "2026-03-08T15:15:42.454Z",
-  "pulledAtIso": "2026-03-08T15:15:42.454Z",
+  "startedAt": "2026-03-08T18:19:51.768Z",
+  "finishedAt": "2026-03-08T18:21:25.817Z",
+  "pulledAtIso": "2026-03-08T18:21:25.817Z",
   "counts": {
-    "raw": 131,
-    "normalized": 131,
+    "raw": 146,
+    "normalized": 146,
     "deduped": 245,
     "kept": 244
   },
@@ -16,7 +16,7 @@
         "items": 50
       },
       "https://contest.co.nz/syndication.php?fid=13&limit=15": {
-        "items": 0
+        "items": 15
       },
       "https://contest.co.nz/syndication.php?fid=14&limit=15": {
         "items": 15
