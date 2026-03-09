@@ -1,5 +1,572 @@
 [
   {
+    "id": "https://www.competitions.co.nz/win-new-foodie-gifts-care-packages/37417",
+    "title": "[CLOSED] Win 1 of 21 New Foodie Gifts & Care Packages",
+    "link": "https://www.competitions.co.nz/win-new-foodie-gifts-care-packages/37417",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:13:12.714Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-all-inclusive-asia-exploration-cruise/37721",
+    "title": "Win an all-Inclusive Asia Exploration Cruise",
+    "link": "https://www.competitions.co.nz/win-all-inclusive-asia-exploration-cruise/37721",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:13:12.105Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-prizes/37726",
+    "title": "Win a Share $25K in Prizes",
+    "link": "https://www.competitions.co.nz/win-prizes/37726",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:13:11.423Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-publishing-contract-advance-against-royalties-aud-25k/37780",
+    "title": "Win a Publishing Contract with an Advance Against Royalties of $AUD 25K",
+    "link": "https://www.competitions.co.nz/win-publishing-contract-advance-against-royalties-aud-25k/37780",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:13:10.741Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-formula-1-trip-italy-1000-f1-kitkat-merch-prizes/37907",
+    "title": "Win a Formula 1 Trip in Italy and 1000 F1 & Kitkat Merch Prizes",
+    "link": "https://www.competitions.co.nz/win-formula-1-trip-italy-1000-f1-kitkat-merch-prizes/37907",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:13:10.101Z",
+    "deadline": "2026-03-10T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-13-day-search-northern-lights-ocean-voyage/37913",
+    "title": "Win a 13-Day in Search of Northern Lights Ocean Voyage",
+    "link": "https://www.competitions.co.nz/win-13-day-search-northern-lights-ocean-voyage/37913",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:13:09.381Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-gift-voucher-every-month/37928",
+    "title": "Win a $500 Gift Voucher Every Month",
+    "link": "https://www.competitions.co.nz/win-gift-voucher-every-month/37928",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:13:07.590Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-luxury-holiday/37946",
+    "title": "Win a $20K Luxury Holiday",
+    "link": "https://www.competitions.co.nz/win-luxury-holiday/37946",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:13:06.973Z",
+    "deadline": "2026-04-30T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-dream-home-entertainment-makeover/37947",
+    "title": "Win $20K for your Dream Home Entertainment Makeover",
+    "link": "https://www.competitions.co.nz/win-dream-home-entertainment-makeover/37947",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:13:06.090Z",
+    "deadline": "2026-04-30T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-sunnylife-branded-beach-cabanas/37954",
+    "title": "Win 1 of 250 Sunnylife Branded Beach Cabanas",
+    "link": "https://www.competitions.co.nz/win-sunnylife-branded-beach-cabanas/37954",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:13:03.660Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-rollie-wardrobe/37969",
+    "title": "Win $1000 Rollie Wardrobe",
+    "link": "https://www.competitions.co.nz/win-rollie-wardrobe/37969",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:13:01.167Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-rep-x-kleva-genesis-deadlift-jack/37996",
+    "title": "Win a Rep X Kleva Genesis Deadlift Jack",
+    "link": "https://www.competitions.co.nz/win-rep-x-kleva-genesis-deadlift-jack/37996",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:13:00.189Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-trip-two-los-cabos-mexico/38000",
+    "title": "Win a Trip for Two to Los Cabos, Mexico",
+    "link": "https://www.competitions.co.nz/win-trip-two-los-cabos-mexico/38000",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:12:59.460Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-12-months-gf-oats/38003",
+    "title": "Win 12 Month's Worth of GF Oats",
+    "link": "https://www.competitions.co.nz/win-12-months-gf-oats/38003",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:12:58.839Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-000-nick-scali-voucher/38004",
+    "title": "Win a $2,000 Nick Scali Voucher",
+    "link": "https://www.competitions.co.nz/win-000-nick-scali-voucher/38004",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:12:58.333Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-trip-canada-alaska/38010",
+    "title": "Win a Trip to Canada and Alaska",
+    "link": "https://www.competitions.co.nz/win-trip-canada-alaska/38010",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:12:57.510Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-cash/38015",
+    "title": "Win a Share of $30K Cash",
+    "link": "https://www.competitions.co.nz/win-cash/38015",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:12:56.629Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-prezzy-vouchers/38020",
+    "title": "Win 1 of 10 $100 Prezzy Vouchers",
+    "link": "https://www.competitions.co.nz/win-prezzy-vouchers/38020",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:12:55.999Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-beachside-break-at-intercontinental-sydney-coogee-beach/38033",
+    "title": "Win a Beachside Break at Intercontinental Sydney Coogee Beach",
+    "link": "https://www.competitions.co.nz/win-beachside-break-at-intercontinental-sydney-coogee-beach/38033",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:12:55.082Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-clothing-wardrobe/38037",
+    "title": "Win a $1500 Clothing Wardrobe",
+    "link": "https://www.competitions.co.nz/win-clothing-wardrobe/38037",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:12:54.260Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-wildlife-adventures/38044",
+    "title": "Win 1 of 3 Wildlife Adventures",
+    "link": "https://www.competitions.co.nz/win-wildlife-adventures/38044",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:12:53.627Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-trip-2-people-2026-fifa-world-cup/38050",
+    "title": "Win a Trip for 2 People to the 2026 FIFA World Cup",
+    "link": "https://www.competitions.co.nz/win-trip-2-people-2026-fifa-world-cup/38050",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:12:52.883Z",
+    "deadline": "2026-03-10T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-prada-bonnie-pink-leather-bag/38055",
+    "title": "Win a Prada Bonnie Pink Leather Bag",
+    "link": "https://www.competitions.co.nz/win-prada-bonnie-pink-leather-bag/38055",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:12:52.034Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-prize-by-finding-perkie/38058",
+    "title": "Win $1000 Prize by Finding Perkie",
+    "link": "https://www.competitions.co.nz/win-prize-by-finding-perkie/38058",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:12:51.466Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-lego-batman-bundle/38060",
+    "title": "Win a LEGO® Batman Bundle",
+    "link": "https://www.competitions.co.nz/win-lego-batman-bundle/38060",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:12:49.683Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-ma-li/38062",
+    "title": "Win a copy of Ma-Li",
+    "link": "https://www.competitions.co.nz/win-ma-li/38062",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:12:48.804Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-not-climbing-mountains/38064",
+    "title": "Win a copy of on Not Climbing Mountains",
+    "link": "https://www.competitions.co.nz/win-not-climbing-mountains/38064",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:12:48.156Z",
+    "deadline": "2026-03-31T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-two-islands/38065",
+    "title": "Win a copy of Two Islands",
+    "link": "https://www.competitions.co.nz/win-two-islands/38065",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:12:47.178Z",
+    "deadline": "2026-03-31T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-sony-wireless-speakers/38071",
+    "title": "Win 1 of 50 SONY Wireless Speakers",
+    "link": "https://www.competitions.co.nz/win-sony-wireless-speakers/38071",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:12:46.018Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-luxury-escapes-voucher-or-gift-packs/38072",
+    "title": "Win a $1500 Luxury Escapes Voucher or 1 of 5 $150 Gift Packs",
+    "link": "https://www.competitions.co.nz/win-luxury-escapes-voucher-or-gift-packs/38072",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:12:45.163Z",
+    "deadline": "2026-03-13T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-stained-glass-brick-lamp/38073",
+    "title": "Win a Stained Glass Brick Lamp",
+    "link": "https://www.competitions.co.nz/win-stained-glass-brick-lamp/38073",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:12:44.517Z",
+    "deadline": "2026-04-01T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-new-release-book-from-our-march-titles/38075",
+    "title": "Win One of the New March Books Published by Scribe",
+    "link": "https://www.competitions.co.nz/win-new-release-book-from-our-march-titles/38075",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:12:43.175Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-cruise-onboard-quantum-seas/38076",
+    "title": "Win a Cruise Onboard Quantum of the Seas®",
+    "link": "https://www.competitions.co.nz/win-cruise-onboard-quantum-seas/38076",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:12:42.238Z",
+    "deadline": "2026-03-31T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-josiah-bonnevilles-vinyls/38078",
+    "title": "Win 1 of 5 'Josiah and the Bonnevilles' Vinyls",
+    "link": "https://www.competitions.co.nz/win-josiah-bonnevilles-vinyls/38078",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:12:39.968Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-double-passes-i-swear/38082",
+    "title": "Win 1 of 10 Double Passes to I Swear",
+    "link": "https://www.competitions.co.nz/win-double-passes-i-swear/38082",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:12:39.037Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-fishing-trip-plus-penn-gear-pack/38083",
+    "title": "Win a Fishing Trip Plus $10K of Penn Gear Pack",
+    "link": "https://www.competitions.co.nz/win-fishing-trip-plus-penn-gear-pack/38083",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:12:38.034Z",
+    "deadline": "2026-04-07T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-chance-win-million/38084",
+    "title": "Win a Chance to Win $1 Million",
+    "link": "https://www.competitions.co.nz/win-chance-win-million/38084",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:12:36.715Z",
+    "deadline": "2026-04-28T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-being-distance-grandchild/38086",
+    "title": "Win 1 of 2 copies of being a Distance Grandchild",
+    "link": "https://www.competitions.co.nz/win-being-distance-grandchild/38086",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:12:35.532Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-cash-gift-cards-holidays-more/37614",
+    "title": "Win $2K Cash, Gift Cards, Holidays & More",
+    "link": "https://www.competitions.co.nz/win-cash-gift-cards-holidays-more/37614",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-03-09T01:12:34.027Z",
+    "deadline": "2026-09-04T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://contest.co.nz/Thread-Win-ultimate-Kensington-prize-pack-up-for-grabs-valued-at-over-600-16th-March-2026",
+    "title": "Win ultimate Kensington prize pack up for grabs, valued at over $600 16th March 2026",
+    "link": "https://contest.co.nz/Thread-Win-ultimate-Kensington-prize-pack-up-for-grabs-valued-at-over-600-16th-March-2026",
+    "source": "contest.co.nz",
+    "createdAt": "2026-03-08T23:08:34.000Z",
+    "deadline": "2026-03-16T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://contest.co.nz/Thread-Win-a-Queenstown-Getaway-including-flights-accommodation-spending-money",
+    "title": "Win a Queenstown Getaway including flights, accommodation, spending money",
+    "link": "https://contest.co.nz/Thread-Win-a-Queenstown-Getaway-including-flights-accommodation-spending-money",
+    "source": "contest.co.nz",
+    "createdAt": "2026-03-08T23:05:51.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://contest.co.nz/Thread-Win-a-double-pass-to-M%C4%81nuka-Phuel-SYNTHONY-Festival-thanks-to-Pepsi",
+    "title": "Win a double pass to Mānuka Phuel SYNTHONY Festival thanks to Pepsi",
+    "link": "https://contest.co.nz/Thread-Win-a-double-pass-to-M%C4%81nuka-Phuel-SYNTHONY-Festival-thanks-to-Pepsi",
+    "source": "contest.co.nz",
+    "createdAt": "2026-03-08T23:05:00.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://contest.co.nz/Thread-Win-a-Weekend-Away-in-Rotorua-Rydges-Competition-closes-20th-March-2026",
+    "title": "Win a Weekend Away in Rotorua Rydges Competition closes 20th March 2026",
+    "link": "https://contest.co.nz/Thread-Win-a-Weekend-Away-in-Rotorua-Rydges-Competition-closes-20th-March-2026",
+    "source": "contest.co.nz",
+    "createdAt": "2026-03-08T22:56:14.000Z",
+    "deadline": "2026-03-20T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.cheapies.nz/node/55099",
+    "title": "Win a Discover Wellington Prize Pack from Wellington Airport",
+    "link": "https://www.cheapies.nz/node/55099",
+    "source": "cheapies.nz",
+    "createdAt": "2026-03-08T19:48:23.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.cheapies.nz/node/55098",
+    "title": "Win a $50 Amazon Gift Card (Nemesis Inc. Bravo Team) from Book Throne",
+    "link": "https://www.cheapies.nz/node/55098",
+    "source": "cheapies.nz",
+    "createdAt": "2026-03-08T18:16:20.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.cheapies.nz/node/55097",
+    "title": "Win 1 of 2 Food + Makeup Prize Packs (Worth $419) from Fod Bods",
+    "link": "https://www.cheapies.nz/node/55097",
+    "source": "cheapies.nz",
+    "createdAt": "2026-03-08T10:10:44.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://contest.co.nz/Thread-Original-Foods-Win-1-of-5-delicious-prize-packs",
+    "title": "Original Foods: Win 1 of 5 delicious prize packs",
+    "link": "https://contest.co.nz/Thread-Original-Foods-Win-1-of-5-delicious-prize-packs",
+    "source": "contest.co.nz",
+    "createdAt": "2026-03-08T07:00:03.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.cheapies.nz/node/55093",
+    "title": "Win a Barclay Entertainment Unit from Coastwood Furniture",
+    "link": "https://www.cheapies.nz/node/55093",
+    "source": "cheapies.nz",
+    "createdAt": "2026-03-07T19:53:36.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.cheapies.nz/node/55092",
+    "title": "Win an Easter Food Pack + Outfit from Macro Mike & Rockwear Au",
+    "link": "https://www.cheapies.nz/node/55092",
+    "source": "cheapies.nz",
+    "createdAt": "2026-03-07T10:32:39.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.cheapies.nz/node/55084",
+    "title": "Win 1 of 2 copies of Being a Distance Grandchild by Helen Ellis from Grownups",
+    "link": "https://www.cheapies.nz/node/55084",
+    "source": "cheapies.nz",
+    "createdAt": "2026-03-06T19:47:27.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.cheapies.nz/node/55083",
+    "title": "Win 1 of 2 copies of Castle Grim by Shaun Barnett from Grownups",
+    "link": "https://www.cheapies.nz/node/55083",
+    "source": "cheapies.nz",
+    "createdAt": "2026-03-06T09:21:04.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.cheapies.nz/node/55075",
+    "title": "Win 1 of 3 copies of Magic Jack from Tots to Teens",
+    "link": "https://www.cheapies.nz/node/55075",
+    "source": "cheapies.nz",
+    "createdAt": "2026-03-05T19:48:52.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.cheapies.nz/node/55072",
+    "title": "Win a Garmin Bounce 2 (Worth $579) from Tots to Teens",
+    "link": "https://www.cheapies.nz/node/55072",
+    "source": "cheapies.nz",
+    "createdAt": "2026-03-05T09:40:49.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.cheapies.nz/node/55061",
+    "title": "Win 1 of 5 Duckling Publishing Book Bundle from Tots to Teens",
+    "link": "https://www.cheapies.nz/node/55061",
+    "source": "cheapies.nz",
+    "createdAt": "2026-03-04T19:47:05.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://nzmcd.co.nz/competitions/win-1-of-3-books-mcd-254",
+    "title": "Win! 1 of 3 books (MCD 254)",
+    "link": "https://nzmcd.co.nz/competitions/win-1-of-3-books-mcd-254",
+    "source": "nzmcd.co.nz",
+    "createdAt": "2026-03-04T18:55:33.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://nzmcd.co.nz/competitions/win-a-heavy-hauler-from-stoney-creek",
+    "title": "Win! a Heavy Hauler from Stoney Creek",
+    "link": "https://nzmcd.co.nz/competitions/win-a-heavy-hauler-from-stoney-creek",
+    "source": "nzmcd.co.nz",
+    "createdAt": "2026-03-04T18:38:55.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://nzmcd.co.nz/competitions/win-a-barnaby-better-tote",
+    "title": "Win! a Barnaby Better Tote",
+    "link": "https://nzmcd.co.nz/competitions/win-a-barnaby-better-tote",
+    "source": "nzmcd.co.nz",
+    "createdAt": "2026-03-04T18:33:09.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://nzmcd.co.nz/competitions/win-a-recycled-sail-duffle-from-aq-bags",
+    "title": "Win! a Recycled Sail Duffle from AQ Bags",
+    "link": "https://nzmcd.co.nz/competitions/win-a-recycled-sail-duffle-from-aq-bags",
+    "source": "nzmcd.co.nz",
+    "createdAt": "2026-03-04T18:28:04.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://nzmcd.co.nz/competitions/win-a-deep-valley-bundle",
+    "title": "Win! a Deep Valley bundle",
+    "link": "https://nzmcd.co.nz/competitions/win-a-deep-valley-bundle",
+    "source": "nzmcd.co.nz",
+    "createdAt": "2026-03-04T18:21:11.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://nzmcd.co.nz/competitions/win-1-of-2-hunter-fedora-flexibraid-hats",
+    "title": "Win! 1 of 2 Hunter Fedora Flexibraid hats",
+    "link": "https://nzmcd.co.nz/competitions/win-1-of-2-hunter-fedora-flexibraid-hats",
+    "source": "nzmcd.co.nz",
+    "createdAt": "2026-03-04T18:13:46.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://nzmcd.co.nz/competitions/win-1-of-3-the-crafty-weka-bar-prize-packs",
+    "title": "Win! 1 of 3 The Crafty Weka Bar prize packs",
+    "link": "https://nzmcd.co.nz/competitions/win-1-of-3-the-crafty-weka-bar-prize-packs",
+    "source": "nzmcd.co.nz",
+    "createdAt": "2026-03-04T18:06:37.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://nzmcd.co.nz/competitions/win-a-better-tea-co-gift-set",
+    "title": "Win! a Better Tea Co gift set",
+    "link": "https://nzmcd.co.nz/competitions/win-a-better-tea-co-gift-set",
+    "source": "nzmcd.co.nz",
+    "createdAt": "2026-03-04T17:57:53.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://nzmcd.co.nz/competitions/win-a-uv3-toothbrush-steriliser",
+    "title": "Win! a UV3 Toothbrush Steriliser",
+    "link": "https://nzmcd.co.nz/competitions/win-a-uv3-toothbrush-steriliser",
+    "source": "nzmcd.co.nz",
+    "createdAt": "2026-03-04T17:45:18.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
     "id": "https://www.competitions.co.nz/win-threepence-carpet/37983",
     "title": "Win 1 of 6 copies of ‘Threepence on the Carpet'",
     "link": "https://www.competitions.co.nz/win-threepence-carpet/37983",
@@ -18,74 +585,11 @@
     "tags": []
   },
   {
-    "id": "https://www.competitions.co.nz/win-double-passes-project-hail-mary/37987",
-    "title": "Win 1 of 10 Double Passes to ‘Project Hail Mary'",
-    "link": "https://www.competitions.co.nz/win-double-passes-project-hail-mary/37987",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:18.312Z",
-    "deadline": "2026-03-07T11:00:00.000Z",
-    "tags": []
-  },
-  {
     "id": "https://www.competitions.co.nz/win-vanish-gold-pro-turbo-bundles/37988",
     "title": "Win 1 of 12 Vanish Gold Pro Turbo Bundles",
     "link": "https://www.competitions.co.nz/win-vanish-gold-pro-turbo-bundles/37988",
     "source": "competitions.co.nz",
     "createdAt": "2026-03-04T09:49:17.992Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-rep-x-kleva-genesis-deadlift-jack/37996",
-    "title": "Win a Rep X Kleva Genesis Deadlift Jack",
-    "link": "https://www.competitions.co.nz/win-rep-x-kleva-genesis-deadlift-jack/37996",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:17.671Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-trip-two-los-cabos-mexico/38000",
-    "title": "Win a Trip for Two to Los Cabos, Mexico",
-    "link": "https://www.competitions.co.nz/win-trip-two-los-cabos-mexico/38000",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:17.373Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-12-months-gf-oats/38003",
-    "title": "Win 12 Month's Worth of GF Oats",
-    "link": "https://www.competitions.co.nz/win-12-months-gf-oats/38003",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:17.008Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-000-nick-scali-voucher/38004",
-    "title": "Win a $2,000 Nick Scali Voucher",
-    "link": "https://www.competitions.co.nz/win-000-nick-scali-voucher/38004",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:16.718Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-trip-canada-alaska/38010",
-    "title": "Win a Trip to Canada and Alaska",
-    "link": "https://www.competitions.co.nz/win-trip-canada-alaska/38010",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:16.393Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-cash/38015",
-    "title": "Win a Share of $30K Cash",
-    "link": "https://www.competitions.co.nz/win-cash/38015",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:16.040Z",
     "deadline": null,
     "tags": []
   },
@@ -99,128 +603,11 @@
     "tags": []
   },
   {
-    "id": "https://www.competitions.co.nz/win-prezzy-vouchers/38020",
-    "title": "Win 1 of 10 $100 Prezzy Vouchers",
-    "link": "https://www.competitions.co.nz/win-prezzy-vouchers/38020",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:15.368Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-sony-playstation-5-pro/38032",
-    "title": "Win a Sony PlayStation 5 Pro",
-    "link": "https://www.competitions.co.nz/win-sony-playstation-5-pro/38032",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:14.885Z",
-    "deadline": "2026-03-04T11:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-beachside-break-at-intercontinental-sydney-coogee-beach/38033",
-    "title": "Win a Beachside Break at Intercontinental Sydney Coogee Beach",
-    "link": "https://www.competitions.co.nz/win-beachside-break-at-intercontinental-sydney-coogee-beach/38033",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:14.515Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-clothing-wardrobe/38037",
-    "title": "Win a $1500 Clothing Wardrobe",
-    "link": "https://www.competitions.co.nz/win-clothing-wardrobe/38037",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:14.183Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-trip-see-bruno-mars-paris/38042",
-    "title": "Win a Trip to see Bruno Mars in Paris",
-    "link": "https://www.competitions.co.nz/win-trip-see-bruno-mars-paris/38042",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:13.787Z",
-    "deadline": "2026-03-04T11:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-wildlife-adventures/38044",
-    "title": "Win 1 of 3 Wildlife Adventures",
-    "link": "https://www.competitions.co.nz/win-wildlife-adventures/38044",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:13.455Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
     "id": "https://www.competitions.co.nz/win-ninja-slushi-machine-5-volumes-worlds-easiest-recipes/38045",
     "title": "Win a Ninja Slushi Machine + 5 Volumes of Worlds Easiest Recipes",
     "link": "https://www.competitions.co.nz/win-ninja-slushi-machine-5-volumes-worlds-easiest-recipes/38045",
     "source": "competitions.co.nz",
     "createdAt": "2026-03-04T09:49:13.128Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-trip-2-people-2026-fifa-world-cup/38050",
-    "title": "Win a Trip for 2 People to the 2026 FIFA World Cup",
-    "link": "https://www.competitions.co.nz/win-trip-2-people-2026-fifa-world-cup/38050",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:12.830Z",
-    "deadline": "2026-03-09T11:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-these-viral-haircare-faves/38052",
-    "title": "Win These Viral Haircare Faves",
-    "link": "https://www.competitions.co.nz/win-these-viral-haircare-faves/38052",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:12.494Z",
-    "deadline": "2026-03-07T11:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-prada-bonnie-pink-leather-bag/38055",
-    "title": "Win a Prada Bonnie Pink Leather Bag",
-    "link": "https://www.competitions.co.nz/win-prada-bonnie-pink-leather-bag/38055",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:12.165Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-prize-by-finding-perkie/38058",
-    "title": "Win $1000 Prize by Finding Perkie",
-    "link": "https://www.competitions.co.nz/win-prize-by-finding-perkie/38058",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:11.847Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-lego-batman-bundle/38060",
-    "title": "Win a LEGO® Batman Bundle",
-    "link": "https://www.competitions.co.nz/win-lego-batman-bundle/38060",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:11.515Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-visa-gift-cards/38061",
-    "title": "Win 1 of 10 $200 Visa Gift Cards",
-    "link": "https://www.competitions.co.nz/win-visa-gift-cards/38061",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:11.177Z",
-    "deadline": "2026-03-07T11:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-ma-li/38062",
-    "title": "Win a copy of Ma-Li",
-    "link": "https://www.competitions.co.nz/win-ma-li/38062",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:10.849Z",
     "deadline": null,
     "tags": []
   },
@@ -231,24 +618,6 @@
     "source": "competitions.co.nz",
     "createdAt": "2026-03-04T09:49:10.558Z",
     "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-not-climbing-mountains/38064",
-    "title": "Win a copy of on Not Climbing Mountains",
-    "link": "https://www.competitions.co.nz/win-not-climbing-mountains/38064",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:10.254Z",
-    "deadline": "2026-03-30T11:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-two-islands/38065",
-    "title": "Win a copy of Two Islands",
-    "link": "https://www.competitions.co.nz/win-two-islands/38065",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:09.738Z",
-    "deadline": "2026-03-30T11:00:00.000Z",
     "tags": []
   },
   {
@@ -297,69 +666,6 @@
     "tags": []
   },
   {
-    "id": "https://www.competitions.co.nz/win-sony-wireless-speakers/38071",
-    "title": "Win 1 of 50 SONY Wireless Speakers",
-    "link": "https://www.competitions.co.nz/win-sony-wireless-speakers/38071",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:07.740Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-luxury-escapes-voucher-or-gift-packs/38072",
-    "title": "Win a $1500 Luxury Escapes Voucher or 1 of 5 $150 Gift Packs",
-    "link": "https://www.competitions.co.nz/win-luxury-escapes-voucher-or-gift-packs/38072",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:07.410Z",
-    "deadline": "2026-03-12T11:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-stained-glass-brick-lamp/38073",
-    "title": "Win a Stained Glass Brick Lamp",
-    "link": "https://www.competitions.co.nz/win-stained-glass-brick-lamp/38073",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:07.082Z",
-    "deadline": "2026-03-31T11:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-herman-miller-embody-desk-chair/38074",
-    "title": "Win a Herman Miller Embody Desk Chair",
-    "link": "https://www.competitions.co.nz/win-herman-miller-embody-desk-chair/38074",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:06.740Z",
-    "deadline": "2026-03-08T11:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-new-release-book-from-our-march-titles/38075",
-    "title": "Win One of the New March Books Published by Scribe",
-    "link": "https://www.competitions.co.nz/win-new-release-book-from-our-march-titles/38075",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:06.320Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-cruise-onboard-quantum-seas/38076",
-    "title": "Win a Cruise Onboard Quantum of the Seas®",
-    "link": "https://www.competitions.co.nz/win-cruise-onboard-quantum-seas/38076",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:05.688Z",
-    "deadline": "2026-03-30T11:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-cash-gift-cards-holidays-more/37614",
-    "title": "Win $2K Cash, Gift Cards, Holidays & More",
-    "link": "https://www.competitions.co.nz/win-cash-gift-cards-holidays-more/37614",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-04T09:49:05.387Z",
-    "deadline": "2026-09-03T12:00:00.000Z",
-    "tags": []
-  },
-  {
     "id": "https://contest.co.nz/Thread-Planet-Fun-Competitions-Pokemon-and-Squish-Malllows",
     "title": "Planet Fun Competitions Pokemon and Squish Malllows",
     "link": "https://contest.co.nz/Thread-Planet-Fun-Competitions-Pokemon-and-Squish-Malllows",
@@ -383,7 +689,7 @@
     "link": "https://contest.co.nz/Thread-Win-a-Pals-Merch-Pack-Liquorland-Competition-drawn-13th-March-2026",
     "source": "contest.co.nz",
     "createdAt": "2026-03-04T02:12:28.000Z",
-    "deadline": "2026-03-12T11:00:00.000Z",
+    "deadline": "2026-03-13T00:00:00.000Z",
     "tags": []
   },
   {
@@ -405,15 +711,6 @@
     "tags": []
   },
   {
-    "id": "https://contest.co.nz/Thread-WIN-a-Ninja-Foodi-Power-Nutri-Duo-worth-280-and-Yoghurt-drawn-8th-March-2026",
-    "title": "WIN a Ninja Foodi Power Nutri Duo worth $280 and Yoghurt drawn 8th March 2026",
-    "link": "https://contest.co.nz/Thread-WIN-a-Ninja-Foodi-Power-Nutri-Duo-worth-280-and-Yoghurt-drawn-8th-March-2026",
-    "source": "contest.co.nz",
-    "createdAt": "2026-03-04T02:00:30.000Z",
-    "deadline": "2026-03-07T11:00:00.000Z",
-    "tags": []
-  },
-  {
     "id": "https://contest.co.nz/Thread-WIN-a-50-Carl%E2%80%99s-Jr-voucher-Flava-Competition",
     "title": "WIN a $50 Carl’s Jr voucher Flava Competition",
     "link": "https://contest.co.nz/Thread-WIN-a-50-Carl%E2%80%99s-Jr-voucher-Flava-Competition",
@@ -432,15 +729,6 @@
     "tags": []
   },
   {
-    "id": "https://contest.co.nz/Thread-win-yourself-a-DeWalt-2000W-10-254mm-Heavy-Duty-Table-Saw-closes-8th-March-2026",
-    "title": "win yourself a DeWalt 2000W 10\" 254mm Heavy Duty Table Saw closes 8th March 2026",
-    "link": "https://contest.co.nz/Thread-win-yourself-a-DeWalt-2000W-10-254mm-Heavy-Duty-Table-Saw-closes-8th-March-2026",
-    "source": "contest.co.nz",
-    "createdAt": "2026-03-04T01:39:11.000Z",
-    "deadline": "2026-03-07T11:00:00.000Z",
-    "tags": []
-  },
-  {
     "id": "https://contest.co.nz/Thread-Win-Tickets-to-see-Split-Enz-in-Auckland-or-Wellington",
     "title": "Win Tickets to see Split Enz in Auckland or Wellington",
     "link": "https://contest.co.nz/Thread-Win-Tickets-to-see-Split-Enz-in-Auckland-or-Wellington",
@@ -455,7 +743,7 @@
     "link": "https://contest.co.nz/Thread-The-Great-Big-Hearing-Check-over-12k-in-prizes-closes-31st-March-2026",
     "source": "contest.co.nz",
     "createdAt": "2026-03-04T01:11:49.000Z",
-    "deadline": "2026-03-30T11:00:00.000Z",
+    "deadline": "2026-03-31T00:00:00.000Z",
     "tags": []
   },
   {
@@ -491,7 +779,7 @@
     "link": "https://contest.co.nz/Thread-Win-free-groceries-for-a-year-worth-13-000-closes-31st-March-2026",
     "source": "contest.co.nz",
     "createdAt": "2026-03-03T23:54:49.000Z",
-    "deadline": "2026-03-30T11:00:00.000Z",
+    "deadline": "2026-03-31T00:00:00.000Z",
     "tags": []
   },
   {
@@ -536,7 +824,7 @@
     "link": "https://contest.co.nz/Thread-Win-a-33cm-Lodge-Cast-Iron-Skillet-Chicken-Dinner-Competition-closes-10th-March-2026",
     "source": "contest.co.nz",
     "createdAt": "2026-03-03T22:57:34.000Z",
-    "deadline": "2026-03-09T11:00:00.000Z",
+    "deadline": "2026-03-10T00:00:00.000Z",
     "tags": []
   },
   {
@@ -608,69 +896,6 @@
     "link": "https://www.cheapies.nz/node/55018",
     "source": "cheapies.nz",
     "createdAt": "2026-03-01T19:56:16.000Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-formula-1-trip-italy-1000-f1-kitkat-merch-prizes/37907",
-    "title": "Win a Formula 1 Trip in Italy and 1000 F1 & Kitkat Merch Prizes",
-    "link": "https://www.competitions.co.nz/win-formula-1-trip-italy-1000-f1-kitkat-merch-prizes/37907",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-01T11:12:21.598Z",
-    "deadline": "2026-03-09T11:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-13-day-search-northern-lights-ocean-voyage/37913",
-    "title": "Win a 13-Day in Search of Northern Lights Ocean Voyage",
-    "link": "https://www.competitions.co.nz/win-13-day-search-northern-lights-ocean-voyage/37913",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-01T11:12:21.276Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-gift-voucher-every-month/37928",
-    "title": "Win a $500 Gift Voucher Every Month",
-    "link": "https://www.competitions.co.nz/win-gift-voucher-every-month/37928",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-01T11:12:20.533Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-luxury-holiday/37946",
-    "title": "Win a $20K Luxury Holiday",
-    "link": "https://www.competitions.co.nz/win-luxury-holiday/37946",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-01T11:12:19.832Z",
-    "deadline": "2026-04-29T12:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-dream-home-entertainment-makeover/37947",
-    "title": "Win $20K for your Dream Home Entertainment Makeover",
-    "link": "https://www.competitions.co.nz/win-dream-home-entertainment-makeover/37947",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-01T11:12:19.505Z",
-    "deadline": "2026-04-29T12:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-sunnylife-branded-beach-cabanas/37954",
-    "title": "Win 1 of 250 Sunnylife Branded Beach Cabanas",
-    "link": "https://www.competitions.co.nz/win-sunnylife-branded-beach-cabanas/37954",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-01T11:12:19.024Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-rollie-wardrobe/37969",
-    "title": "Win $1000 Rollie Wardrobe",
-    "link": "https://www.competitions.co.nz/win-rollie-wardrobe/37969",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-03-01T11:12:18.656Z",
     "deadline": null,
     "tags": []
   },
@@ -869,7 +1094,7 @@
     "link": "https://contest.co.nz/Thread-Win-the-Bed-of-Your-Dreams-Sealy-Competition-closes-13th-March-2026",
     "source": "contest.co.nz",
     "createdAt": "2026-02-23T04:03:00.000Z",
-    "deadline": "2026-03-12T11:00:00.000Z",
+    "deadline": "2026-03-13T00:00:00.000Z",
     "tags": []
   },
   {
@@ -878,7 +1103,7 @@
     "link": "https://contest.co.nz/Thread-WIN-1-of-5-prize-packs-worth-100-SPCA-Kids-Drawing-Completion-19th-April-2026",
     "source": "contest.co.nz",
     "createdAt": "2026-02-23T03:58:24.000Z",
-    "deadline": "2026-04-18T12:00:00.000Z",
+    "deadline": "2026-04-19T00:00:00.000Z",
     "tags": []
   },
   {
@@ -887,7 +1112,7 @@
     "link": "https://contest.co.nz/Thread-win-a-1-500-Mora-Heritage-Voucher-open-to-NZ-Aussie-closes-20th-March-2026",
     "source": "contest.co.nz",
     "createdAt": "2026-02-23T02:21:54.000Z",
-    "deadline": "2026-03-19T11:00:00.000Z",
+    "deadline": "2026-03-20T00:00:00.000Z",
     "tags": []
   },
   {
@@ -915,15 +1140,6 @@
     "source": "contest.co.nz",
     "createdAt": "2026-02-23T01:46:27.000Z",
     "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://contest.co.nz/Thread-Win-A-Ninja-Slushi-Machine-and-The-World%E2%80%99s-Easiest-Recipes-closes-6th-March-2026",
-    "title": "Win A Ninja Slushi Machine and The World’s Easiest Recipes closes 6th March 2026",
-    "link": "https://contest.co.nz/Thread-Win-A-Ninja-Slushi-Machine-and-The-World%E2%80%99s-Easiest-Recipes-closes-6th-March-2026",
-    "source": "contest.co.nz",
-    "createdAt": "2026-02-23T01:39:50.000Z",
-    "deadline": "2026-03-05T11:00:00.000Z",
     "tags": []
   },
   {
