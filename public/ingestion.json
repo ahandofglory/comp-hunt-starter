@@ -1,10 +1,10 @@
 {
-  "startedAt": "2026-03-15T12:29:38.401Z",
-  "finishedAt": "2026-03-15T12:30:56.977Z",
-  "pulledAtIso": "2026-03-15T12:30:56.977Z",
+  "startedAt": "2026-03-15T15:19:17.305Z",
+  "finishedAt": "2026-03-15T15:20:45.616Z",
+  "pulledAtIso": "2026-03-15T15:20:45.616Z",
   "counts": {
-    "raw": 145,
-    "normalized": 145,
+    "raw": 146,
+    "normalized": 146,
     "deduped": 272,
     "kept": 253
   },
@@ -37,7 +37,7 @@
         "pages": 1
       },
       "competitions.co.nz": {
-        "items": 39,
+        "items": 40,
         "indexed": 40,
         "pages": 3
       },
