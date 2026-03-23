@@ -1,25 +1,25 @@
 {
-  "startedAt": "2026-03-23T18:38:57.226Z",
-  "finishedAt": "2026-03-23T18:40:11.001Z",
-  "pulledAtIso": "2026-03-23T18:40:11.001Z",
+  "startedAt": "2026-03-23T21:26:47.912Z",
+  "finishedAt": "2026-03-23T21:28:11.962Z",
+  "pulledAtIso": "2026-03-23T21:28:11.962Z",
   "counts": {
-    "raw": 62,
-    "normalized": 62,
-    "deduped": 296,
-    "kept": 296
+    "raw": 146,
+    "normalized": 146,
+    "deduped": 323,
+    "kept": 300
   },
   "sources": {
     "rssCount": 4,
     "siteCount": 4,
     "rss": {
       "https://contest.co.nz/syndication.php?fid=2&limit=151": {
-        "items": 0
+        "items": 50
       },
       "https://contest.co.nz/syndication.php?fid=13&limit=15": {
-        "items": 0
+        "items": 15
       },
       "https://contest.co.nz/syndication.php?fid=14&limit=15": {
-        "items": 0
+        "items": 15
       },
       "https://www.cheapies.nz/competition/all/feed": {
         "items": 10
@@ -42,15 +42,15 @@
         "pages": 3
       },
       "familytimes.co.nz": {
-        "items": 0,
-        "indexed": 0,
+        "items": 4,
+        "indexed": 5,
         "pages": 1
       }
     }
   },
   "perSource": {
-    "competitions.co.nz": 110,
-    "cheapies.nz": 72,
+    "competitions.co.nz": 113,
+    "cheapies.nz": 73,
     "nzmcd.co.nz": 23,
     "contest.co.nz": 87,
     "familytimes.co.nz": 4
