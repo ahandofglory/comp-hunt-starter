@@ -1,10 +1,55 @@
 [
   {
+    "id": "https://www.competitions.co.nz/win-5-000-cash-gift-cards-holidays-tv-s-mobile-phones-and-more/30949",
+    "title": "[CLOSED] Win $5,000 Cash,Gift Cards, Holidays, TV’s, Mobile phones and more!",
+    "link": "https://www.competitions.co.nz/win-5-000-cash-gift-cards-holidays-tv-s-mobile-phones-and-more/30949",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:43.882Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-mercedes-benz-gle-400-or-take-home-150-000-in-gold/31073",
+    "title": "[CLOSED] Win Mercedes-Benz GLE 400 or take home $150,000 in Gold!",
+    "link": "https://www.competitions.co.nz/win-mercedes-benz-gle-400-or-take-home-150-000-in-gold/31073",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:42.627Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-5-000-cash/35570",
+    "title": "[CLOSED] Win $5,000 Cash",
+    "link": "https://www.competitions.co.nz/win-5-000-cash/35570",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:41.996Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-5k-cash/35999",
+    "title": "[CLOSED] Win $5K Cash",
+    "link": "https://www.competitions.co.nz/win-5k-cash/35999",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:41.368Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-new-foodie-gifts-care-packages/37417",
+    "title": "[CLOSED] Win 1 of 21 New Foodie Gifts & Care Packages",
+    "link": "https://www.competitions.co.nz/win-new-foodie-gifts-care-packages/37417",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:40.739Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
     "id": "https://www.competitions.co.nz/win-all-inclusive-asia-exploration-cruise/37721",
     "title": "Win an all-Inclusive Asia Exploration Cruise",
     "link": "https://www.competitions.co.nz/win-all-inclusive-asia-exploration-cruise/37721",
     "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:39.331Z",
+    "createdAt": "2026-04-11T15:24:40.130Z",
     "deadline": null,
     "tags": []
   },
@@ -13,7 +58,7 @@
     "title": "Win a $500 Gift Voucher Every Month",
     "link": "https://www.competitions.co.nz/win-gift-voucher-every-month/37928",
     "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:38.547Z",
+    "createdAt": "2026-04-11T15:24:38.886Z",
     "deadline": null,
     "tags": []
   },
@@ -22,7 +67,7 @@
     "title": "Win a $20K Luxury Holiday",
     "link": "https://www.competitions.co.nz/win-luxury-holiday/37946",
     "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:38.136Z",
+    "createdAt": "2026-04-11T15:24:38.200Z",
     "deadline": "2026-04-30T00:00:00.000Z",
     "tags": []
   },
@@ -31,7 +76,7 @@
     "title": "Win $20K for your Dream Home Entertainment Makeover",
     "link": "https://www.competitions.co.nz/win-dream-home-entertainment-makeover/37947",
     "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:37.694Z",
+    "createdAt": "2026-04-11T15:24:37.589Z",
     "deadline": "2026-04-30T00:00:00.000Z",
     "tags": []
   },
@@ -40,7 +85,7 @@
     "title": "Win $1000 Rollie Wardrobe",
     "link": "https://www.competitions.co.nz/win-rollie-wardrobe/37969",
     "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:37.254Z",
+    "createdAt": "2026-04-11T15:24:36.963Z",
     "deadline": null,
     "tags": []
   },
@@ -49,7 +94,7 @@
     "title": "Win a Rep X Kleva Genesis Deadlift Jack",
     "link": "https://www.competitions.co.nz/win-rep-x-kleva-genesis-deadlift-jack/37996",
     "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:36.735Z",
+    "createdAt": "2026-04-11T15:24:36.348Z",
     "deadline": null,
     "tags": []
   },
@@ -58,7 +103,7 @@
     "title": "Win a Share of $30K Cash",
     "link": "https://www.competitions.co.nz/win-cash/38015",
     "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:36.296Z",
+    "createdAt": "2026-04-11T15:24:35.722Z",
     "deadline": null,
     "tags": []
   },
@@ -67,7 +112,7 @@
     "title": "Win $1000 Prize by Finding Perkie",
     "link": "https://www.competitions.co.nz/win-prize-by-finding-perkie/38058",
     "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:35.904Z",
+    "createdAt": "2026-04-11T15:24:34.698Z",
     "deadline": null,
     "tags": []
   },
@@ -76,8 +121,224 @@
     "title": "Win a Chance to Win $1 Million",
     "link": "https://www.competitions.co.nz/win-chance-win-million/38084",
     "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:35.512Z",
+    "createdAt": "2026-04-11T15:24:34.243Z",
     "deadline": "2026-04-28T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-gift-cards/38117",
+    "title": "Win 1 of 2 $15K Gift Cards",
+    "link": "https://www.competitions.co.nz/win-gift-cards/38117",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:33.823Z",
+    "deadline": "2026-05-31T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-hisense-product-prizes/38120",
+    "title": "Win 1 of 2 $10K Hisense Product Prizes",
+    "link": "https://www.competitions.co.nz/win-hisense-product-prizes/38120",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:33.404Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-yourhome-loanrepayments-year/38123",
+    "title": "Win your Home Loan Repayments for a Year",
+    "link": "https://www.competitions.co.nz/win-yourhome-loanrepayments-year/38123",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:32.988Z",
+    "deadline": "2026-08-31T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-000-rvca-sport-voucher/38126",
+    "title": "Win a $1,000 RVCA Sport Voucher",
+    "link": "https://www.competitions.co.nz/win-000-rvca-sport-voucher/38126",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:32.576Z",
+    "deadline": "2026-05-04T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-year-supply-dc-shoes/38136",
+    "title": "Win a Year Supply of DC Shoes",
+    "link": "https://www.competitions.co.nz/win-year-supply-dc-shoes/38136",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:32.162Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-x-12-months-free-cat-food/38147",
+    "title": "Win 1 of 3 X 12 Month's Free Cat Food",
+    "link": "https://www.competitions.co.nz/win-x-12-months-free-cat-food/38147",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:31.744Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-fifa-watch-party-set-up/38149",
+    "title": "Win the Ultimate FIFA Watch Party Set-up",
+    "link": "https://www.competitions.co.nz/win-fifa-watch-party-set-up/38149",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:31.329Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-whittakers-chocolate-prize-packs/38151",
+    "title": "Win 1 of 130 Whittakers Chocolate Prize Packs",
+    "link": "https://www.competitions.co.nz/win-whittakers-chocolate-prize-packs/38151",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:30.821Z",
+    "deadline": "2026-04-18T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-000-cash/38152",
+    "title": "Win $10,000 Cash",
+    "link": "https://www.competitions.co.nz/win-000-cash/38152",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:30.411Z",
+    "deadline": "2026-04-30T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-pair-samsung-galaxy-buds4/38153",
+    "title": "Win a Pair of Samsung Galaxy Buds4",
+    "link": "https://www.competitions.co.nz/win-pair-samsung-galaxy-buds4/38153",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:29.997Z",
+    "deadline": "2026-04-30T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-good-boy/38154",
+    "title": "Win a copy of Good Boy",
+    "link": "https://www.competitions.co.nz/win-good-boy/38154",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:29.581Z",
+    "deadline": "2026-04-30T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-disappearance-astrid-bricard-mademoiselle-alliance/38155",
+    "title": "Win a copy of the Disappearance of Astrid Bricard & the Mademoiselle Alliance",
+    "link": "https://www.competitions.co.nz/win-disappearance-astrid-bricard-mademoiselle-alliance/38155",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:29.171Z",
+    "deadline": "2026-04-30T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-twenty-years-together/38156",
+    "title": "Win a copy of Twenty Years Together",
+    "link": "https://www.competitions.co.nz/win-twenty-years-together/38156",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:28.716Z",
+    "deadline": "2026-04-30T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-kiwi-skiboard-experience/38158",
+    "title": "Win the Ultimate Kiwi Ski/Board Experience",
+    "link": "https://www.competitions.co.nz/win-kiwi-skiboard-experience/38158",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:28.306Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-suntory-196-vending-machine-fridge/38160",
+    "title": "Win a Suntory -196 Vending Machine Fridge",
+    "link": "https://www.competitions.co.nz/win-suntory-196-vending-machine-fridge/38160",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:27.671Z",
+    "deadline": "2026-04-14T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-mothers-day-escape/38162",
+    "title": "Win an Ultimate Mother's Day Escape",
+    "link": "https://www.competitions.co.nz/win-mothers-day-escape/38162",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:27.248Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-digital-visa-card-free-fuel/38163",
+    "title": "Win a $100 Digital Visa Card for Free Fuel",
+    "link": "https://www.competitions.co.nz/win-digital-visa-card-free-fuel/38163",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:26.829Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-groceries/38164",
+    "title": "Win $200 Worth of Groceries",
+    "link": "https://www.competitions.co.nz/win-groceries/38164",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:26.412Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-signed-worst-hero-ever-feet-first-books/38165",
+    "title": "Win 1 of 50 Signed \"Worst Hero Ever: Feet First\" Books",
+    "link": "https://www.competitions.co.nz/win-signed-worst-hero-ever-feet-first-books/38165",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:25.996Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-ps5-consoles/38166",
+    "title": "Win 1 of 3 PS5 Consoles",
+    "link": "https://www.competitions.co.nz/win-ps5-consoles/38166",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:25.583Z",
+    "deadline": "2026-04-21T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-trip-solomon-islands-quiksilver-voucher/38167",
+    "title": "Win a Trip to Solomon Islands & a $1K Quiksilver Voucher",
+    "link": "https://www.competitions.co.nz/win-trip-solomon-islands-quiksilver-voucher/38167",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:25.170Z",
+    "deadline": "2026-06-08T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-entry-into-any-runaway-marathon-series-vouchers/38168",
+    "title": "Win an Entry into any Runaway Marathon Series and Vouchers",
+    "link": "https://www.competitions.co.nz/win-entry-into-any-runaway-marathon-series-vouchers/38168",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:24.745Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-fuel-voucher/38169",
+    "title": "Win a $200 Fuel Voucher",
+    "link": "https://www.competitions.co.nz/win-fuel-voucher/38169",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:24.331Z",
+    "deadline": "2026-04-24T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-cash-gift-cards-holidays-more/37614",
+    "title": "Win $2K Cash, Gift Cards, Holidays & More",
+    "link": "https://www.competitions.co.nz/win-cash-gift-cards-holidays-more/37614",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-04-11T15:24:23.890Z",
+    "deadline": "2026-09-04T00:00:00.000Z",
     "tags": []
   },
   {
@@ -144,236 +405,11 @@
     "tags": []
   },
   {
-    "id": "https://www.competitions.co.nz/win-gift-cards/38117",
-    "title": "Win 1 of 2 $15K Gift Cards",
-    "link": "https://www.competitions.co.nz/win-gift-cards/38117",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:32.124Z",
-    "deadline": "2026-05-31T00:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-hisense-product-prizes/38120",
-    "title": "Win 1 of 2 $10K Hisense Product Prizes",
-    "link": "https://www.competitions.co.nz/win-hisense-product-prizes/38120",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:31.708Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-yourhome-loanrepayments-year/38123",
-    "title": "Win your Home Loan Repayments for a Year",
-    "link": "https://www.competitions.co.nz/win-yourhome-loanrepayments-year/38123",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:31.318Z",
-    "deadline": "2026-08-31T00:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-000-rvca-sport-voucher/38126",
-    "title": "Win a $1,000 RVCA Sport Voucher",
-    "link": "https://www.competitions.co.nz/win-000-rvca-sport-voucher/38126",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:30.927Z",
-    "deadline": "2026-05-04T00:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-year-supply-dc-shoes/38136",
-    "title": "Win a Year Supply of DC Shoes",
-    "link": "https://www.competitions.co.nz/win-year-supply-dc-shoes/38136",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:30.537Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-x-12-months-free-cat-food/38147",
-    "title": "Win 1 of 3 X 12 Month's Free Cat Food",
-    "link": "https://www.competitions.co.nz/win-x-12-months-free-cat-food/38147",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:30.139Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-fifa-watch-party-set-up/38149",
-    "title": "Win the Ultimate FIFA Watch Party Set-up",
-    "link": "https://www.competitions.co.nz/win-fifa-watch-party-set-up/38149",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:29.745Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-whittakers-chocolate-prize-packs/38151",
-    "title": "Win 1 of 130 Whittakers Chocolate Prize Packs",
-    "link": "https://www.competitions.co.nz/win-whittakers-chocolate-prize-packs/38151",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:29.349Z",
-    "deadline": "2026-04-18T00:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-000-cash/38152",
-    "title": "Win $10,000 Cash",
-    "link": "https://www.competitions.co.nz/win-000-cash/38152",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:28.907Z",
-    "deadline": "2026-04-30T00:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-pair-samsung-galaxy-buds4/38153",
-    "title": "Win a Pair of Samsung Galaxy Buds4",
-    "link": "https://www.competitions.co.nz/win-pair-samsung-galaxy-buds4/38153",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:28.502Z",
-    "deadline": "2026-04-30T00:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-good-boy/38154",
-    "title": "Win a copy of Good Boy",
-    "link": "https://www.competitions.co.nz/win-good-boy/38154",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:27.932Z",
-    "deadline": "2026-04-30T00:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-disappearance-astrid-bricard-mademoiselle-alliance/38155",
-    "title": "Win a copy of the Disappearance of Astrid Bricard & the Mademoiselle Alliance",
-    "link": "https://www.competitions.co.nz/win-disappearance-astrid-bricard-mademoiselle-alliance/38155",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:27.522Z",
-    "deadline": "2026-04-30T00:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-twenty-years-together/38156",
-    "title": "Win a copy of Twenty Years Together",
-    "link": "https://www.competitions.co.nz/win-twenty-years-together/38156",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:27.135Z",
-    "deadline": "2026-04-30T00:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-kiwi-skiboard-experience/38158",
-    "title": "Win the Ultimate Kiwi Ski/Board Experience",
-    "link": "https://www.competitions.co.nz/win-kiwi-skiboard-experience/38158",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:26.737Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-suntory-196-vending-machine-fridge/38160",
-    "title": "Win a Suntory -196 Vending Machine Fridge",
-    "link": "https://www.competitions.co.nz/win-suntory-196-vending-machine-fridge/38160",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:26.348Z",
-    "deadline": "2026-04-14T00:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-mothers-day-escape/38162",
-    "title": "Win an Ultimate Mother's Day Escape",
-    "link": "https://www.competitions.co.nz/win-mothers-day-escape/38162",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:25.958Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-digital-visa-card-free-fuel/38163",
-    "title": "Win a $100 Digital Visa Card for Free Fuel",
-    "link": "https://www.competitions.co.nz/win-digital-visa-card-free-fuel/38163",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:25.526Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-groceries/38164",
-    "title": "Win $200 Worth of Groceries",
-    "link": "https://www.competitions.co.nz/win-groceries/38164",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:25.138Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-signed-worst-hero-ever-feet-first-books/38165",
-    "title": "Win 1 of 50 Signed \"Worst Hero Ever: Feet First\" Books",
-    "link": "https://www.competitions.co.nz/win-signed-worst-hero-ever-feet-first-books/38165",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:24.740Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-ps5-consoles/38166",
-    "title": "Win 1 of 3 PS5 Consoles",
-    "link": "https://www.competitions.co.nz/win-ps5-consoles/38166",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:24.347Z",
-    "deadline": "2026-04-21T00:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-trip-solomon-islands-quiksilver-voucher/38167",
-    "title": "Win a Trip to Solomon Islands & a $1K Quiksilver Voucher",
-    "link": "https://www.competitions.co.nz/win-trip-solomon-islands-quiksilver-voucher/38167",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:23.934Z",
-    "deadline": "2026-06-08T00:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-entry-into-any-runaway-marathon-series-vouchers/38168",
-    "title": "Win an Entry into any Runaway Marathon Series and Vouchers",
-    "link": "https://www.competitions.co.nz/win-entry-into-any-runaway-marathon-series-vouchers/38168",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:23.541Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-cash-gift-cards-holidays-more/37614",
-    "title": "Win $2K Cash, Gift Cards, Holidays & More",
-    "link": "https://www.competitions.co.nz/win-cash-gift-cards-holidays-more/37614",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-11T12:35:22.965Z",
-    "deadline": "2026-09-04T00:00:00.000Z",
-    "tags": []
-  },
-  {
     "id": "https://www.cheapies.nz/node/55454",
     "title": "Win a Copy of Final Fantasy Tactics: The Ivalice Chronicles for PS5 from Legendary Prizes",
     "link": "https://www.cheapies.nz/node/55454",
     "source": "cheapies.nz",
     "createdAt": "2026-04-11T11:01:30.000Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-5k-cash/35999",
-    "title": "[CLOSED] Win $5K Cash",
-    "link": "https://www.competitions.co.nz/win-5k-cash/35999",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-10T21:28:27.981Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-new-foodie-gifts-care-packages/37417",
-    "title": "[CLOSED] Win 1 of 21 New Foodie Gifts & Care Packages",
-    "link": "https://www.competitions.co.nz/win-new-foodie-gifts-care-packages/37417",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-10T21:28:27.569Z",
     "deadline": null,
     "tags": []
   },
@@ -401,24 +437,6 @@
     "link": "https://www.cheapies.nz/node/55439",
     "source": "cheapies.nz",
     "createdAt": "2026-04-09T20:29:57.000Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-mercedes-benz-gle-400-or-take-home-150-000-in-gold/31073",
-    "title": "[CLOSED] Win Mercedes-Benz GLE 400 or take home $150,000 in Gold!",
-    "link": "https://www.competitions.co.nz/win-mercedes-benz-gle-400-or-take-home-150-000-in-gold/31073",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-09T18:50:30.077Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-5-000-cash/35570",
-    "title": "[CLOSED] Win $5,000 Cash",
-    "link": "https://www.competitions.co.nz/win-5-000-cash/35570",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-09T18:50:29.470Z",
     "deadline": null,
     "tags": []
   },
@@ -455,15 +473,6 @@
     "link": "https://www.cheapies.nz/node/55427",
     "source": "cheapies.nz",
     "createdAt": "2026-04-08T20:56:49.000Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-5-000-cash-gift-cards-holidays-tv-s-mobile-phones-and-more/30949",
-    "title": "[CLOSED] Win $5,000 Cash,Gift Cards, Holidays, TV’s, Mobile phones and more!",
-    "link": "https://www.competitions.co.nz/win-5-000-cash-gift-cards-holidays-tv-s-mobile-phones-and-more/30949",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-04-08T19:02:43.821Z",
     "deadline": null,
     "tags": []
   },
