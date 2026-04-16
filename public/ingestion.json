@@ -1,11 +1,11 @@
 {
-  "startedAt": "2026-04-16T05:22:02.192Z",
-  "finishedAt": "2026-04-16T05:23:23.517Z",
-  "pulledAtIso": "2026-04-16T05:23:23.517Z",
+  "startedAt": "2026-04-16T07:18:23.399Z",
+  "finishedAt": "2026-04-16T07:20:01.502Z",
+  "pulledAtIso": "2026-04-16T07:20:01.502Z",
   "counts": {
-    "raw": 147,
-    "normalized": 147,
-    "deduped": 479,
+    "raw": 97,
+    "normalized": 97,
+    "deduped": 463,
     "kept": 459
   },
   "sources": {
@@ -13,7 +13,7 @@
     "siteCount": 4,
     "rss": {
       "https://contest.co.nz/syndication.php?fid=2&limit=151": {
-        "items": 50
+        "items": 0
       },
       "https://contest.co.nz/syndication.php?fid=13&limit=15": {
         "items": 15
