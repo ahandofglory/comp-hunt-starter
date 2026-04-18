@@ -1,10 +1,10 @@
 {
-  "startedAt": "2026-04-18T05:00:15.610Z",
-  "finishedAt": "2026-04-18T05:01:40.766Z",
-  "pulledAtIso": "2026-04-18T05:01:40.766Z",
+  "startedAt": "2026-04-18T06:55:52.914Z",
+  "finishedAt": "2026-04-18T06:57:12.641Z",
+  "pulledAtIso": "2026-04-18T06:57:12.641Z",
   "counts": {
-    "raw": 147,
-    "normalized": 147,
+    "raw": 146,
+    "normalized": 146,
     "deduped": 487,
     "kept": 465
   },
@@ -42,7 +42,7 @@
         "pages": 3
       },
       "familytimes.co.nz": {
-        "items": 5,
+        "items": 4,
         "indexed": 6,
         "pages": 1
       }
