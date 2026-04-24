@@ -1,7 +1,7 @@
 {
-  "startedAt": "2026-04-24T12:58:10.396Z",
-  "finishedAt": "2026-04-24T12:59:38.276Z",
-  "pulledAtIso": "2026-04-24T12:59:38.276Z",
+  "startedAt": "2026-04-24T15:58:07.269Z",
+  "finishedAt": "2026-04-24T15:59:31.010Z",
+  "pulledAtIso": "2026-04-24T15:59:31.010Z",
   "counts": {
     "raw": 147,
     "normalized": 147,
@@ -50,8 +50,8 @@
   },
   "perSource": {
     "competitions.co.nz": 184,
-    "contest.co.nz": 199,
     "cheapies.nz": 150,
+    "contest.co.nz": 199,
     "familytimes.co.nz": 9,
     "nzmcd.co.nz": 23
   }
