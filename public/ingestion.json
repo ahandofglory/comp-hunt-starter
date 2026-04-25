@@ -1,11 +1,11 @@
 {
-  "startedAt": "2026-04-25T01:23:21.482Z",
-  "finishedAt": "2026-04-25T01:24:40.732Z",
-  "pulledAtIso": "2026-04-25T01:24:40.732Z",
+  "startedAt": "2026-04-25T05:04:29.293Z",
+  "finishedAt": "2026-04-25T05:05:52.968Z",
+  "pulledAtIso": "2026-04-25T05:05:52.968Z",
   "counts": {
     "raw": 147,
     "normalized": 147,
-    "deduped": 587,
+    "deduped": 586,
     "kept": 570
   },
   "sources": {
