@@ -1,10 +1,10 @@
 {
-  "startedAt": "2026-04-25T07:01:38.864Z",
-  "finishedAt": "2026-04-25T07:02:52.078Z",
-  "pulledAtIso": "2026-04-25T07:02:52.078Z",
+  "startedAt": "2026-04-25T09:41:55.542Z",
+  "finishedAt": "2026-04-25T09:43:14.027Z",
+  "pulledAtIso": "2026-04-25T09:43:14.027Z",
   "counts": {
-    "raw": 147,
-    "normalized": 147,
+    "raw": 146,
+    "normalized": 146,
     "deduped": 586,
     "kept": 570
   },
@@ -27,7 +27,7 @@
     },
     "sites": {
       "nzmcd.co.nz": {
-        "items": 12,
+        "items": 11,
         "indexed": 12,
         "pages": 1
       },
