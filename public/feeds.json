@@ -1,10 +1,28 @@
 [
   {
+    "id": "https://www.competitions.co.nz/win-enriched-canines-store-credit/38200",
+    "title": "Win Enriched Canines Store Credit",
+    "link": "https://www.competitions.co.nz/win-enriched-canines-store-credit/38200",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:26:08.541Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-prezzy-card/38201",
+    "title": "Win a $100 Prezzy Card",
+    "link": "https://www.competitions.co.nz/win-prezzy-card/38201",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:26:08.200Z",
+    "deadline": "2026-05-14T00:00:00.000Z",
+    "tags": []
+  },
+  {
     "id": "https://www.competitions.co.nz/win-mothers-day-lunch-at-vines-restaurant/38205",
     "title": "Win a $200 Mother's Day Lunch at the Vines Restaurant",
     "link": "https://www.competitions.co.nz/win-mothers-day-lunch-at-vines-restaurant/38205",
     "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:38.366Z",
+    "createdAt": "2026-05-04T16:26:07.816Z",
     "deadline": "2026-05-14T00:00:00.000Z",
     "tags": []
   },
@@ -13,7 +31,7 @@
     "title": "Win $250 Coast Cash",
     "link": "https://www.competitions.co.nz/win-coast-cash/38206",
     "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:38.023Z",
+    "createdAt": "2026-05-04T16:26:07.463Z",
     "deadline": null,
     "tags": []
   },
@@ -22,7 +40,7 @@
     "title": "Win $2K Every Week and a $100 Gift Card Daily",
     "link": "https://www.competitions.co.nz/win-every-week-gift-card-daily/38207",
     "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:37.670Z",
+    "createdAt": "2026-05-04T16:26:07.122Z",
     "deadline": null,
     "tags": []
   },
@@ -31,7 +49,7 @@
     "title": "Win 1 of 2 $10K Samsung Vouchers",
     "link": "https://www.competitions.co.nz/win-samsung-vouchers/38211",
     "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:37.327Z",
+    "createdAt": "2026-05-04T16:26:06.785Z",
     "deadline": null,
     "tags": []
   },
@@ -40,7 +58,7 @@
     "title": "Win $100 Daily",
     "link": "https://www.competitions.co.nz/win-daily/38215",
     "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:36.982Z",
+    "createdAt": "2026-05-04T16:26:06.448Z",
     "deadline": "2026-05-24T00:00:00.000Z",
     "tags": []
   },
@@ -49,7 +67,7 @@
     "title": "Win a $10,000 Solar Voucher",
     "link": "https://www.competitions.co.nz/win-000-solar-voucher/38217",
     "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:36.640Z",
+    "createdAt": "2026-05-04T16:26:06.104Z",
     "deadline": null,
     "tags": []
   },
@@ -58,8 +76,278 @@
     "title": "Win Great Prizes with AA Directions",
     "link": "https://www.competitions.co.nz/win-great-prizes-aa-directions/38222",
     "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:36.295Z",
+    "createdAt": "2026-05-04T16:26:05.760Z",
     "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-tickets-see-sir-dave-dobbyn-live/38227",
+    "title": "Win Tickets to see Sir Dave Dobbyn Live",
+    "link": "https://www.competitions.co.nz/win-tickets-see-sir-dave-dobbyn-live/38227",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:26:05.403Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-remarkables-park-vouchers/38232",
+    "title": "Win 1 of 5 $200 Remarkables Park Vouchers",
+    "link": "https://www.competitions.co.nz/win-remarkables-park-vouchers/38232",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:26:05.038Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-pair-baroque-pearl-earrings/38235",
+    "title": "Win a Pair of Baroque Pearl Earrings",
+    "link": "https://www.competitions.co.nz/win-pair-baroque-pearl-earrings/38235",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:26:04.699Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-queenstown-trip-two/38236",
+    "title": "Win a Queenstown Trip for Two",
+    "link": "https://www.competitions.co.nz/win-queenstown-trip-two/38236",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:26:04.158Z",
+    "deadline": "2026-08-25T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-luxury-rotorua-getaway-two/38239",
+    "title": "Win a Luxury Rotorua Getaway for Two",
+    "link": "https://www.competitions.co.nz/win-luxury-rotorua-getaway-two/38239",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:26:03.435Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-bunnings-gift-card/38243",
+    "title": "Win a $500 Bunnings Gift Card",
+    "link": "https://www.competitions.co.nz/win-bunnings-gift-card/38243",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:26:02.824Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-brand-new-mdc-offroad-caravan/38244",
+    "title": "Win a Brand New MDC Offroad Caravan",
+    "link": "https://www.competitions.co.nz/win-brand-new-mdc-offroad-caravan/38244",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:26:02.331Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-cash-fuel/38245",
+    "title": "Win Cash for Fuel",
+    "link": "https://www.competitions.co.nz/win-cash-fuel/38245",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:26:01.459Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-singles-pre-party-ahead-roast-bree-clint/38246",
+    "title": "Win Exclusive Singles Pre-Party Ahead of Roast of Bree & Clint",
+    "link": "https://www.competitions.co.nz/win-singles-pre-party-ahead-roast-bree-clint/38246",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:26:01.065Z",
+    "deadline": "2026-05-08T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-cash-home-renovation/38250",
+    "title": "Win $10K Cash for your Home Renovation",
+    "link": "https://www.competitions.co.nz/win-cash-home-renovation/38250",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:26:00.723Z",
+    "deadline": "2026-05-08T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-return-flights-2-singapore-tickets-formula-1/38251",
+    "title": "Win Return Flights for 2 to Singapore & Tickets to Formula 1",
+    "link": "https://www.competitions.co.nz/win-return-flights-2-singapore-tickets-formula-1/38251",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:26:00.386Z",
+    "deadline": "2026-05-17T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-trip-south-korea/38253",
+    "title": "Win a Trip to South Korea",
+    "link": "https://www.competitions.co.nz/win-trip-south-korea/38253",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:25:59.789Z",
+    "deadline": "2026-05-15T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-delicious-premium-cake-vouchers/38255",
+    "title": "Win 1 of 5 Delicious Premium Cake Vouchers",
+    "link": "https://www.competitions.co.nz/win-delicious-premium-cake-vouchers/38255",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:25:59.448Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-zager-custom-guitar-accessories-package/38256",
+    "title": "Win a Zager Custom Guitar & an Accessories Package",
+    "link": "https://www.competitions.co.nz/win-zager-custom-guitar-accessories-package/38256",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:25:59.108Z",
+    "deadline": "2026-05-06T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-cast-away-by-francesca-de-tores/38257",
+    "title": "Win 1 of 5 copies of Cast Away by Francesca De Tores",
+    "link": "https://www.competitions.co.nz/win-cast-away-by-francesca-de-tores/38257",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:25:58.767Z",
+    "deadline": "2026-05-13T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-5-bags-natural-clumping-cat-litter/38258",
+    "title": "Win 5 Bags of Natural Clumping Cat Litter",
+    "link": "https://www.competitions.co.nz/win-5-bags-natural-clumping-cat-litter/38258",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:25:58.430Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-grumbles-bridge/38259",
+    "title": "Win 1 of 2 copies of Grumbles Bridge",
+    "link": "https://www.competitions.co.nz/win-grumbles-bridge/38259",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:25:58.091Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-3-night-stay-at-mihingo-lodge/38260",
+    "title": "Win a 3-Night Stay at Mihingo Lodge",
+    "link": "https://www.competitions.co.nz/win-3-night-stay-at-mihingo-lodge/38260",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:25:57.749Z",
+    "deadline": "2026-11-02T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-luxury-dolce-gabbana-fragrance/38261",
+    "title": "Win a Luxury Dolce & Gabbana Fragrance",
+    "link": "https://www.competitions.co.nz/win-luxury-dolce-gabbana-fragrance/38261",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:25:57.413Z",
+    "deadline": "2026-07-30T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-briscoes-voucher-lunch-flights-auckland/38262",
+    "title": "Win a $1K Briscoes Voucher, a Lunch and Flights to Auckland",
+    "link": "https://www.competitions.co.nz/win-briscoes-voucher-lunch-flights-auckland/38262",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:25:57.077Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-diablo-iv-lord-hatred-edition-xbox-bundle/38263",
+    "title": "Win a Diablo IV: Lord of Hatred Ultimate Edition Xbox Bundle",
+    "link": "https://www.competitions.co.nz/win-diablo-iv-lord-hatred-edition-xbox-bundle/38263",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:25:56.741Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-dreamy-escape-two/38264",
+    "title": "Win a Dreamy Escape for Two",
+    "link": "https://www.competitions.co.nz/win-dreamy-escape-two/38264",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:25:56.400Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-prizes-including-ski-trip-japan/38265",
+    "title": "Win Amazing Prizes Including a Ski Trip to Japan",
+    "link": "https://www.competitions.co.nz/win-prizes-including-ski-trip-japan/38265",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:25:56.060Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-westfield-gift-cards/38267",
+    "title": "Win $2K in Westfield Gift Cards",
+    "link": "https://www.competitions.co.nz/win-westfield-gift-cards/38267",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:25:55.721Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-vip-experience-at-spark-arena/38268",
+    "title": "Win the Ultimate Vip Experience at Spark Arena",
+    "link": "https://www.competitions.co.nz/win-vip-experience-at-spark-arena/38268",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:25:55.382Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-music-store-voucher/38269",
+    "title": "Win a $250 Music Store Voucher",
+    "link": "https://www.competitions.co.nz/win-music-store-voucher/38269",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:25:55.047Z",
+    "deadline": "2026-05-31T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-both-feet-by-john-reynolds/38270",
+    "title": "Win 1 of 3 copies of in with Both Feet by John Reynolds",
+    "link": "https://www.competitions.co.nz/win-both-feet-by-john-reynolds/38270",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:25:54.712Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-mothers-day-reunion/38272",
+    "title": "Win a Mother's Day Reunion",
+    "link": "https://www.competitions.co.nz/win-mothers-day-reunion/38272",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:25:54.012Z",
+    "deadline": "2026-05-09T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-casa-dining-voucher-mum/38273",
+    "title": "Win a $200 Casa Dining Voucher for Mum",
+    "link": "https://www.competitions.co.nz/win-casa-dining-voucher-mum/38273",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:25:53.669Z",
+    "deadline": "2026-05-14T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://www.competitions.co.nz/win-cash-gift-cards-holidays-more/37614",
+    "title": "Win $2K Cash, Gift Cards, Holidays & More",
+    "link": "https://www.competitions.co.nz/win-cash-gift-cards-holidays-more/37614",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-05-04T16:25:53.325Z",
+    "deadline": "2026-09-04T00:00:00.000Z",
     "tags": []
   },
   {
@@ -72,282 +360,12 @@
     "tags": []
   },
   {
-    "id": "https://www.competitions.co.nz/win-tickets-see-sir-dave-dobbyn-live/38227",
-    "title": "Win Tickets to see Sir Dave Dobbyn Live",
-    "link": "https://www.competitions.co.nz/win-tickets-see-sir-dave-dobbyn-live/38227",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:35.607Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-remarkables-park-vouchers/38232",
-    "title": "Win 1 of 5 $200 Remarkables Park Vouchers",
-    "link": "https://www.competitions.co.nz/win-remarkables-park-vouchers/38232",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:35.265Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-pair-baroque-pearl-earrings/38235",
-    "title": "Win a Pair of Baroque Pearl Earrings",
-    "link": "https://www.competitions.co.nz/win-pair-baroque-pearl-earrings/38235",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:34.919Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-queenstown-trip-two/38236",
-    "title": "Win a Queenstown Trip for Two",
-    "link": "https://www.competitions.co.nz/win-queenstown-trip-two/38236",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:34.578Z",
-    "deadline": "2026-08-25T00:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-luxury-rotorua-getaway-two/38239",
-    "title": "Win a Luxury Rotorua Getaway for Two",
-    "link": "https://www.competitions.co.nz/win-luxury-rotorua-getaway-two/38239",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:34.232Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-bunnings-gift-card/38243",
-    "title": "Win a $500 Bunnings Gift Card",
-    "link": "https://www.competitions.co.nz/win-bunnings-gift-card/38243",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:33.891Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-brand-new-mdc-offroad-caravan/38244",
-    "title": "Win a Brand New MDC Offroad Caravan",
-    "link": "https://www.competitions.co.nz/win-brand-new-mdc-offroad-caravan/38244",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:33.548Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-cash-fuel/38245",
-    "title": "Win Cash for Fuel",
-    "link": "https://www.competitions.co.nz/win-cash-fuel/38245",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:33.201Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-singles-pre-party-ahead-roast-bree-clint/38246",
-    "title": "Win Exclusive Singles Pre-Party Ahead of Roast of Bree & Clint",
-    "link": "https://www.competitions.co.nz/win-singles-pre-party-ahead-roast-bree-clint/38246",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:32.858Z",
-    "deadline": "2026-05-08T00:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-cash-home-renovation/38250",
-    "title": "Win $10K Cash for your Home Renovation",
-    "link": "https://www.competitions.co.nz/win-cash-home-renovation/38250",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:32.514Z",
-    "deadline": "2026-05-08T00:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-return-flights-2-singapore-tickets-formula-1/38251",
-    "title": "Win Return Flights for 2 to Singapore & Tickets to Formula 1",
-    "link": "https://www.competitions.co.nz/win-return-flights-2-singapore-tickets-formula-1/38251",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:32.171Z",
-    "deadline": "2026-05-17T00:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-trip-south-korea/38253",
-    "title": "Win a Trip to South Korea",
-    "link": "https://www.competitions.co.nz/win-trip-south-korea/38253",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:31.819Z",
-    "deadline": "2026-05-15T00:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-delicious-premium-cake-vouchers/38255",
-    "title": "Win 1 of 5 Delicious Premium Cake Vouchers",
-    "link": "https://www.competitions.co.nz/win-delicious-premium-cake-vouchers/38255",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:31.470Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-zager-custom-guitar-accessories-package/38256",
-    "title": "Win a Zager Custom Guitar & an Accessories Package",
-    "link": "https://www.competitions.co.nz/win-zager-custom-guitar-accessories-package/38256",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:31.128Z",
-    "deadline": "2026-05-06T00:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-cast-away-by-francesca-de-tores/38257",
-    "title": "Win 1 of 5 copies of Cast Away by Francesca De Tores",
-    "link": "https://www.competitions.co.nz/win-cast-away-by-francesca-de-tores/38257",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:30.629Z",
-    "deadline": "2026-05-13T00:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-5-bags-natural-clumping-cat-litter/38258",
-    "title": "Win 5 Bags of Natural Clumping Cat Litter",
-    "link": "https://www.competitions.co.nz/win-5-bags-natural-clumping-cat-litter/38258",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:30.282Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-grumbles-bridge/38259",
-    "title": "Win 1 of 2 copies of Grumbles Bridge",
-    "link": "https://www.competitions.co.nz/win-grumbles-bridge/38259",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:29.939Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-3-night-stay-at-mihingo-lodge/38260",
-    "title": "Win a 3-Night Stay at Mihingo Lodge",
-    "link": "https://www.competitions.co.nz/win-3-night-stay-at-mihingo-lodge/38260",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:29.593Z",
-    "deadline": "2026-11-02T00:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-luxury-dolce-gabbana-fragrance/38261",
-    "title": "Win a Luxury Dolce & Gabbana Fragrance",
-    "link": "https://www.competitions.co.nz/win-luxury-dolce-gabbana-fragrance/38261",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:29.243Z",
-    "deadline": "2026-07-30T00:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-briscoes-voucher-lunch-flights-auckland/38262",
-    "title": "Win a $1K Briscoes Voucher, a Lunch and Flights to Auckland",
-    "link": "https://www.competitions.co.nz/win-briscoes-voucher-lunch-flights-auckland/38262",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:28.898Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-diablo-iv-lord-hatred-edition-xbox-bundle/38263",
-    "title": "Win a Diablo IV: Lord of Hatred Ultimate Edition Xbox Bundle",
-    "link": "https://www.competitions.co.nz/win-diablo-iv-lord-hatred-edition-xbox-bundle/38263",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:28.548Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-dreamy-escape-two/38264",
-    "title": "Win a Dreamy Escape for Two",
-    "link": "https://www.competitions.co.nz/win-dreamy-escape-two/38264",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:28.206Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-prizes-including-ski-trip-japan/38265",
-    "title": "Win Amazing Prizes Including a Ski Trip to Japan",
-    "link": "https://www.competitions.co.nz/win-prizes-including-ski-trip-japan/38265",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:27.859Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
     "id": "https://www.competitions.co.nz/win-haighs-chocolate-mothers-day-love-hamper/38266",
     "title": "Win a Haigh's Chocolate Mother's Day 'with Love' Hamper",
     "link": "https://www.competitions.co.nz/win-haighs-chocolate-mothers-day-love-hamper/38266",
     "source": "competitions.co.nz",
     "createdAt": "2026-05-04T13:21:27.509Z",
     "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-westfield-gift-cards/38267",
-    "title": "Win $2K in Westfield Gift Cards",
-    "link": "https://www.competitions.co.nz/win-westfield-gift-cards/38267",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:27.171Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-vip-experience-at-spark-arena/38268",
-    "title": "Win the Ultimate Vip Experience at Spark Arena",
-    "link": "https://www.competitions.co.nz/win-vip-experience-at-spark-arena/38268",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:26.825Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-music-store-voucher/38269",
-    "title": "Win a $250 Music Store Voucher",
-    "link": "https://www.competitions.co.nz/win-music-store-voucher/38269",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:26.485Z",
-    "deadline": "2026-05-31T00:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-both-feet-by-john-reynolds/38270",
-    "title": "Win 1 of 3 copies of in with Both Feet by John Reynolds",
-    "link": "https://www.competitions.co.nz/win-both-feet-by-john-reynolds/38270",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:26.148Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-mothers-day-reunion/38272",
-    "title": "Win a Mother's Day Reunion",
-    "link": "https://www.competitions.co.nz/win-mothers-day-reunion/38272",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:25.453Z",
-    "deadline": "2026-05-09T00:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-casa-dining-voucher-mum/38273",
-    "title": "Win a $200 Casa Dining Voucher for Mum",
-    "link": "https://www.competitions.co.nz/win-casa-dining-voucher-mum/38273",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:25.108Z",
-    "deadline": "2026-05-14T00:00:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-cash-gift-cards-holidays-more/37614",
-    "title": "Win $2K Cash, Gift Cards, Holidays & More",
-    "link": "https://www.competitions.co.nz/win-cash-gift-cards-holidays-more/37614",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-04T13:21:24.760Z",
-    "deadline": "2026-09-04T00:00:00.000Z",
     "tags": []
   },
   {
@@ -483,24 +501,6 @@
     "source": "cheapies.nz",
     "createdAt": "2026-05-03T20:44:08.000Z",
     "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-enriched-canines-store-credit/38200",
-    "title": "Win Enriched Canines Store Credit",
-    "link": "https://www.competitions.co.nz/win-enriched-canines-store-credit/38200",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-03T18:43:38.916Z",
-    "deadline": null,
-    "tags": []
-  },
-  {
-    "id": "https://www.competitions.co.nz/win-prezzy-card/38201",
-    "title": "Win a $100 Prezzy Card",
-    "link": "https://www.competitions.co.nz/win-prezzy-card/38201",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-05-03T18:43:38.500Z",
-    "deadline": "2026-05-14T00:00:00.000Z",
     "tags": []
   },
   {
