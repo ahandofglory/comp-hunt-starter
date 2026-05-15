@@ -1,11 +1,11 @@
 {
-  "startedAt": "2026-05-15T02:07:00.337Z",
-  "finishedAt": "2026-05-15T02:08:28.298Z",
-  "pulledAtIso": "2026-05-15T02:08:28.298Z",
+  "startedAt": "2026-05-15T06:22:54.185Z",
+  "finishedAt": "2026-05-15T06:24:33.314Z",
+  "pulledAtIso": "2026-05-15T06:24:33.314Z",
   "counts": {
-    "raw": 146,
-    "normalized": 146,
-    "deduped": 777,
+    "raw": 136,
+    "normalized": 136,
+    "deduped": 774,
     "kept": 758
   },
   "sources": {
@@ -22,7 +22,7 @@
         "items": 15
       },
       "https://www.cheapies.nz/competition/all/feed": {
-        "items": 10
+        "items": 0
       }
     },
     "sites": {
