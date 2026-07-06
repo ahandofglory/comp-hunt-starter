@@ -1,12 +1,12 @@
 {
-  "startedAt": "2026-07-06T07:00:50.250Z",
-  "finishedAt": "2026-07-06T07:04:42.845Z",
-  "pulledAtIso": "2026-07-06T07:04:42.845Z",
+  "startedAt": "2026-07-06T12:35:05.627Z",
+  "finishedAt": "2026-07-06T12:36:32.712Z",
+  "pulledAtIso": "2026-07-06T12:36:32.712Z",
   "counts": {
-    "raw": 138,
-    "normalized": 138,
-    "deduped": 1111,
-    "kept": 1047
+    "raw": 150,
+    "normalized": 150,
+    "deduped": 1112,
+    "kept": 1048
   },
   "sources": {
     "rssCount": 4,
@@ -27,8 +27,8 @@
     },
     "sites": {
       "nzmcd.co.nz": {
-        "items": 0,
-        "indexed": 0,
+        "items": 12,
+        "indexed": 12,
         "pages": 1
       },
       "nowtolove.co.nz": {
@@ -50,9 +50,9 @@
   },
   "perSource": {
     "competitions.co.nz": 265,
-    "cheapies.nz": 337,
+    "contest.co.nz": 397,
+    "cheapies.nz": 338,
     "familytimes.co.nz": 12,
-    "nzmcd.co.nz": 36,
-    "contest.co.nz": 397
+    "nzmcd.co.nz": 36
   }
 }
