@@ -1,10 +1,10 @@
 {
-  "startedAt": "2026-07-22T10:57:01.573Z",
-  "finishedAt": "2026-07-22T10:58:29.957Z",
-  "pulledAtIso": "2026-07-22T10:58:29.957Z",
+  "startedAt": "2026-07-22T13:20:02.435Z",
+  "finishedAt": "2026-07-22T13:21:20.829Z",
+  "pulledAtIso": "2026-07-22T13:21:20.829Z",
   "counts": {
-    "raw": 147,
-    "normalized": 147,
+    "raw": 146,
+    "normalized": 146,
     "deduped": 1167,
     "kept": 1105
   },
@@ -27,7 +27,7 @@
     },
     "sites": {
       "nzmcd.co.nz": {
-        "items": 12,
+        "items": 11,
         "indexed": 12,
         "pages": 1
       },
@@ -50,8 +50,8 @@
   },
   "perSource": {
     "competitions.co.nz": 262,
-    "contest.co.nz": 424,
     "cheapies.nz": 371,
+    "contest.co.nz": 424,
     "familytimes.co.nz": 12,
     "nzmcd.co.nz": 36
   }
