@@ -1,5 +1,14 @@
 [
   {
+    "id": "https://www.competitions.co.nz/win-2k-cash/38669",
+    "title": "Win $2k Cash",
+    "link": "https://www.competitions.co.nz/win-2k-cash/38669",
+    "source": "competitions.co.nz",
+    "createdAt": "2026-09-22T02:21:36.907Z",
+    "deadline": "2027-08-31T00:00:00.000Z",
+    "tags": []
+  },
+  {
     "id": "https://familytimes.co.nz/be-in-to-win",
     "title": "https://familytimes.co.nz/be-in-to-win",
     "link": "https://familytimes.co.nz/be-in-to-win",
@@ -54,15 +63,6 @@
     "tags": []
   },
   {
-    "id": "https://www.competitions.co.nz/win-2k-cash/38669",
-    "title": "Win $2k Cash",
-    "link": "https://www.competitions.co.nz/win-2k-cash/38669",
-    "source": "competitions.co.nz",
-    "createdAt": "2026-09-21T21:23:23.752Z",
-    "deadline": "2027-08-31T00:00:00.000Z",
-    "tags": []
-  },
-  {
     "id": "https://www.cheapies.nz/node/57167",
     "title": "Win a Paw Patrol Duffle Bag from The Warehouse",
     "link": "https://www.cheapies.nz/node/57167",
@@ -95,6 +95,69 @@
     "link": "https://www.cheapies.nz/node/57164",
     "source": "cheapies.nz",
     "createdAt": "2026-09-21T10:41:14.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://contest.co.nz/Thread-Do-you-think-you-have-what-it-takes-to-win-10-000-PB-Tech-Singing-Competition",
+    "title": "Do you think you have what it takes to win $10,000? PB Tech Singing Competition",
+    "link": "https://contest.co.nz/Thread-Do-you-think-you-have-what-it-takes-to-win-10-000-PB-Tech-Singing-Competition",
+    "source": "contest.co.nz",
+    "createdAt": "2026-09-21T04:57:23.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://contest.co.nz/Thread-Win-A-Practical-Guide-to-M%C4%81ori-Idioms-book",
+    "title": "Win A Practical Guide to Māori Idioms book",
+    "link": "https://contest.co.nz/Thread-Win-A-Practical-Guide-to-M%C4%81ori-Idioms-book",
+    "source": "contest.co.nz",
+    "createdAt": "2026-09-21T04:31:26.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://contest.co.nz/Thread-The-Ultimate-20K-Giveaway-Competition-closes-27-October-2026",
+    "title": "The Ultimate $20K Giveaway Competition closes 27 October 2026",
+    "link": "https://contest.co.nz/Thread-The-Ultimate-20K-Giveaway-Competition-closes-27-October-2026",
+    "source": "contest.co.nz",
+    "createdAt": "2026-09-21T04:25:58.000Z",
+    "deadline": "2026-10-27T00:00:00.000Z",
+    "tags": []
+  },
+  {
+    "id": "https://contest.co.nz/Thread-WIN-the-ultimate-spring-escape-to-Taranaki-includes-accomodation-and-500-cash",
+    "title": "WIN the ultimate spring escape to Taranaki includes accomodation and $500 cash",
+    "link": "https://contest.co.nz/Thread-WIN-the-ultimate-spring-escape-to-Taranaki-includes-accomodation-and-500-cash",
+    "source": "contest.co.nz",
+    "createdAt": "2026-09-21T04:16:04.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://contest.co.nz/Thread-WIN-a-Compact-Oval-Springfree-Trampoline-valued-at-1-800",
+    "title": "WIN a Compact Oval Springfree Trampoline valued at $1,800",
+    "link": "https://contest.co.nz/Thread-WIN-a-Compact-Oval-Springfree-Trampoline-valued-at-1-800",
+    "source": "contest.co.nz",
+    "createdAt": "2026-09-21T03:54:09.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://contest.co.nz/Thread-Win-tickets-for-your-work-Trackside-Garden-Bar-at-Hastings-Racecourse-HAWKES-BAY",
+    "title": "Win tickets for your work Trackside Garden Bar at Hastings Racecourse. HAWKES BAY",
+    "link": "https://contest.co.nz/Thread-Win-tickets-for-your-work-Trackside-Garden-Bar-at-Hastings-Racecourse-HAWKES-BAY",
+    "source": "contest.co.nz",
+    "createdAt": "2026-09-21T03:50:03.000Z",
+    "deadline": null,
+    "tags": []
+  },
+  {
+    "id": "https://contest.co.nz/Thread-Win-tickets-to-the-Waikato-Home-Garden-Show-with-Coast",
+    "title": "Win tickets to the Waikato Home & Garden Show with Coast",
+    "link": "https://contest.co.nz/Thread-Win-tickets-to-the-Waikato-Home-Garden-Show-with-Coast",
+    "source": "contest.co.nz",
+    "createdAt": "2026-09-21T03:47:14.000Z",
     "deadline": null,
     "tags": []
   },
