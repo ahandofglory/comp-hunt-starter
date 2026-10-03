@@ -1,10 +1,10 @@
 {
-  "startedAt": "2026-10-03T14:03:23.119Z",
-  "finishedAt": "2026-10-03T14:05:08.061Z",
-  "pulledAtIso": "2026-10-03T14:05:08.061Z",
+  "startedAt": "2026-10-03T18:25:20.061Z",
+  "finishedAt": "2026-10-03T18:26:45.636Z",
+  "pulledAtIso": "2026-10-03T18:26:45.636Z",
   "counts": {
-    "raw": 135,
-    "normalized": 135,
+    "raw": 147,
+    "normalized": 147,
     "deduped": 1517,
     "kept": 1461
   },
@@ -27,8 +27,8 @@
     },
     "sites": {
       "nzmcd.co.nz": {
-        "items": 0,
-        "indexed": 0,
+        "items": 12,
+        "indexed": 12,
         "pages": 1
       },
       "nowtolove.co.nz": {
